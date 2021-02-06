@@ -33,7 +33,7 @@
 									</tr>
 									<tr>
 										<td class = "white">Financial Flexibility</td>
-										<td class = "slider"><input id='ex0' data-slider-tooltip="hide" data-slider-id='VGK' type='text' data-slider-min='0' data-slider-max='1' data-slider-step='0.1' data-slider-value='1'/></td>
+										<td class = "slider"><vue-slider v-model="value" /></td>
 										<td class= "white">On-Ice Performance</td>
 									</tr>
 									<tr>
@@ -60,7 +60,7 @@
 									</tr>
 									<tr>
 										<td></td>
-										<td class = "slider"><input id='ex31' data-slider-tooltip="hide" data-slider-id='allTeams' type='text' data-slider-min='0' data-slider-max='1' data-slider-step='0.1' data-slider-value='1'/></td>
+										<td class = "slider"><input id='ex31' data-provide="slider" data-slider-tooltip="hide" data-slider-id='allTeams' type='text' data-slider-min='0' data-slider-max='1' data-slider-step='0.1' data-slider-value='1'/></td>
 										<td></td>
 									</tr>
 									<tr>
@@ -85,11 +85,11 @@
 								<tbody>
 									<tr>
 										<td><p class = "white">Anaheim Ducks</p></td>
-										<td class = "slider"><input id='ex1' data-slider-tooltip="hide" data-slider-id='ANA' type='text' data-slider-min='0' data-slider-max='1' data-slider-step='0.1' data-slider-value='1'/></td>
+										<td class = "slider"><input  id='ex1' data-slider-tooltip="hide" data-slider-id='ANA' type='text' data-slider-min='0' data-slider-max='1' data-slider-step='0.1' data-slider-value='1'/></td>
 									</tr>
 									<tr>
 										<td><p class = "white">Arizona Coyotes</p></td>
-										<td class = "slider"><input id='ex2' data-slider-tooltip="hide" data-slider-id='ARI' type='text' data-slider-min='0' data-slider-max='1' data-slider-step='0.1' data-slider-value='1'/></td>
+										<td class = "slider"><input data-provide="slider" id='ex2' data-slider-tooltip="hide" data-slider-id='ARI' type='text' data-slider-min='0' data-slider-max='1' data-slider-step='0.1' data-slider-value='1'/></td>
 									</tr>
 									<tr>
 										<td><p class = "white">Boston Bruins</p></td>
@@ -226,8 +226,19 @@
 </template>
 
 <script>
+import VueSlider from 'vue-slider-component'
+import 'vue-slider-component/theme/antd.css'
+
 export default {
-  name: 'FooterArea'
+  name: 'FooterArea',
+  components: {
+    VueSlider
+  },
+  data () {
+    return {
+      value: 0
+    }
+  }  
 }
 </script>
 

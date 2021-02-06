@@ -34,104 +34,26 @@
             </table>
         </div>
         <div class='table-responsive scrollable'>
-            <h3>Forwards</h3>
-            <table class='table table-hover table-striped table-team sticky-header'>
-                <thead>
-                    <tr>
-                        <th>Protect</th>
-                        <th>Expose</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Pos.</th>
-                        <th class = "ea_rating">EA Rating</th>
-                        <th class = "ps_14_15">PS (14/15)</th>
-                        <th class = "ps_15_16">PS (15/16)</th>
-                        <th class = "gaps_16_17">Adjusted PS (16/17)</th>
-                        <th class = "gaps_15_16">Adjusted PS (15/16)</th>
-                        <th class = "gaps_14_15">Adjusted PS (14/15)</th>
-                        <th class = "ps_avg">Avg. PS</th>
-                        <th class = "gvt_avg">Avg. GVT</th>
-                        <th class = "ps_16_17">PS (16/17)</th>
-                        <th class = "gvt_14_15">GVT (14/15)</th>
-                        <th class = "gvt_15_16">GVT (15/16)</th>
-                        <th class="cap_hit_17_18">Cap Hit (17/18)</th>
-                        <th class="cap_hit_total">Cap Hit '17 On</th>
-                        <th>Expiry</th>
-                        <th>Exposure Req. Met</th>
-                    </tr>
-                </thead>
-                <tbody id ='forward'>
-                </tbody>
-            </table>
-            <h3>Defensemen</h3>
-            <table class='table table-hover table-striped table-team sticky-header'>
-                <thead>
-                    <tr>
-                        <th>Protect</th>
-                        <th>Expose</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Pos.</th>
-                        <th class = "ea_rating">EA Rating</th>
-                        <th class = "ps_14_15">PS (14/15)</th>
-                        <th class = "ps_15_16">PS (15/16)</th>
-                        <th class = "gaps_16_17">Adjusted PS (16/17)</th>
-                        <th class = "gaps_15_16">Adjusted PS (15/16)</th>
-                        <th class = "gaps_14_15">Adjusted PS (14/15)</th>
-                        <th class = "ps_avg">Avg. PS</th>
-                        <th class = "gvt_avg">Avg. GVT</th>
-                        <th class = "ps_16_17">PS (16/17)</th>
-                        <th class = "gvt_14_15">GVT (14/15)</th>
-                        <th class = "gvt_15_16">GVT (15/16)</th>
-                        <th class="cap_hit_17_18">Cap Hit (17/18)</th>
-                        <th class="cap_hit_total">Cap Hit '17 On</th>
-                        <th>Expiry</th>
-                        <th>Exposure Req. Met</th>
-                    </tr>
-                </thead>
-                <tbody id = 'defence'>
-                </tbody>
-            </table>
-            <h3>Goalies</h3>
-            <table class='table table-hover table-striped table-team sticky-header'>
-                <thead>
-                    <tr>
-                        <th>Protect</th>
-                        <th>Expose</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Pos.</th>
-                        <th class = "ea_rating">EA Rating</th>
-                        <th class = "ps_14_15">PS (14/15)</th>
-                        <th class = "ps_15_16">PS (15/16)</th>
-                        <th class = "gaps_16_17">Adjusted PS (16/17)</th>
-                        <th class = "gaps_15_16">Adjusted PS (15/16)</th>
-                        <th class = "gaps_14_15">Adjusted PS (14/15)</th>
-                        <th class = "ps_avg">Avg. PS</th>
-                        <th class = "gvt_avg">Avg. GVT</th>
-                        <th class = "ps_16_17">PS (16/17)</th>
-                        <th class = "gvt_14_15">GVT (14/15)</th>
-                        <th class = "gvt_15_16">GVT (15/16)</th>
-                        <th class="cap_hit_17_18">Cap Hit (17/18)</th>
-                        <th class="cap_hit_total">Cap Hit '17 On</th>
-                        <th>Expiry</th>
-                        <th>Exposure Req. Met</th>
-                    </tr>
-                </thead>
-                <tbody id = 'goalie'>
-                </tbody>
-            </table>
+            <PlayerTable position_id="forward" position_title="Forwards" />
+            <PlayerTable position_id="defence" position_title="Defensemen" />
+            <PlayerTable position_id="goalie" position_title="Goalies" />
         </div>
     </div>
 </template>
 
 <script>
+import PlayerTable from './PlayerTable.vue'
+
 export default {
   name: 'TeamTable',
   props: {
     team_init: String,
     team_name: String
+  },
+  components: {
+      PlayerTable
   }
+
 }
 </script>
 
