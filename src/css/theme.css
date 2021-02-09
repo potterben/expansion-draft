@@ -1,8 +1,3 @@
-/*bg colour: ffaa00*/
-/*font colour: 291c01*/
-/*active bg colour: 966b11*/
-/*active font colour: eee8d8*/
-
 .navbar-default {
 	background-color: #ffaa00;
 	border-color: #966b11;
@@ -198,13 +193,6 @@ img
 	max-width: 80%;
 	height: auto;
 }
-
-body
-{
-	padding-top: 60px;
-	padding-bottom: 120px;
-}
-
 .navbar .navbar-inverse .navbar-fixed-top
 {
 	color: #ffaa00;
