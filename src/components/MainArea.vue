@@ -1,6 +1,7 @@
 <template>
 	<div class='fluid-container theme-showcase' role='main'>
 		<div class = 'fluid-container center'>
+      <!-- Make this data driven -->
       <img :src="require('../assets/nhl_logos/Anaheim.png')" id = 'ANA'/>
       <img :src="require('../assets/nhl_logos/Arizona.png')" id = 'ARI'/>
       <img :src="require('../assets/nhl_logos/Boston.png')" id = 'BOS'/>

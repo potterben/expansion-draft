@@ -274,14 +274,10 @@ img
 	margin: 0 auto;
 }
 
-.parameter-center td
+#parameter-center
 {
-	align: center;
+	align-items: center;
 	text-align: center;
-	width: 400px;
-	table-layout: fixed;
-	white-space: nowrap;
-	overflow: hidden;
 }
 
 .team-table
@@ -342,7 +338,7 @@ label
 	font-weight: normal !important;
 }
 
-.parameters
+#parameters
 {
 	padding-bottom: 15px;
 }
@@ -475,3 +471,12 @@ select
 {
 	color: green;
 }
+
+footer {
+	position:fixed;
+	bottom:0;
+	width:100%;
+	background-color: #ffaa00;
+	padding-top: 6px;
+	padding-bottom: 6px;
+ }

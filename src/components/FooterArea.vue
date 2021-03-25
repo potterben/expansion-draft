@@ -1,24 +1,74 @@
 <template>
 <footer>
-	<b-container class = 'center'>
+	<b-container class = 'd-flex center'>
 		<b-container>
 			<b-button block variant="primary" id ='optimize'>Optimize</b-button>
 		</b-container>
 		<b-container class="text-center">
-			<b-link v-b-toggle.sidebar-1 id="parameters">Advanced Options</b-link>
+			<b-link v-b-modal.parameters id="parameters">Advanced Options</b-link>
 		</b-container>
-		<b-sidebar id="sidebar-1" title="Advanced Options" shadow backdrop lazy>
-			<b-container>
-				<div class = "row">
-					<div class = "col-md-3">
-						<div class ="row">
-							<button type='button' class='btn btn-danger' id = "default">Reset checkboxes</button>
-						</div>>
-						<div class ="row">
-							<label class="white">
-								<input type="checkbox" id ="ufa">Don't Consider UFAs
-							</label>
-						</div>
+		<b-modal size="xl" id="parameters" hide-footer title="Optimizer Options">
+			<b-container id="parameter-center">
+				<div class="row">
+					<div class="col">
+					Financial Flexibility
+					</div>
+					<div class="col">
+					On-Ice Performance
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<!--  TODO: Make this data driven -->	
+						<select class='combobox' id ='team-financial'>
+							<option value='cap_hit_17_18' selected="selected">Cap Hit (17/18)</option>
+							<option value='cap_hit_total'>Cap Hit '17 On</option>
+						</select>
+					</div>
+					<div class="col">
+						<!--  TODO: Make this data driven -->
+						<select class='combobox' id ='team-value'>
+							<option value='ps_16_17' selected="selected">Point Shares (16/17)</option>
+							<option value='ps_15_16'>Point Shares (15/16)</option>
+							<option value='ps_14_15'>Point Shares (14/15)</option>
+							<option value='gaps_16_17'>Adjusted Point Shares (16/17)</option>
+							<option value='ps_avg'>Average Point Shares</option>
+							<option value='gvt_15_16'>GVT (15/16)</option>
+							<option value='gvt_14_15'>GVT (14/15)</option>
+							<option value='gvt_avg'>Average GVT</option>
+							<option value='ea_rating'>EA Rating</option>
+						</select>
+					</div>
+				</div>
+				<TeamSlider />
+				<!-- Make this data driven -->
+				<TeamSlider team_name='Anaheim Ducks' />
+				<!-- <div class ="row">
+
+						<div class = "row">
+					<table id = "top-parameters">
+							<tbody>
+								<tr>
+									<td></td>
+									<td class = "slider"><input id='ex31' data-provide="slider" data-slider-tooltip="hide" data-slider-id='allTeams' type='text' data-slider-min='0' data-slider-max='1' data-slider-step='0.1' data-slider-value='1'/></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>
+										<label class="white">
+												<input type="checkbox" id="master">Apply to all 30 teams
+										</label>
+									</td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<button type='button' class='btn btn-danger' id = "default">Reset checkboxes</button>
+					</div>
+					<div class ="row">
+
 					</div>
 					<div class = "col-md-6">
 						<div class=" parameter-center">
@@ -36,24 +86,11 @@
 								</tr>
 								<tr>
 									<td>
-										<select class='combobox' id ='team-financial'>
-											<option value='cap_hit_17_18' selected="selected">Cap Hit (17/18)</option>
-											<option value='cap_hit_total'>Cap Hit '17 On</option>
-										</select>
+
 									</td>
 									<td class = "white">Settings for Other 30 Teams</td>
 									<td>
-										<select class='combobox' id ='team-value'>
-											<option value='ps_16_17' selected="selected">Point Shares (16/17)</option>
-											<option value='ps_15_16'>Point Shares (15/16)</option>
-											<option value='ps_14_15'>Point Shares (14/15)</option>
-											<option value='gaps_16_17'>Adjusted Point Shares (16/17)</option>
-											<option value='ps_avg'>Average Point Shares</option>
-											<option value='gvt_15_16'>GVT (15/16)</option>
-											<option value='gvt_14_15'>GVT (14/15)</option>
-											<option value='gvt_avg'>Average GVT</option>
-											<option value='ea_rating'>EA Rating</option>
-										</select>
+
 									</td>
 								</tr>
 								<tr>
@@ -216,21 +253,21 @@
 							</tbody>
 						</table>
 					</div>
-				</div>
+				</div> -->
 			</b-container>
-		</b-sidebar>
+		</b-modal>
   </b-container>
   </footer>
 </template>
 
 <script>
-import VueSlider from 'vue-slider-component'
-import 'vue-slider-component/theme/antd.css'
+import TeamSlider from './TeamSlider.vue'
+
 
 export default {
   name: 'FooterArea',
   components: {
-    VueSlider
+    TeamSlider
   },
   data () {
     return {
@@ -252,8 +289,5 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
-}
-a {
-  color: #42b983;
 }
 </style>
