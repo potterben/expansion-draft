@@ -1,33 +1,33 @@
 <template>
     <div class="m-4 p-2" id="parameter-center">
-        <div class="row justify-content-end" v-if="team_name == null">
-            <div class="col-4">
-            Seattle Kraken
-            </div>
-            <div class="col-4">
-                <input type="checkbox" id ="ufa">Don't Consider UFAs
-            </div>
-        </div>
-        <div class="row justify-content-center" v-else>
-            <div class="col-4">
-            {{ team_name }}
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-4">
-                <vue-slider v-model="value" />
-            </div>
-        </div>
-        <div class="row justify-content-between">
-            <div class="col-4">
-                <label for="financial_flexiblity">Financial Flexibility:</label>
-                <input type="number" name="financial_flexiblity" id="financial_flexiblity" value="0">
-            </div>
-            <div class="col-4">
-                <label for="on_ice_performance">On-Ice Performance:</label>
-                <input type="number" name="on_ice_performance" id="on_ice_performance" value="100">
-            </div>
-        </div>
+        <b-row class="justify-content-center">
+
+        </b-row>
+        <b-row class="justify-content-right" >
+            <b-col cols=4>
+               
+            </b-col>
+        </b-row>
+        <b-row class="justify-content-center">
+            <b-col>
+              <h4>{{ team_name }}</h4>
+            </b-col>
+        </b-row>
+        <b-row class="justify-content-center">
+          <b-col cols=6 >
+            <vue-slider v-model="sliderValue" />
+          </b-col>
+        </b-row>
+        <b-row class="justify-content-center">
+            <b-col>
+                <label class="p-2" for="financial_flexiblity">Financial Flexibility:</label>
+                <input type="number" min="0" max="100" name="financial_flexiblity" id="financial_flexiblity" v-model="sliderValue">%
+            </b-col>
+            <b-col>
+                <label class="p-2" for="on_ice_performance">On-Ice Performance:</label>
+                <input type="number" min="0" max="100" name="on_ice_performance" id="on_ice_performance" v-model="invertedPercentageValue">%
+            </b-col>
+        </b-row>
     </div>
 </template>
 
@@ -43,21 +43,30 @@ export default {
   props: {
     team_name: {
        type: String,
-       default: null
+       default: "Seattle Kraken"
     }
   },
   data () {
     return {
-      value: 0
+      sliderValue: 0
     }
-  }  
+  },
+   computed: {
+
+    invertedPercentageValue: {
+        get(){
+            //this function will determine what is displayed in the input
+            return 100-this.sliderValue;
+        },
+        set(newVal){
+            //this function will run whenever the input changes
+            this.sliderValue = newVal;
+        }
+    }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<!-- Add padding  -->
 <style scoped>
-b-container {
-
-}
 </style>

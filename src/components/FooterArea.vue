@@ -1,6 +1,6 @@
 <template>
 <footer>
-	<b-container class = 'd-flex center'>
+	<b-container class = 'center'>
 		<b-container>
 			<b-button block variant="primary" id ='optimize'>Optimize</b-button>
 		</b-container>
@@ -9,23 +9,23 @@
 		</b-container>
 		<b-modal size="xl" id="parameters" hide-footer title="Optimizer Options">
 			<b-container id="parameter-center">
-				<div class="row">
-					<div class="col">
+				<b-row>
+					<b-col>
 					Financial Flexibility
-					</div>
-					<div class="col">
+					</b-col>
+					<b-col>
 					On-Ice Performance
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
+					</b-col>
+				</b-row>
+				<b-row>
+					<b-col>
 						<!--  TODO: Make this data driven -->	
 						<select class='combobox' id ='team-financial'>
 							<option value='cap_hit_17_18' selected="selected">Cap Hit (17/18)</option>
 							<option value='cap_hit_total'>Cap Hit '17 On</option>
 						</select>
-					</div>
-					<div class="col">
+					</b-col>
+					<b-col>
 						<!--  TODO: Make this data driven -->
 						<select class='combobox' id ='team-value'>
 							<option value='ps_16_17' selected="selected">Point Shares (16/17)</option>
@@ -38,8 +38,15 @@
 							<option value='gvt_avg'>Average GVT</option>
 							<option value='ea_rating'>EA Rating</option>
 						</select>
-					</div>
-				</div>
+					</b-col>
+				</b-row>
+				<b-row>
+					<b-col>
+						<input type="checkbox" id ="ufa">
+						<label for="ufa">Don't Consider UFAs</label>
+					</b-col>
+					<b-col/>
+				</b-row>
 				<TeamSlider />
 				<!-- Make this data driven -->
 				<TeamSlider team_name='Anaheim Ducks' />

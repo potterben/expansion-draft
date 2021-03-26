@@ -303,7 +303,6 @@ div#VGK.team-table
 
 .table-team td
 {
-	align: center;
 	text-align: center;
 	table-layout: fixed;
 	white-space: nowrap;
@@ -419,7 +418,7 @@ body.loading .modal-loading {
 	padding-top: 55px;
 }
 
-.problem_formulation td,
+.problem_formulation td
 {
 	padding: 4px;
 }
@@ -480,3 +479,8 @@ footer {
 	padding-top: 6px;
 	padding-bottom: 6px;
  }
+
+input[type=number]
+{
+	width:65px;
+}
