@@ -42,7 +42,7 @@
 
 <script>
 import TeamSlider from './TeamSlider.vue'
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 
 export default {
@@ -71,7 +71,7 @@ export default {
   computed: {
 	financial_metric:{
 		get() {
-			return this.getCurrFinancialMetric;
+			return this.currFinancialMetric;
 		},
 		set(value) {
 			this.setCurrFinancialMetric(value);
@@ -79,7 +79,7 @@ export default {
 	},
 	performance_metric:{
 		get() {
-			return this.getCurrPerformanceMetric;
+			return this.currPerformanceMetric;
 		},
 		set(value) {
 			this.setCurrPerformanceMetric(value);
@@ -87,10 +87,12 @@ export default {
 	},
     ...mapGetters([
 		'getCurrTeamName',
-		'getCurrPerformanceMetric',
-		'getCurrFinancialMetric'
-    ])
-  }  
+    ]),
+    ...mapState([
+      'currPerformanceMetric',
+      'currFinancialMetric'
+  ])
+  }
 }
 </script>
 

@@ -40,12 +40,6 @@ export default new Vuex.Store({
         },
         getCurrTeamName(state) {
             return state.currTeam.name;
-        },
-        getCurrFinancialMetric(state) {
-            return state.currFinancialMetric;
-        },
-        getCurrPerformanceMetric(state) {
-            return state.currPerformanceMetric;
         }
 	}
 })

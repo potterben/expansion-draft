@@ -9,10 +9,10 @@
                     <th>Name</th>
                     <th>Age</th>
                     <th>Pos.</th>
-                    <th v-for="metric in currPerformanceMetric" :key="metric.value" :class="metric.value">
+                    <th v-for="metric in currPerformanceMetricArray" :key="metric.value" :class="metric.value">
                       {{metric.text}}
                     </th>
-                    <th v-for="metric in currFinancialMetric" :key="metric.value" :class="metric.value">
+                    <th v-for="metric in currFinancialMetricArray" :key="metric.value" :class="metric.value">
                       {{metric.text}}
                     </th>
                     <th>Expiry</th>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'PlayerTable',
@@ -38,16 +38,16 @@ export default {
     'metrics'
   ],
   computed: {
-  currPerformanceMetric: function () {
-    return this.metrics.performance_metric.filter(team => team.value === this.getCurrPerformanceMetric);
-    },
-  currFinancialMetric: function () {
-    return this.metrics.financial_metric.filter(team => team.value === this.getCurrFinancialMetric);
-    },
-    ...mapGetters([
-      'getCurrPerformanceMetric',
-      'getCurrFinancialMetric'      
-    ])
+  currPerformanceMetricArray: function () {
+    return this.metrics.performance_metric.filter(team => team.value === this.currPerformanceMetric);
+  },
+  currFinancialMetricArray: function () {
+    return this.metrics.financial_metric.filter(team => team.value === this.currFinancialMetric);
+  },
+  ...mapState({
+      currPerformanceMetric: state => state.currPerformanceMetric,
+      currFinancialMetric: state => state.currFinancialMetric
+    })
   }
 }
 </script>
