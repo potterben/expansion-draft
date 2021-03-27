@@ -1,7 +1,7 @@
 <template>
 	<div class='fluid-container theme-showcase' role='main'>
 		<div class = 'fluid-container center'>
-      <img v-for="team in teamData.original_teams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" v-on:click="setCurrentTeam(team.abbreviation)"/>
+      <img v-for="team in teamData.original_teams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" v-on:click="setCurrTeam(team)"/>
 		</div>
 		<div class = 'row'>
 			<div class = 'col-md-6 black' id= "left">
@@ -16,28 +16,29 @@
 
 <script>
 import TeamTable from './TeamTable.vue'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'MainArea',
     components: {
     TeamTable
   },
-  data () {
-    return {
-      currentTeamAbbreviation: "ANA"
-    }
+  methods: {
+      ...mapActions([
+        'setCurrTeam'
+      ])
   },
-    methods: {
-    setCurrentTeam: function (currentTeamId) {
-      this.currentTeamAbbreviation = currentTeamId;
-    }
+  created() {
+    this.setCurrTeam(this.teamData.original_teams[0]);
   },
   inject : ['teamData'],
   computed: {
   currentTeam: function () {
-    return this.teamData.original_teams.filter(team => team.abbreviation === this.currentTeamAbbreviation);
-    }
-  
+    return this.teamData.original_teams.filter(team => team.abbreviation === this.getCurrTeamAbbreviation);
+    },
+    ...mapGetters([
+      'getCurrTeamAbbreviation'
+    ])
   }
 }
 </script>
