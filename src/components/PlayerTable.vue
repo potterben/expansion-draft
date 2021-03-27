@@ -21,7 +21,7 @@
                     <th>Exposure Req. Met</th>
                 </tr>
             </thead>
-            <tbody v-bind:id ="positionId">
+            <tbody :id ="positionId">
             </tbody>
         </table>
     </div>

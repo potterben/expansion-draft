@@ -33,7 +33,7 @@
                         <b-col/>
                     </b-row>
                     <TeamSlider />
-                    <TeamSlider :team_name="getCurrTeamName" />
+                    <TeamSlider :teamName="getCurrTeamName" />
                 </b-container>
             </b-modal>
         </b-container>

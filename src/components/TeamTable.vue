@@ -1,5 +1,5 @@
 <template>
-    <div class = 'team-table' v-bind:id ="teamInit">
+    <div class = 'team-table' :id ="teamInit">
         <h2 v-bind:class="teamInit">
             {{ teamName }}
         </h2>
