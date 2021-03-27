@@ -245,7 +245,7 @@ img
 {
 	display: block;
 	margin: 0 auto;
-	width: 99%
+	width: 100%
 }
 
 .top-center
@@ -253,7 +253,6 @@ img
 	display: block;
 	margin: 0 auto;
 	width: 65%;
-	height: 110px;
 }
 
 .scrollable h3

@@ -3,43 +3,44 @@
         <h2 v-bind:class="teamInit">
             {{ teamName }}
         </h2>
-        <div class = "fluid-container top-center">
-            <table class="panel panel-default panel-table">
-                <thead>
-                    <tr>
-                        <td colspan="3">Protection Requirements</td>
-                        <td colspan="3">Exposure Requirements</td>
-                    </tr>
-                </thead>
-                <tbody id = "requirements">
-                    <tr>
-                        <td>F</td>
-                        <td>D</td>
-                        <td>G</td>
-                        <td>F</td>
-                        <td>D</td>
-                        <td>G</td>
-                    </tr>
-                    <tr>
-                        <td>-/7</td>
-                        <td>-/3</td>
-                        <td>-/1</td>
-                        <td>-/2</td>
-                        <td>-/1</td>
-                        <td>-/1</td>
-                    </tr>
-                    <tr>
-                            <td colspan="2">-/8</td>
-                            <td>-/1</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class='table-responsive scrollable'>
+        <!-- make this data driven -->
+        <b-container class = "top-center">
+            <b-table-simple class="panel panel-default panel-table">
+                <b-thead>
+                    <b-tr>
+                        <b-td colspan="3">Protection Requirements</b-td>
+                        <b-td colspan="3">Exposure Requirements</b-td>
+                    </b-tr>
+                </b-thead>
+                <b-tbody id = "requirements">
+                    <b-tr>
+                        <b-td>F</b-td>
+                        <b-td>D</b-td>
+                        <b-td>G</b-td>
+                        <b-td>F</b-td>
+                        <b-td>D</b-td>
+                        <b-td>G</b-td>
+                    </b-tr>
+                    <b-tr>
+                        <b-td>-/7</b-td>
+                        <b-td>-/3</b-td>
+                        <b-td>-/1</b-td>
+                        <b-td>-/2</b-td>
+                        <b-td>-/1</b-td>
+                        <b-td>-/1</b-td>
+                    </b-tr>
+                    <b-tr>
+                        <b-td colspan="2">-/8</b-td>
+                        <b-td colspan="4">1</b-td>
+                    </b-tr>
+                </b-tbody>
+            </b-table-simple>
+        </b-container>
+        <b-container class='table-responsive scrollable'>
             <PlayerTable positionId="forward" positionTitle="Forwards" />
             <PlayerTable positionId="defence" positionTitle="Defensemen" />
             <PlayerTable positionId="goalie" positionTitle="Goalies" />
-        </div>
+        </b-container>
     </div>
 </template>
 

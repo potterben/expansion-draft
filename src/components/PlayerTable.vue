@@ -1,30 +1,30 @@
 <template>
-    <div>
+    <b-container>
         <h3>
             {{positionTitle}}
         </h3>
-        <table class='table table-hover table-striped table-team sticky-header'>
-            <thead>
-                <tr>
-                    <th>Protect</th>
-                    <th>Expose</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Pos.</th>
-                    <th v-for="metric in currPerformanceMetricArray" :key="metric.value" :class="metric.value">
+        <b-table-simple class='table table-hover table-striped table-team sticky-header'>
+            <b-thead>
+                <b-tr>
+                    <b-th>Protect</b-th>
+                    <b-th>Expose</b-th>
+                    <b-th>Name</b-th>
+                    <b-th>Age</b-th>
+                    <b-th>Pos.</b-th>
+                    <b-th v-for="metric in currPerformanceMetricArray" :key="metric.value" :class="metric.value">
                         {{metric.text}}
-                    </th>
-                    <th v-for="metric in currFinancialMetricArray" :key="metric.value" :class="metric.value">
+                    </b-th>
+                    <b-th v-for="metric in currFinancialMetricArray" :key="metric.value" :class="metric.value">
                         {{metric.text}}
-                    </th>
-                    <th>Expiry</th>
-                    <th>Exposure Req. Met</th>
-                </tr>
-            </thead>
-            <tbody :id ="positionId">
-            </tbody>
-        </table>
-    </div>
+                    </b-th>
+                    <b-th>Expiry</b-th>
+                    <b-th>Exposure Req. Met</b-th>
+                </b-tr>
+            </b-thead>
+            <b-tbody :id ="positionId">
+            </b-tbody>
+        </b-table-simple>
+    </b-container>
 </template>
 
 <script>
