@@ -1,6 +1,8 @@
 <template>
-    <div class = 'team-table' v-bind:id ="team_init">
-        <h2 v-bind:class="team_init">{{ team_name }}</h2>
+    <div class = 'team-table' v-bind:id ="teamInit">
+        <h2 v-bind:class="teamInit">
+            {{ teamName }}
+        </h2>
         <div class = "fluid-container top-center">
             <table class="panel panel-default panel-table">
                 <thead>
@@ -27,16 +29,16 @@
                         <td>-/1</td>
                     </tr>
                     <tr>
-                        <td colspan="2">-/8</td>
-                        <td>-/1</td>
+                            <td colspan="2">-/8</td>
+                            <td>-/1</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class='table-responsive scrollable'>
-            <PlayerTable position_id="forward" position_title="Forwards" />
-            <PlayerTable position_id="defence" position_title="Defensemen" />
-            <PlayerTable position_id="goalie" position_title="Goalies" />
+            <PlayerTable positionId="forward" positionTitle="Forwards" />
+            <PlayerTable positionId="defence" positionTitle="Defensemen" />
+            <PlayerTable positionId="goalie" positionTitle="Goalies" />
         </div>
     </div>
 </template>
@@ -45,32 +47,33 @@
 import PlayerTable from './PlayerTable.vue'
 
 export default {
-  name: 'TeamTable',
-  props: {
-    team_init: String,
-    team_name: String
-  },
-  components: {
-      PlayerTable
-  }
+    name: 'TeamTable',
 
+    components: {
+        PlayerTable
+    },
+
+    props: {
+        teamInit: String,
+        teamName: String
+    }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
-  margin: 40px 0 0;
+    margin: 40px 0 0;
 }
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 li {
-  display: inline-block;
-  margin: 0 10px;
+    display: inline-block;
+    margin: 0 10px;
 }
 a {
-  color: #42b983;
+    color: #42b983;
 }
 </style>

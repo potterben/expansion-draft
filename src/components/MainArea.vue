@@ -1,17 +1,17 @@
 <template>
-	<div class='fluid-container theme-showcase' role='main'>
-		<div class = 'fluid-container center'>
-      <img v-for="team in teamData.original_teams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" v-on:click="setCurrTeam(team)"/>
-		</div>
-		<div class = 'row'>
-			<div class = 'col-md-6 black' id= "left">
-        <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :team_name="team.name" :team_init="team.abbreviation" />
-      </div>
-			<div class = 'col-md-6 black' id = "right">
-        <TeamTable team_name="Vegas Golden Knights" team_init="VGK" />
-			</div>
-		</div>
-	</div>
+    <div class='fluid-container theme-showcase' role='main'>
+        <div class = 'fluid-container center'>
+            <img v-for="team in teamData.originalTeams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" v-on:click="setCurrTeam(team)"/>
+        </div>
+        <div class = 'row'>
+            <div class = 'col-md-6 black' id= "left">
+                <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
+            </div>
+            <div class = 'col-md-6 black' id = "right">
+                <TeamTable teamName="Vegas Golden Knights" teamInit="VGK" />
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -19,32 +19,37 @@ import TeamTable from './TeamTable.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'MainArea',
+    name: 'MainArea',
+
     components: {
-    TeamTable
-  },
-  methods: {
-      ...mapActions([
-        'setCurrTeam',
-        'setCurrFinancialMetric',
-        'setCurrPerformanceMetric'
-      ])
-  },
-  created() {
-    this.setCurrTeam(this.teamData.original_teams[0]);
-  },
-  inject : [
-    'teamData',
-    'metrics'
-    ],
-  computed: {
-  currentTeam: function () {
-    return this.teamData.original_teams.filter(team => team.abbreviation === this.getCurrTeamAbbreviation);
+        TeamTable
     },
-    ...mapGetters([
-      'getCurrTeamAbbreviation'
-    ])
-  }
+
+    inject : [
+        'teamData',
+        'metrics'
+    ],
+
+    computed: {
+        currentTeam: function () {
+            return this.teamData.originalTeams.filter(team => team.abbreviation === this.getCurrTeamAbbreviation);
+        },
+        ...mapGetters([
+        'getCurrTeamAbbreviation'
+        ])
+    },
+
+    created() {
+        this.setCurrTeam(this.teamData.originalTeams[0]);
+    },
+
+    methods: {
+        ...mapActions([
+            'setCurrTeam',
+            'setCurrFinancialMetric',
+            'setCurrPerformanceMetric'
+        ])
+    },
 }
 </script>
 
