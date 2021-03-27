@@ -10,7 +10,8 @@
 import HeaderArea from './components/HeaderArea.vue'
 import MainArea from './components/MainArea.vue'
 import FooterArea from './components/FooterArea.vue'
-import json from './assets/team_data.json'
+import teamDataJson from './assets/team_data.json'
+import metricsJson from './assets/metrics.json'
 
 export default {
   name: 'App',
@@ -20,7 +21,8 @@ export default {
     FooterArea   
   },
   provide: {
-    teamData: json
+    teamData: teamDataJson,
+    metrics: metricsJson
   }  
 }
 </script>

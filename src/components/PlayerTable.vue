@@ -9,19 +9,12 @@
                     <th>Name</th>
                     <th>Age</th>
                     <th>Pos.</th>
-                    <th class = "ea_rating">EA Rating</th>
-                    <th class = "ps_14_15">PS (14/15)</th>
-                    <th class = "ps_15_16">PS (15/16)</th>
-                    <th class = "gaps_16_17">Adjusted PS (16/17)</th>
-                    <th class = "gaps_15_16">Adjusted PS (15/16)</th>
-                    <th class = "gaps_14_15">Adjusted PS (14/15)</th>
-                    <th class = "ps_avg">Avg. PS</th>
-                    <th class = "gvt_avg">Avg. GVT</th>
-                    <th class = "ps_16_17">PS (16/17)</th>
-                    <th class = "gvt_14_15">GVT (14/15)</th>
-                    <th class = "gvt_15_16">GVT (15/16)</th>
-                    <th class="cap_hit_17_18">Cap Hit (17/18)</th>
-                    <th class="cap_hit_total">Cap Hit '17 On</th>
+                    <th v-for="metric in currPerformanceMetric" :key="metric.value" :class="metric.value">
+                      {{metric.text}}
+                    </th>
+                    <th v-for="metric in currFinancialMetric" :key="metric.value" :class="metric.value">
+                      {{metric.text}}
+                    </th>
                     <th>Expiry</th>
                     <th>Exposure Req. Met</th>
                 </tr>
@@ -33,11 +26,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'PlayerTable',
   props: {
     position_title: String,
     position_id: String
+  },
+  inject : [
+    'metrics'
+  ],
+  computed: {
+  currPerformanceMetric: function () {
+    return this.metrics.performance_metric.filter(team => team.value === this.getCurrPerformanceMetric);
+    },
+  currFinancialMetric: function () {
+    return this.metrics.financial_metric.filter(team => team.value === this.getCurrFinancialMetric);
+    },
+    ...mapGetters([
+      'getCurrPerformanceMetric',
+      'getCurrFinancialMetric'      
+    ])
   }
 }
 </script>

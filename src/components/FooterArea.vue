@@ -19,25 +19,10 @@
 				</b-row>
 				<b-row>
 					<b-col>
-						<!--  TODO: Make this data driven -->	
-						<select class='combobox' id ='team-financial'>
-							<option value='cap_hit_17_18' selected="selected">Cap Hit (17/18)</option>
-							<option value='cap_hit_total'>Cap Hit '17 On</option>
-						</select>
+						<b-form-select v-model="financial_metric" :options="metrics.financial_metric"></b-form-select>
 					</b-col>
 					<b-col>
-						<!--  TODO: Make this data driven -->
-						<select class='combobox' id ='team-value'>
-							<option value='ps_16_17' selected="selected">Point Shares (16/17)</option>
-							<option value='ps_15_16'>Point Shares (15/16)</option>
-							<option value='ps_14_15'>Point Shares (14/15)</option>
-							<option value='gaps_16_17'>Adjusted Point Shares (16/17)</option>
-							<option value='ps_avg'>Average Point Shares</option>
-							<option value='gvt_15_16'>GVT (15/16)</option>
-							<option value='gvt_14_15'>GVT (14/15)</option>
-							<option value='gvt_avg'>Average GVT</option>
-							<option value='ea_rating'>EA Rating</option>
-						</select>
+						<b-form-select v-model="performance_metric" :options="metrics.performance_metric"></b-form-select>
 					</b-col>
 				</b-row>
 				<b-row>
@@ -57,7 +42,7 @@
 
 <script>
 import TeamSlider from './TeamSlider.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 
 export default {
@@ -65,14 +50,45 @@ export default {
   components: {
     TeamSlider
   },
+  methods: {
+      ...mapActions([
+        'setCurrFinancialMetric',
+        'setCurrPerformanceMetric'
+      ])
+  },
   data () {
     return {
       value: 0
     }
+  },  
+  created() {
+    this.setCurrFinancialMetric(this.metrics.financial_metric[0].value);
+    this.setCurrPerformanceMetric(this.metrics.performance_metric[0].value);
   },
+  inject : [
+    'metrics'
+  ],
   computed: {
+	financial_metric:{
+		get() {
+			return this.getCurrFinancialMetric;
+		},
+		set(value) {
+			this.setCurrFinancialMetric(value);
+		}
+	},
+	performance_metric:{
+		get() {
+			return this.getCurrPerformanceMetric;
+		},
+		set(value) {
+			this.setCurrPerformanceMetric(value);
+		}
+	},
     ...mapGetters([
-      'getCurrTeamName'
+		'getCurrTeamName',
+		'getCurrPerformanceMetric',
+		'getCurrFinancialMetric'
     ])
   }  
 }

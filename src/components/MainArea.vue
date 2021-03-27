@@ -25,13 +25,18 @@ export default {
   },
   methods: {
       ...mapActions([
-        'setCurrTeam'
+        'setCurrTeam',
+        'setCurrFinancialMetric',
+        'setCurrPerformanceMetric'
       ])
   },
   created() {
     this.setCurrTeam(this.teamData.original_teams[0]);
   },
-  inject : ['teamData'],
+  inject : [
+    'teamData',
+    'metrics'
+    ],
   computed: {
   currentTeam: function () {
     return this.teamData.original_teams.filter(team => team.abbreviation === this.getCurrTeamAbbreviation);

@@ -1,0 +1,50 @@
+{
+    "financial_metric":[
+        {
+            "value":"cap_hit_17_18",
+            "text":"Cap Hit (17/18)"
+        },
+        {
+            "value":"cap_hit_total",
+            "text":"Cap Hit '17 Onwards"
+        }
+    ],
+    "performance_metric":[
+        {
+            "value":"ps_16_17",
+            "text":"Point Shares (16/17)"
+        },
+        {
+            "value":"ps_15_16",
+            "text":"Point Shares (15/16)"
+        },
+        {
+            "value":"ps_14_15",
+            "text":"Point Shares (14/15)"
+        },
+        {
+            "value":"gaps_16_17",
+            "text":"Adjusted Point Shares (16/17)"
+        },
+        {
+            "value":"ps_avg",
+            "text":"Average Point Shares"
+        },
+        {
+            "value":"gvt_15_16",
+            "text":"GVT (15/16)"
+        },
+        {
+            "value":"gvt_14_15",
+            "text":"GVT (14/15)"
+        },
+        {
+            "value":"gvt_avg",
+            "text":"Average GVT"
+        },
+        {
+            "value":"ea_rating",
+            "text":"EA Rating"
+        }
+    ]
+}
