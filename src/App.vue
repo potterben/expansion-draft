@@ -10,14 +10,18 @@
 import HeaderArea from './components/HeaderArea.vue'
 import MainArea from './components/MainArea.vue'
 import FooterArea from './components/FooterArea.vue'
+import json from './assets/team_data.json'
 
 export default {
   name: 'App',
   components: {
     HeaderArea,
     MainArea,
-    FooterArea
-  }
+    FooterArea   
+  },
+  provide: {
+    teamData: json
+  }  
 }
 </script>
 
