@@ -35,7 +35,7 @@
                     </b-row>
                     <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
                     <TeamSlider :teamName="currTeam.name" v-if="currTeam"/>
-                    <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name"/>
+                    <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
 
                 </b-container>
                 <template #modal-footer>

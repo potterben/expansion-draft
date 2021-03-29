@@ -81,6 +81,9 @@ export default new Vuex.Store({
         setCurrTeamSliderValue(state, value) {
             state.currTeam.beta = value;
         },
+        setOriginalTeamSliderValue(state, payload) {
+            state.originalTeams[payload.index].beta = payload.value;
+        },
         setAllOriginalTeamsSliderValue(state, value) {
             for (let i = 0; i < state.originalTeams.length; ++i) {
                 state.originalTeams[i].beta = value;
@@ -169,6 +172,9 @@ export default new Vuex.Store({
             if (context.state.applyToAllOriginalTeams) {
                 context.commit('setAllOriginalTeamsSliderValue', value);
             }
+        },
+        setOriginalTeamSliderValue(context, payload) {
+            context.commit("setOriginalTeamSliderValue", payload);
         },
         setApplyToAllOriginalTeams(context, value) {
             if (value) {

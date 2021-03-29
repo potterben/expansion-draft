@@ -9,7 +9,7 @@
         </b-row>
         <b-row class="justify-content-center">
             <b-col cols=6>
-                <vue-slider v-model="sliderValue" />
+                <vue-slider v-model="sliderValue" :lazy="true" :disabled="disableSlider ? true: false" />
             </b-col>
             </b-row>
         <b-row class="justify-content-center">
@@ -46,10 +46,18 @@ export default {
         },
         teamName: {
             type: String
+        },
+        teamIndex: {
+            type: Number,
+            default: -1
         }
     },
 
     computed: {
+        disableSlider: function() {
+            let isOriginalTeamSlider = !this.isExpansionTeam && this.teamIndex != -1;
+            return isOriginalTeamSlider && this.applyToAllOriginalTeams;
+        },
         invertedPercentageValue: {
             get() {
                 return 100-this.sliderValue;
@@ -64,7 +72,12 @@ export default {
                     return this.expansionTeam ? this.expansionTeam.alpha : 0;
                 }
                 else {
-                    return this.currTeam ? this.currTeam.beta : 0;
+                    if (this.teamIndex == -1) {
+                        return this.currTeam ? this.currTeam.beta : 0;
+                    }
+                    else {
+                        return this.originalTeams.length ? this.originalTeams[this.teamIndex].beta : 0;
+                    }
                 }
             },
             set(value) {
@@ -72,20 +85,32 @@ export default {
                     this.setExpansionTeamSliderValue(value);
                 }
                 else {
-                    this.setCurrTeamSliderValue(value);
+                    if (this.teamIndex == -1) {
+                        this.setCurrTeamSliderValue(value);
+                    }
+                    else {
+                        let payload = {
+                            value: value,
+                            index: this.teamIndex
+                        }
+                        this.setOriginalTeamSliderValue(payload);
+                    }
                 }
             }
         },
         ...mapState([
             'expansionTeam',
-            'currTeam'
+            'currTeam',
+            'originalTeams',
+            'applyToAllOriginalTeams'
         ])
     },
 
     methods: {
         ...mapActions([
             'setExpansionTeamSliderValue',
-            'setCurrTeamSliderValue'
+            'setCurrTeamSliderValue',
+            'setOriginalTeamSliderValue'
         ])
     }
 }
