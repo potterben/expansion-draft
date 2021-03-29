@@ -10,8 +10,8 @@
 import HeaderArea from './components/HeaderArea.vue'
 import MainArea from './components/MainArea.vue'
 import FooterArea from './components/FooterArea.vue'
-import TeamDataJson from './assets/TeamData.json'
-import MetricsJson from './assets/Metrics.json'
+import { mapActions } from 'vuex'
+
 
 export default {
     name: 'App',
@@ -22,9 +22,16 @@ export default {
         FooterArea
     },
 
-    provide: {
-        teamData: TeamDataJson,
-        metrics: MetricsJson
+    created() {
+        this.initialize();
+        this.loadPlayerData();
+    },
+
+    methods: {
+        ...mapActions([
+            'initialize',
+            'loadPlayerData'
+        ])
     }
 }
 </script>

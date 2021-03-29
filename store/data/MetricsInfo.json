@@ -1,5 +1,5 @@
 {
-    "financial_metric":[
+    "financialMetrics":[
         {
             "value":"cap_hit_17_18",
             "text":"Cap Hit (17/18)"
@@ -9,7 +9,7 @@
             "text":"Cap Hit '17 Onwards"
         }
     ],
-    "performance_metric":[
+    "performanceMetrics":[
         {
             "value":"ps_16_17",
             "text":"Point Shares (16/17)"

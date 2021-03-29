@@ -19,10 +19,10 @@
                     </b-row>
                     <b-row>
                         <b-col>
-                            <b-form-select v-model="financial_metric" :options="metrics.financial_metric"></b-form-select>
+                            <b-form-select v-model="financialMetric" :options="this.financialMetrics"></b-form-select>
                         </b-col>
                         <b-col>
-                            <b-form-select v-model="performance_metric" :options="metrics.performance_metric"></b-form-select>
+                            <b-form-select v-model="performanceMetric" :options="this.performanceMetrics"></b-form-select>
                         </b-col>
                     </b-row>
                     <b-row>
@@ -32,8 +32,8 @@
                         </b-col>
                         <b-col/>
                     </b-row>
-                    <TeamSlider />
-                    <TeamSlider :teamName="getCurrTeamName" />
+                    <TeamSlider :teamName="expansionTeam.name" v-if="expansionTeam" />
+                    <TeamSlider :teamName="currTeam.name" v-if="currTeam"/>
                 </b-container>
             </b-modal>
         </b-container>
@@ -42,7 +42,7 @@
 
 <script>
 import TeamSlider from './TeamSlider.vue'
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     name: 'FooterArea',
@@ -51,10 +51,6 @@ export default {
         TeamSlider
     },
 
-    inject : [
-        'metrics'
-    ],
-
     data () {
         return {
             value: 0
@@ -62,7 +58,7 @@ export default {
     },
 
     computed: {
-        financial_metric:{
+        financialMetric:{
             get() {
                 return this.currFinancialMetric;
             },
@@ -70,7 +66,7 @@ export default {
                 this.setCurrFinancialMetric(value);
             }
         },
-        performance_metric: {
+        performanceMetric: {
             get() {
                 return this.currPerformanceMetric;
             },
@@ -78,18 +74,14 @@ export default {
                 this.setCurrPerformanceMetric(value);
             }
         },
-        ...mapGetters([
-            'getCurrTeamName',
-        ]),
         ...mapState([
+            'currFinancialMetric',
+            'financialMetrics',
             'currPerformanceMetric',
-            'currFinancialMetric'
+            'performanceMetrics',
+            'expansionTeam',
+            'currTeam',
         ])
-    },
-
-    created() {
-        this.setCurrFinancialMetric(this.metrics.financial_metric[0].value);
-        this.setCurrPerformanceMetric(this.metrics.performance_metric[0].value);
     },
 
     methods: {

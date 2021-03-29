@@ -1,14 +1,14 @@
 <template>
     <div class='fluid-container theme-showcase' role='main'>
         <div class = 'fluid-container center'>
-            <img v-for="team in teamData.originalTeams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" v-on:click="setCurrTeam(team)"/>
+            <img v-for="(team, index) in this.originalTeams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" :index="index" v-on:click="handleImgClick($event)"/>
         </div>
         <div class = 'row'>
-            <div class = 'col-md-6 black' id= "left">
+            <div class = 'col-md-6 black' id= "left" v-if="this.currentTeam">
                 <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
             </div>
             <div class = 'col-md-6 black' id = "right">
-                <TeamTable teamName="Vegas Golden Knights" teamInit="VGK" />
+                <TeamTable v-if="expansionTeam" :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" />
             </div>
         </div>
     </div>
@@ -16,40 +16,43 @@
 
 <script>
 import TeamTable from './TeamTable.vue'
-import { mapGetters, mapActions } from 'vuex'
+import TeamInfoJson from '../../store/data/TeamsInfo.json'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     name: 'MainArea',
+
+    // Need to the originalTeams object in local scope so WebPack can get the static image files at compile time
+    data() {
+        return {
+            originalTeams: TeamInfoJson.originalTeams
+        }
+    },
 
     components: {
         TeamTable
     },
 
-    inject : [
-        'teamData',
-        'metrics'
-    ],
-
     computed: {
         currentTeam: function () {
-            return this.teamData.originalTeams.filter(team => team.abbreviation === this.getCurrTeamAbbreviation);
+            return this.originalTeams.filter(team => team.abbreviation === this.currTeamAbbreviation);
         },
-        ...mapGetters([
-        'getCurrTeamAbbreviation'
-        ])
-    },
-
-    created() {
-        this.setCurrTeam(this.teamData.originalTeams[0]);
+        ...mapState({
+            currTeamAbbreviation: state => state.currTeam.abbreviation,
+            expansionTeam: state => state.expansionTeam
+        })
     },
 
     methods: {
         ...mapActions([
-            'setCurrTeam',
-            'setCurrFinancialMetric',
-            'setCurrPerformanceMetric'
-        ])
-    },
+            'setCurrTeam'
+        ]),
+        handleImgClick: function (event)
+        {
+            var index = event.target.attributes.index.value;
+            this.setCurrTeam(index);
+        }
+    }
 }
 </script>
 

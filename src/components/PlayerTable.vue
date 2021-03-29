@@ -11,11 +11,11 @@
                     <b-th>Name</b-th>
                     <b-th>Age</b-th>
                     <b-th>Pos.</b-th>
-                    <b-th v-for="metric in currPerformanceMetricArray" :key="metric.value" :class="metric.value">
-                        {{metric.text}}
+                    <b-th :class="currFinancialMetric">
+                        {{currFinancialMetric}}
                     </b-th>
-                    <b-th v-for="metric in currFinancialMetricArray" :key="metric.value" :class="metric.value">
-                        {{metric.text}}
+                    <b-th :class="currPerformanceMetric">
+                        {{currPerformanceMetric}}
                     </b-th>
                     <b-th>Expiry</b-th>
                     <b-th>Exposure Req. Met</b-th>
@@ -33,26 +33,16 @@ import { mapState } from 'vuex'
 export default {
     name: 'PlayerTable',
 
-    inject : [
-        'metrics'
-    ],
-
     props: {
         positionTitle: String,
         positionId: String
     },
 
     computed: {
-        currPerformanceMetricArray: function () {
-            return this.metrics.performance_metric.filter(team => team.value === this.currPerformanceMetric);
-        },
-        currFinancialMetricArray: function () {
-            return this.metrics.financial_metric.filter(team => team.value === this.currFinancialMetric);
-        },
-        ...mapState({
-            currPerformanceMetric: state => state.currPerformanceMetric,
-            currFinancialMetric: state => state.currFinancialMetric
-        })
+        ...mapState([
+            'currFinancialMetric',
+            'currPerformanceMetric'
+        ])
     }
 }
 </script>
