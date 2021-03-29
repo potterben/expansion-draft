@@ -1,7 +1,7 @@
 <template>
     <div class='fluid-container theme-showcase' role='main'>
         <div class = 'fluid-container center'>
-            <img v-for="(team, index) in this.originalTeams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" :index="index" v-on:click="handleImgClick($event)"/>
+            <img v-for="(team, index) in this.originalTeams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" :index="index" @click="handleImgClick($event)"/>
         </div>
         <div class = 'row'>
             <div class = 'col-md-6 black' id= "left" v-if="this.currentTeam">

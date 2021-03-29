@@ -40,8 +40,7 @@ export default {
 
     props: {
         teamName: {
-             type: String,
-             default: "Seattle Kraken"
+             type: String
         }
     },
 
