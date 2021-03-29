@@ -33,7 +33,7 @@
                         </b-col>
                         <b-col/>
                     </b-row>
-                    <TeamSlider :teamName="expansionTeam.name" v-if="expansionTeam" />
+                    <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
                     <TeamSlider :teamName="currTeam.name" v-if="currTeam"/>
                 </b-container>
             </b-modal>
@@ -50,12 +50,6 @@ export default {
 
     components: {
         TeamSlider
-    },
-
-    data () {
-        return {
-            value: 0
-        }
     },
 
     computed: {

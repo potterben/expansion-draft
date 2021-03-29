@@ -20,7 +20,7 @@ class OriginalTeam extends Team {
         this.index = index;
         this.protected = [];
         this.exposed = [];
-        this.beta = 1.0;
+        this.beta = 0.0;
         this.constraints = {'f_p': 0, 'f_e': 0, 'd_p': 0, 'd_e': 0, 'g_p': 0, 'g_e': 0}
     }    
 }
@@ -30,7 +30,7 @@ class ExpansionTeam extends Team {
         super(name, abbreviation);
         this.keep = [];
         this.remove = [];
-        this.alpha = 1.0;
+        this.alpha = 0.0;
     }    
 }
 
@@ -76,24 +76,17 @@ export default new Vuex.Store({
         setConsiderUFAs(state, considerUFAs) {
             state.considerUFAs = considerUFAs;
         },
+        setCurrTeamSliderValue(state, value) {
+            state.currTeam.beta = value;
+        },
+        setExpansionTeamSliderValue(state, value) {
+            state.expansionTeam.alpha = value;
+        },
         setPlayerData(state, playerData) {
             state.playerData = playerData;
         }
       },
     actions: {
-        setCurrTeam(context, index) {
-            let team = context.state.originalTeams[index];
-            context.commit("setCurrTeam", team);
-        },
-        setCurrFinancialMetric(context, financialMetric) {
-            context.commit("setCurrFinancialMetric", financialMetric);
-        },
-        setCurrPerformanceMetric(context, performanceMetric) {
-            context.commit("setCurrPerformanceMetric", performanceMetric);
-        },
-        setConsiderUFAs(context, considerUFAs) {
-            context.commit("setConsiderUFAs", considerUFAs);
-        },
         initializeTeamData(context) {
             let expansionTeam = TeamInfoJson.expansionTeam;
             let expansionTeamObject = new ExpansionTeam(expansionTeam[0].name, expansionTeam[0].abbreviation);
@@ -141,6 +134,25 @@ export default new Vuex.Store({
         initialize({dispatch}) {
             dispatch('initializeTeamData');
             dispatch('initializeLoadMetrics');
+        },
+        setCurrTeam(context, index) {
+            let team = context.state.originalTeams[index];
+            context.commit("setCurrTeam", team);
+        },
+        setCurrFinancialMetric(context, financialMetric) {
+            context.commit("setCurrFinancialMetric", financialMetric);
+        },
+        setCurrPerformanceMetric(context, performanceMetric) {
+            context.commit("setCurrPerformanceMetric", performanceMetric);
+        },
+        setConsiderUFAs(context, considerUFAs) {
+            context.commit("setConsiderUFAs", considerUFAs);
+        },
+        setExpansionTeamSliderValue(context, value) {
+            context.commit("setExpansionTeamSliderValue", value);
+        },
+        setCurrTeamSliderValue(context, value) {
+            context.commit("setCurrTeamSliderValue", value);
         }
     }
 })

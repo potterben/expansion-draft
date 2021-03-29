@@ -30,6 +30,7 @@
 <script>
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     name: 'TeamSlider',
@@ -39,26 +40,53 @@ export default {
     },
 
     props: {
+        isExpansionTeam: {
+            type: Boolean,
+            default: false
+        },
         teamName: {
-             type: String
-        }
-    },
-
-    data () {
-        return {
-            sliderValue: 0
+            type: String
         }
     },
 
     computed: {
         invertedPercentageValue: {
-                get(){
-                        return (100-this.sliderValue);
-                },
-                set(newVal){
-                        this.sliderValue = newVal;
+            get() {
+                return (100-this.sliderValue);
+            },
+            set(newVal) {
+                this.sliderValue = newVal;
+            }
+        },
+        sliderValue: {
+            get() {
+                if (this.isExpansionTeam) {
+                    return this.expansionTeam ? this.expansionTeam.alpha : 0;
                 }
-        }
+                else {
+                    return this.currTeam ? this.currTeam.beta : 0;
+                }
+            },
+            set(value) {
+                if (this.isExpansionTeam) {
+                    this.setExpansionTeamSliderValue(value);
+                }
+                else {
+                    this.setCurrTeamSliderValue(value);
+                }
+            }
+        },
+        ...mapState([
+            'expansionTeam',
+            'currTeam'
+        ])
+    },
+
+    methods: {
+        ...mapActions([
+            'setExpansionTeamSliderValue',
+            'setCurrTeamSliderValue'
+        ])
     }
 }
 </script>
