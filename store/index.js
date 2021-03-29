@@ -39,39 +39,42 @@ export default new Vuex.Store({
         currTeam: null,
         originalTeams: [],
 
+        expansionTeam: null,
+
         currFinancialMetric: "",
         financialMetrics: [],
 
         currPerformanceMetric: "",
         performanceMetrics: [],
-        
-        consider_ufas: false,
-        
-        expansionTeam: null,
-        
+
+        considerUFAs: false,
+
         playerData: []
       },
       mutations: {
         setCurrTeam(state, team) {
             state.currTeam = team;
         },
-        setCurrFinancialMetric(state, financialMetric) {
-            state.currFinancialMetric = financialMetric;
-        },
-        setCurrPerformanceMetric(state, performanceMetric) {
-            state.currPerformanceMetric = performanceMetric;
-        },
-        setFinancialMetrics(state, financialMetrics) {
-            state.financialMetrics = financialMetrics;
-        },
-        setPerformanceMetrics(state, performanceMetrics) {
-            state.performanceMetrics = performanceMetrics;
-        },
         setOriginalTeams(state, originalTeams) {
             state.originalTeams = originalTeams;
         },
         setExpansionTeam(state, expansionTeam) {
             state.expansionTeam = expansionTeam;
+        },
+        setCurrFinancialMetric(state, financialMetric) {
+            state.currFinancialMetric = financialMetric;
+        },
+        setFinancialMetrics(state, financialMetrics) {
+            state.financialMetrics = financialMetrics;
+        },
+        setCurrPerformanceMetric(state, performanceMetric) {
+            state.currPerformanceMetric = performanceMetric;
+        },
+        setPerformanceMetrics(state, performanceMetrics) {
+            state.performanceMetrics = performanceMetrics;
+        },
+        setConsiderUFAs(state, considerUFAs) {
+            state.considerUFAs = considerUFAs;
         },
         setPlayerData(state, playerData) {
             state.playerData = playerData;
@@ -87,6 +90,9 @@ export default new Vuex.Store({
         },
         setCurrPerformanceMetric(context, performanceMetric) {
             context.commit("setCurrPerformanceMetric", performanceMetric);
+        },
+        setConsiderUFAs(context, considerUFAs) {
+            context.commit("setConsiderUFAs", considerUFAs);
         },
         initializeTeamData(context) {
             let expansionTeam = TeamInfoJson.expansionTeam;

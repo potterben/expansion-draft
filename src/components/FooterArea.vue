@@ -27,8 +27,9 @@
                     </b-row>
                     <b-row>
                         <b-col>
-                            <input type="checkbox" id ="ufa">
-                            <label for="ufa">Don't Consider UFAs</label>
+                            <b-form-checkbox id ="ufa" v-model="considerUFAState">
+                                Don't Consider UFAs
+                            </b-form-checkbox>
                         </b-col>
                         <b-col/>
                     </b-row>
@@ -58,7 +59,7 @@ export default {
     },
 
     computed: {
-        financialMetric:{
+        financialMetric: {
             get() {
                 return this.currFinancialMetric;
             },
@@ -74,6 +75,14 @@ export default {
                 this.setCurrPerformanceMetric(value);
             }
         },
+        considerUFAState: {
+            get() {
+                return this.considerUFAs;
+            },
+            set(value) {
+                this.setConsiderUFAs(value);
+            }
+        },
         ...mapState([
             'currFinancialMetric',
             'financialMetrics',
@@ -81,13 +90,20 @@ export default {
             'performanceMetrics',
             'expansionTeam',
             'currTeam',
+            'considerUFAs'
         ])
     },
 
     methods: {
+        handleCheckbox: function ()
+        {
+           console.log("Changed!");
+
+        },
         ...mapActions([
             'setCurrFinancialMetric',
-            'setCurrPerformanceMetric'
+            'setCurrPerformanceMetric',
+            'setConsiderUFAs'
         ])
     }
 }
