@@ -1,5 +1,5 @@
 <template>
-    <footer>
+    <footer id="footer">
         <b-container class = 'center'>
             <b-container>
                 <b-button block variant="primary" id ='optimize'>Optimize</b-button>
@@ -7,7 +7,7 @@
             <b-container class="text-center">
                 <b-link v-b-modal.parameters id="parameters">Advanced Options</b-link>
             </b-container>
-            <b-modal size="xl" id="parameters" hide-footer title="Optimizer Options">
+            <b-modal scrollable size="xl" id="parameters" title="Optimizer Options">
                 <b-container id="parameter-center">
                     <b-row>
                         <b-col>
@@ -35,7 +35,17 @@
                     </b-row>
                     <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
                     <TeamSlider :teamName="currTeam.name" v-if="currTeam"/>
+                    <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name"/>
+
                 </b-container>
+                <template #modal-footer>
+                    <b-form-checkbox id = "applyToAll" v-model="applyToAll">
+                        Sync all original teams sliders
+                    </b-form-checkbox>
+                    <b-button variant="info" block :pressed.sync="showAllOtherTeams">
+                        {{ showAllOtherTeams ? "Hide all other teams":"Show all other teams" }}
+                    </b-button>
+                </template>
             </b-modal>
         </b-container>
     </footer>
@@ -77,6 +87,28 @@ export default {
                 this.setConsiderUFAs(value);
             }
         },
+        applyToAll: {
+            get() {
+                return this.applyToAllOriginalTeams;
+            },
+            set(value) {
+                this.setApplyToAllOriginalTeams(value);
+            }
+        },
+        showAllOtherTeams: {
+            get() {
+                return this.showAllOtherOriginalTeams;
+            },
+            set(value) {
+                this.setShowAllOtherOriginalTeams(value);
+            }
+        },
+        allOtherTeams: function () {
+            if (this.showAllOtherTeams) {
+                return this.originalTeams.filter(team => team.abbreviation !== this.currTeamAbbreviation);
+            }
+            return [];
+        },
         ...mapState([
             'currFinancialMetric',
             'financialMetrics',
@@ -84,20 +116,23 @@ export default {
             'performanceMetrics',
             'expansionTeam',
             'currTeam',
-            'considerUFAs'
-        ])
+            'originalTeams',
+            'considerUFAs',
+            'applyToAllOriginalTeams',
+            'showAllOtherOriginalTeams'
+        ]),
+        ...mapState ({
+            currTeamAbbreviation: state => state.currTeam.abbreviation
+        })
     },
 
     methods: {
-        handleCheckbox: function ()
-        {
-           console.log("Changed!");
-
-        },
         ...mapActions([
             'setCurrFinancialMetric',
             'setCurrPerformanceMetric',
-            'setConsiderUFAs'
+            'setConsiderUFAs',
+            'setApplyToAllOriginalTeams',
+            'setShowAllOtherOriginalTeams'
         ])
     }
 }

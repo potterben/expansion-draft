@@ -52,10 +52,10 @@ export default {
     computed: {
         invertedPercentageValue: {
             get() {
-                return (100-this.sliderValue);
+                return 100-this.sliderValue;
             },
             set(newVal) {
-                this.sliderValue = newVal;
+                this.sliderValue = 100-newVal;
             }
         },
         sliderValue: {

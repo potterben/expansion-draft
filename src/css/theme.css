@@ -469,7 +469,7 @@ select
 	color: green;
 }
 
-footer {
+#footer {
 	position:fixed;
 	bottom:0;
 	width:100%;

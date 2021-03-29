@@ -48,6 +48,8 @@ export default new Vuex.Store({
         performanceMetrics: [],
 
         considerUFAs: false,
+        applyToAllOriginalTeams: false,
+        showAllOtherOriginalTeams: false,
 
         playerData: []
       },
@@ -79,8 +81,19 @@ export default new Vuex.Store({
         setCurrTeamSliderValue(state, value) {
             state.currTeam.beta = value;
         },
+        setAllOriginalTeamsSliderValue(state, value) {
+            for (let i = 0; i < state.originalTeams.length; ++i) {
+                state.originalTeams[i].beta = value;
+            }
+        },
         setExpansionTeamSliderValue(state, value) {
             state.expansionTeam.alpha = value;
+        },
+        setApplyToAllOriginalTeams(state, value) {
+            state.applyToAllOriginalTeams = value;
+        },
+        setShowAllOtherOriginalTeams(state, value) {
+            state.showAllOtherOriginalTeams = value;
         },
         setPlayerData(state, playerData) {
             state.playerData = playerData;
@@ -153,6 +166,19 @@ export default new Vuex.Store({
         },
         setCurrTeamSliderValue(context, value) {
             context.commit("setCurrTeamSliderValue", value);
+            if (context.state.applyToAllOriginalTeams) {
+                context.commit('setAllOriginalTeamsSliderValue', value);
+            }
+        },
+        setApplyToAllOriginalTeams(context, value) {
+            if (value) {
+                let currTeamSliderValue = context.state.currTeam.beta;
+                context.commit('setAllOriginalTeamsSliderValue', currTeamSliderValue);
+            }
+            context.commit("setApplyToAllOriginalTeams", value);
+        },
+        setShowAllOtherOriginalTeams(context, value) {
+            context.commit("setShowAllOtherOriginalTeams", value);
         }
     }
 })
