@@ -3,38 +3,8 @@
         <h2 v-bind:class="teamInit">
             {{ teamName }}
         </h2>
-        <!-- make this data driven -->
         <b-container class = "top-center">
-            <b-table-simple class="panel panel-default panel-table">
-                <b-thead>
-                    <b-tr>
-                        <b-td colspan="3">Protection Requirements</b-td>
-                        <b-td colspan="3">Exposure Requirements</b-td>
-                    </b-tr>
-                </b-thead>
-                <b-tbody id = "requirements">
-                    <b-tr>
-                        <b-td>F</b-td>
-                        <b-td>D</b-td>
-                        <b-td>G</b-td>
-                        <b-td>F</b-td>
-                        <b-td>D</b-td>
-                        <b-td>G</b-td>
-                    </b-tr>
-                    <b-tr>
-                        <b-td>-/7</b-td>
-                        <b-td>-/3</b-td>
-                        <b-td>-/1</b-td>
-                        <b-td>-/2</b-td>
-                        <b-td>-/1</b-td>
-                        <b-td>-/1</b-td>
-                    </b-tr>
-                    <b-tr>
-                        <b-td colspan="2">-/8</b-td>
-                        <b-td colspan="4">1</b-td>
-                    </b-tr>
-                </b-tbody>
-            </b-table-simple>
+            <TeamRequirementTable v-if="!isExpansionTeam"/>
         </b-container>
         <b-container class='table-responsive scrollable'>
             <PlayerTable positionId="forward" positionTitle="Forwards" />
@@ -45,18 +15,24 @@
 </template>
 
 <script>
+import TeamRequirementTable from './TeamRequirementTable.vue'
 import PlayerTable from './PlayerTable.vue'
 
 export default {
     name: 'TeamTable',
 
     components: {
+        TeamRequirementTable,
         PlayerTable
     },
 
     props: {
         teamInit: String,
-        teamName: String
+        teamName: String,
+        isExpansionTeam: {
+            type: Boolean,
+            default: false
+        }
     }
 }
 </script>

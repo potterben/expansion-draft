@@ -127,8 +127,7 @@
 	display: table;
 	width: 100%!important;
 	overflow: hidden;
-	margin-bottom: 42px;
-	table-layout: fixed
+	text-align: center;
 }
 
 #no-bottom
@@ -175,7 +174,7 @@
 .center img
 {
 	min-width: 30px;
-	width: 2.95%;
+	width: 3%;
 	height:auto;
 }
 
@@ -481,4 +480,10 @@ select
 input[type=number]
 {
 	width:65px;
+}
+
+.inline h5,
+.inline p {
+	display: inline;
+    vertical-align: top;
 }

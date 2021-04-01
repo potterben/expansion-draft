@@ -1,0 +1,34 @@
+{
+    "protectionRequirements":[
+        {
+            "position":"Forwards",
+            "limit": 7
+        },
+        {
+            "position":"Defensemen",
+            "limit": 3
+        },
+        {
+            "position":"Skaters",
+            "limit": 8
+        },
+        {
+            "position":"Goalies",
+            "limit": 1
+        }
+    ],
+    "exposureRequirements":[
+        {
+            "position":"Forwards",
+            "limit": 2
+        },
+        {
+            "position":"Defensemen",
+            "limit": 1
+        },
+        {
+            "position":"Goalies",
+            "limit": 1
+        }
+    ]
+}
