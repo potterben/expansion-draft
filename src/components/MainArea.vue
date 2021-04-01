@@ -1,17 +1,27 @@
 <template>
-    <div class='fluid-container theme-showcase' role='main'>
-        <div class = 'fluid-container center'>
-            <img v-for="(team, index) in this.originalTeams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" :index="index" @click="handleImgClick($event)"/>
-        </div>
-        <div class = 'row'>
-            <div class = 'col-md-6 black' id= "left" v-if="this.currentTeam">
-                <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
-            </div>
-            <div class = 'col-md-6 black' id = "right">
-                <TeamTable v-if="expansionTeam" :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" />
-            </div>
-        </div>
-    </div>
+    <b-container class='theme-showcase' role='main'>
+        <b-card no-body>
+            <b-tabs content-class="mt-3" align="center" pills card>
+                <b-tab title="Original Teams" active>
+                    <b-container v-if="this.currentTeam">
+                        <span class="inline">
+                            <h5>Team Selector:</h5>
+                            <p> Click to choose a team</p>
+                        </span>
+                        <b-row class="center" align-h="center">
+                            <img v-for="(team, index) in this.originalTeams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" :index="index" @click="handleImgClick($event)"/>
+                        </b-row>
+                        <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
+                    </b-container>
+                </b-tab>
+                <b-tab title="Results">
+                    <b-container v-if="this.currentTeam">
+                        <TeamTable v-if="expansionTeam" :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
+                    </b-container>
+                </b-tab>
+            </b-tabs>
+        </b-card>
+    </b-container>
 </template>
 
 <script>
