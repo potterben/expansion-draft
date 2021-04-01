@@ -5,7 +5,7 @@
         </b-navbar-brand>
         <b-navbar-toggle target="nav-collapse" />
         <b-collapse id="nav-collapse" is-nav right>
-            <b-navbar-nav right>
+            <b-navbar-nav class="ml-auto">
                 <b-nav-item href="/blog">
                     Blog
                 </b-nav-item>

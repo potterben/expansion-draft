@@ -197,7 +197,7 @@ img
 	color: #ffaa00;
 }
 
-#left, #right
+#centered-text
 {
 	text-align: center;
 }
@@ -369,8 +369,8 @@ input[type=checkbox][title]
 }
 #wrapper {
 	padding: 5px;
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .modal-loading
@@ -486,4 +486,9 @@ input[type=number]
 .inline p {
 	display: inline;
     vertical-align: top;
+}
+
+h2
+{
+	text-align: center;
 }

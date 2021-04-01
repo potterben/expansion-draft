@@ -3,7 +3,7 @@
         <b-card no-body>
             <b-tabs content-class="mt-3" align="center" pills card>
                 <b-tab title="Original Teams" active>
-                    <b-container v-if="this.currentTeam">
+                    <b-container v-if="this.currentTeam" class="centered-text">
                         <span class="inline">
                             <h5>Team Selector:</h5>
                             <p> Click to choose a team</p>
@@ -15,7 +15,7 @@
                     </b-container>
                 </b-tab>
                 <b-tab title="Results">
-                    <b-container v-if="this.currentTeam">
+                    <b-container v-if="this.currentTeam" class="centered-text">
                         <TeamTable v-if="expansionTeam" :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
                     </b-container>
                 </b-tab>
