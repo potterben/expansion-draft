@@ -73,7 +73,7 @@ export default {
                 }
                 else {
                     if (this.teamIndex == -1) {
-                        return this.currTeam ? this.currTeam.beta : 0;
+                        return this.originalTeams.length ? this.originalTeams[this.currTeamIndex].beta : 0;
                     }
                     else {
                         return this.originalTeams.length ? this.originalTeams[this.teamIndex].beta : 0;
@@ -100,7 +100,7 @@ export default {
         },
         ...mapState([
             'expansionTeam',
-            'currTeam',
+            'currTeamIndex',
             'originalTeams',
             'applyToAllOriginalTeams'
         ])

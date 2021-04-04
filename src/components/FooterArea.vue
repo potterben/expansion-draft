@@ -34,7 +34,7 @@
                         <b-col/>
                     </b-row>
                     <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
-                    <TeamSlider :teamName="currTeam.name" v-if="currTeam"/>
+                    <TeamSlider :teamName="getCurrTeamName" v-if="getCurrTeamName"/>
                     <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
 
                 </b-container>
@@ -53,7 +53,7 @@
 
 <script>
 import TeamSlider from './TeamSlider.vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
     name: 'FooterArea',
@@ -105,7 +105,7 @@ export default {
         },
         allOtherTeams: function () {
             if (this.showAllOtherTeams) {
-                return this.originalTeams.filter(team => team.abbreviation !== this.currTeamAbbreviation);
+                return this.originalTeams.filter(team => team.index !== this.currTeamIndex);
             }
             return [];
         },
@@ -115,15 +115,16 @@ export default {
             'currPerformanceMetric',
             'performanceMetrics',
             'expansionTeam',
-            'currTeam',
             'originalTeams',
+            'currTeamIndex',
             'considerUFAs',
             'applyToAllOriginalTeams',
             'showAllOtherOriginalTeams'
         ]),
-        ...mapState ({
-            currTeamAbbreviation: state => state.currTeam.abbreviation
-        })
+        ...mapGetters([
+            'getCurrTeamName'
+        ])
+
     },
 
     methods: {

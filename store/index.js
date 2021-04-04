@@ -6,7 +6,7 @@ import MetricsInfoJson from './data/MetricsInfo.json'
 
 Vue.use(Vuex)
 
-// TODO: seperate into separate files
+// TODO: separate into separate files
 class Team {
     constructor(name, abbreviation) {
       this.name = name;
@@ -18,8 +18,8 @@ class OriginalTeam extends Team {
     constructor(name, abbreviation, index) {
         super(name, abbreviation);
         this.index = index;
-        this.protected = [];
-        this.exposed = [];
+        this.protected = {};
+        this.exposed = {};
         this.beta = 0.0;
         this.constraints = {'f_p': 0, 'f_e': 0, 'd_p': 0, 'd_e': 0, 'g_p': 0, 'g_e': 0}
     }    
@@ -34,9 +34,21 @@ class ExpansionTeam extends Team {
     }    
 }
 
+const removeFromArray = (array, value) => {
+    const newArray = [...array];
+    const index = newArray.indexOf(value);
+    if (index > -1) {
+        newArray.splice(index, 1);
+        return newArray;
+    }
+    else {
+        return array;
+    }
+}
+
 export default new Vuex.Store({
     state: {
-        currTeam: null,
+        currTeamIndex: 0,
         originalTeams: [],
 
         expansionTeam: null,
@@ -54,8 +66,8 @@ export default new Vuex.Store({
         playerData: {}
       },
       mutations: {
-        setCurrTeam(state, team) {
-            state.currTeam = team;
+        setCurrTeamIndex(state, index) {
+            state.currTeamIndex = index;
         },
         setOriginalTeams(state, originalTeams) {
             state.originalTeams = originalTeams;
@@ -79,7 +91,7 @@ export default new Vuex.Store({
             state.considerUFAs = considerUFAs;
         },
         setCurrTeamSliderValue(state, value) {
-            state.currTeam.beta = value;
+            state.originalTeams[state.currTeamIndex].beta = value;
         },
         setOriginalTeamSliderValue(state, payload) {
             state.originalTeams[payload.index].beta = payload.value;
@@ -100,6 +112,26 @@ export default new Vuex.Store({
         },
         setPlayerData(state, playerData) {
             state.playerData = playerData;
+        },
+        setOriginalTeamProtectedMap(state, payload) {
+            state.originalTeams[payload.index].protected = payload.protectedMap;
+        },
+        addToCurrTeamProtectedMap(state, payload) {
+            state.originalTeams[state.currTeamIndex].protected[payload.positionId].push(payload.id);
+        },
+        removeFromCurrTeamProtectedMap(state, payload) {
+            const updatedArray = removeFromArray(state.originalTeams[state.currTeamIndex].protected[payload.positionId], payload.id);
+            state.originalTeams[state.currTeamIndex].protected[payload.positionId] = updatedArray;
+        },
+        setOriginalTeamExposedMap(state, payload) {
+            state.originalTeams[payload.index].exposed = payload.exposedMap;
+        },
+        addToCurrTeamExposedMap(state, payload) {
+            state.originalTeams[state.currTeamIndex].exposed[payload.positionId].push(payload.id);
+        },
+        removeFromCurrTeamExposedMap(state, payload) {
+            const updatedArray = removeFromArray(state.originalTeams[state.currTeamIndex].exposed[payload.positionId], payload.id);
+            state.originalTeams[state.currTeamIndex].exposed[payload.positionId] = updatedArray;
         }
       },
     actions: {
@@ -112,9 +144,6 @@ export default new Vuex.Store({
             let originalTeamsArray = []
             for (let i =0; i < originalTeams.length; i++) {
                 let teamToAdd = new OriginalTeam(originalTeams[i].name,originalTeams[i].abbreviation, i);
-                if (i==0) {
-                    context.commit("setCurrTeam", teamToAdd);
-                }
                 originalTeamsArray.push(teamToAdd);
             }
             context.commit("setOriginalTeams", originalTeamsArray);
@@ -124,7 +153,7 @@ export default new Vuex.Store({
             let financialMetricsArray = [];
             for (let i =0; i < financialMetrics.length; i++)
             {
-                if (i==0) {
+                if (i === 0) {
                     context.commit("setCurrFinancialMetric", financialMetrics[i].value);
                 }
                 financialMetricsArray.push(financialMetrics[i]);
@@ -133,9 +162,9 @@ export default new Vuex.Store({
             
             let performanceMetrics = MetricsInfoJson.performanceMetrics
             let performanceMetricsArray = []
-            for (let i =0; i < performanceMetrics.length; i++)
+            for (let i=0; i < performanceMetrics.length; i++)
             {
-                if (i==0) {
+                if (i === 0) {
                     context.commit("setCurrPerformanceMetric", performanceMetrics[i].value);
                 }
                 performanceMetricsArray.push(performanceMetrics[i]);
@@ -144,16 +173,33 @@ export default new Vuex.Store({
         },
         async loadPlayerData(context) {
             axios
-            .get('http://0.0.0.0:5000/data')
-            .then(response => (context.commit("setPlayerData", response.data)))
+            .get('http://0.0.0.0:5000/playerdata')
+            .then(response => {
+                context.commit("setPlayerData", response.data);
+                let positionKeys = ["f", "d", "g"]
+                for (let i = 0; i < context.state.originalTeams.length; ++i) {
+                    let team = context.state.originalTeams[i]
+                    let teamPlayerData = context.state.playerData[team.abbreviation];
+                    let protectedMap = {}
+                    let exposedMap = {}
+                    positionKeys.forEach(positionKey => {
+                        protectedMap[positionKey] = teamPlayerData[positionKey]
+                                                    .filter(value => value.protected)
+                                                    .map(function(value) {return value._id} );
+                        exposedMap[positionKey] = []
+                    });
+                    context.commit("setOriginalTeamProtectedMap", {"protectedMap": protectedMap, "index": i});
+                    context.commit("setOriginalTeamExposedMap", {"exposedMap": exposedMap, "index": i});
+                }
+            });
+            
         },
         initialize({dispatch}) {
             dispatch('initializeTeamData');
             dispatch('initializeLoadMetrics');
         },
-        setCurrTeam(context, index) {
-            let team = context.state.originalTeams[index];
-            context.commit("setCurrTeam", team);
+        setCurrTeamIndex(context, index) {
+            context.commit("setCurrTeamIndex", index);
         },
         setCurrFinancialMetric(context, financialMetric) {
             context.commit("setCurrFinancialMetric", financialMetric);
@@ -185,6 +231,67 @@ export default new Vuex.Store({
         },
         setShowAllOtherOriginalTeams(context, value) {
             context.commit("setShowAllOtherOriginalTeams", value);
+        },
+        addToCurrTeamProtectedMap(context, payload) {
+            context.commit("addToCurrTeamProtectedMap", payload);
+        },
+        removeFromCurrTeamProtectedMap(context, payload) {
+            context.commit("removeFromCurrTeamProtectedMap", payload);
+        },
+        addToCurrTeamExposedMap(context, payload) {
+            context.commit("addToCurrTeamExposedMap", payload);
+        },
+        removeFromCurrTeamExposedMap(context, payload) {
+            context.commit("removeFromCurrTeamExposedMap", payload);
+        }
+
+    },
+    getters: {
+        getCurrTeamName : state => {
+            if (state.originalTeams) {
+                return state.originalTeams[state.currTeamIndex].name;
+            }
+            return String();
+        },
+        getCurrTeamAbbreviation: state => {
+            if (state.originalTeams) {
+                return state.originalTeams[state.currTeamIndex].abbreviation;
+            }
+            return String();
+        },
+        getCurrTeamTableData : (state, getters) => {
+            let currTeamAbbreviation = getters.getCurrTeamAbbreviation
+            if (currTeamAbbreviation && state.playerData)
+            {
+                return state.playerData[currTeamAbbreviation]
+            }
+            return []
+        },
+        getCurrFinancialMetricText: state => {
+            if (state.currFinancialMetric && state.financialMetrics)
+            {
+                return state.financialMetrics.find(metric => metric.value == state.currFinancialMetric).text;
+            }
+            return String();
+        },
+        getCurrPerformanceMetricText: state => {
+            if (state.currPerformanceMetric && state.performanceMetrics)
+            {
+                return state.performanceMetrics.find(metric => metric.value == state.currPerformanceMetric).text
+            }
+            return String();
+        },
+        getCurrTeamProtectedMap: state => {
+            if (state.originalTeams) {
+                return state.originalTeams[state.currTeamIndex].protected;
+            }
+            return [];
+        },
+        getCurrTeamExposedMap: state => {
+            if (state.originalTeams) {
+                return state.originalTeams[state.currTeamIndex].exposed;
+            }
+            return [];
         }
     }
 })

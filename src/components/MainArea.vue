@@ -15,7 +15,7 @@
                     </b-container>
                 </b-tab>
                 <b-tab title="Results">
-                    <b-container v-if="this.currentTeam" class="centered-text">
+                    <b-container v-if="this.expansionTeam" class="centered-text">
                         <TeamTable v-if="expansionTeam" :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
                     </b-container>
                 </b-tab>
@@ -27,7 +27,7 @@
 <script>
 import TeamTable from './TeamTable.vue'
 import TeamInfoJson from '../../store/data/TeamsInfo.json'
-import { mapState, mapActions } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
     name: 'MainArea',
@@ -45,22 +45,28 @@ export default {
 
     computed: {
         currentTeam: function () {
-            return this.originalTeams.filter(team => team.abbreviation === this.currTeamAbbreviation);
+            if (this.originalTeams) {
+                return [this.originalTeams[this.currTeamIndex]];
+            }
+            return [];
         },
-        ...mapState({
-            currTeamAbbreviation: state => state.currTeam.abbreviation,
-            expansionTeam: state => state.expansionTeam
-        })
+        ...mapState([
+            "currTeamIndex",
+            "expansionTeam"
+        ]),
+        ...mapGetters([
+            "getCurrTeamName"
+        ])
     },
 
     methods: {
         ...mapActions([
-            'setCurrTeam'
+            'setCurrTeamIndex'
         ]),
         handleImgClick: function (event)
         {
             var index = event.target.attributes.index.value;
-            this.setCurrTeam(index);
+            this.setCurrTeamIndex(index);
         }
     }
 }

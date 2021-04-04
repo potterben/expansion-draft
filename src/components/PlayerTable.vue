@@ -5,20 +5,28 @@
         </h3>
         <b-table striped outlined responsive sticky-header :fields="getCurrentTableColumns" :items="getCurrentTeamPlayerTableData">
             <template #cell(protect)="row">
-                <b-form-checkbox :checked="row.item.protected" @change="protectionChanged"></b-form-checkbox>
+                <ProtectedCheckbox :id="row.item._id" :positionId="positionId" />
             </template>
             <template #cell(expose)="row">
-                <b-form-checkbox :checked="row.item.exposed" @change="exposureChanged"/>
+                <ExposedCheckbox :id="row.item._id" :positionId="positionId" />
             </template>
         </b-table>
     </b-container>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import ProtectedCheckbox from './ProtectedCheckbox.vue'
+import ExposedCheckbox from './ExposedCheckbox.vue'
+
+import { mapGetters, mapState } from 'vuex'
 
 export default {
     name: 'PlayerTable',
+
+    components: {
+        ProtectedCheckbox,
+        ExposedCheckbox
+    },
 
     props: {
         positionTitle: String,
@@ -26,8 +34,18 @@ export default {
     },
 
     computed: {
+        ...mapState([
+            'currFinancialMetric',
+            'currPerformanceMetric',
+            'playerData'
+        ]),
+        ...mapGetters([
+            'getCurrTeamTableData',
+            'getCurrFinancialMetricText',
+            'getCurrPerformanceMetricText'
+        ]),
         getCurrentTeamPlayerTableData() {
-            let teamTableData = this.getCurrentTeamTableData;
+            let teamTableData = this.getCurrTeamTableData;
             if (teamTableData) {
                 return teamTableData[this.positionId];
             }
@@ -38,12 +56,10 @@ export default {
         getCurrentTableColumns() {
             return [
                 {
-                    "key": "protect",
-                    "sortable": true
+                    "key": "protect"
                 },
                 {
-                    "key": "expose",
-                    "sortable": true
+                    "key": "expose"
                 },
                 {
                     "key": "name",
@@ -80,28 +96,10 @@ export default {
                     "formatter" : "formatMeetsRequirements"
                 }
             ];
-        },
-        ...mapState([
-            'currFinancialMetric',
-            'currPerformanceMetric',
-            'playerData'
-        ]),
-        ...mapGetters([
-            'getCurrentTeamTableData',
-            'getCurrFinancialMetricText',
-            'getCurrPerformanceMetricText'
-        ])        
+        }      
     },
 
     methods: {
-        protectionChanged(value) {
-            console.log("Protection changed!!")
-            console.log(value)
-        },
-        exposureChanged(value) {
-            console.log("Exposure changged!!")
-            console.log(value)
-        },
         formatFinancialMetric(value) {
             return "$" + value.toFixed(3) + "M";
         },
@@ -110,8 +108,7 @@ export default {
         },
         formatMeetsRequirements(value) {
             return value ? "Yes" : "No";
-        },
-
+        }
     }
 }
 </script>
