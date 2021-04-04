@@ -6,10 +6,10 @@
         <b-container class = "top-center">
             <TeamRequirementTable v-if="!isExpansionTeam"/>
         </b-container>
-        <b-container class='table-responsive scrollable'>
-            <PlayerTable positionId="forward" positionTitle="Forwards" />
-            <PlayerTable positionId="defence" positionTitle="Defensemen" />
-            <PlayerTable positionId="goalie" positionTitle="Goalies" />
+        <b-container >
+            <PlayerTable positionId="f" positionTitle="Forwards" />
+            <PlayerTable positionId="d" positionTitle="Defensemen" />
+            <PlayerTable positionId="g" positionTitle="Goalies" />
         </b-container>
     </div>
 </template>
@@ -39,8 +39,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-    margin: 40px 0 0;
+h2 {
+  text-align: center;
 }
 ul {
     list-style-type: none;

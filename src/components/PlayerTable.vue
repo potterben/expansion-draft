@@ -1,34 +1,21 @@
 <template>
-    <b-container>
+    <b-container v-if="playerData">
         <h3>
             {{positionTitle}}
         </h3>
-        <b-table-simple class='table table-hover table-striped table-team sticky-header'>
-            <b-thead>
-                <b-tr>
-                    <b-th>Protect</b-th>
-                    <b-th>Expose</b-th>
-                    <b-th>Name</b-th>
-                    <b-th>Age</b-th>
-                    <b-th>Pos.</b-th>
-                    <b-th :class="currFinancialMetric">
-                        {{currFinancialMetric}}
-                    </b-th>
-                    <b-th :class="currPerformanceMetric">
-                        {{currPerformanceMetric}}
-                    </b-th>
-                    <b-th>Expiry</b-th>
-                    <b-th>Exposure Req. Met</b-th>
-                </b-tr>
-            </b-thead>
-            <b-tbody :id ="positionId">
-            </b-tbody>
-        </b-table-simple>
+        <b-table striped outlined responsive sticky-header :fields="getCurrentTableColumns" :items="getCurrentTeamPlayerTableData">
+            <template #cell(protect)="row">
+                <b-form-checkbox :checked="row.item.protected" @change="protectionChanged"></b-form-checkbox>
+            </template>
+            <template #cell(expose)="row">
+                <b-form-checkbox :checked="row.item.exposed" @change="exposureChanged"/>
+            </template>
+        </b-table>
     </b-container>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
     name: 'PlayerTable',
@@ -39,16 +26,101 @@ export default {
     },
 
     computed: {
+        getCurrentTeamPlayerTableData() {
+            let teamTableData = this.getCurrentTeamTableData;
+            if (teamTableData) {
+                return teamTableData[this.positionId];
+            }
+            else {
+                return []
+            }
+        },
+        getCurrentTableColumns() {
+            return [
+                {
+                    "key": "protect",
+                    "sortable": true
+                },
+                {
+                    "key": "expose",
+                    "sortable": true
+                },
+                {
+                    "key": "name",
+                    "sortable": true
+                },
+                {
+                    "key": "age",
+                    "sortable": true
+                },
+                {
+                    "key": "position",
+                    "sortable": true
+                },
+                {
+                    "key": this.currFinancialMetric,
+                    "label": this.getCurrFinancialMetricText,
+                    "sortable": true,
+                    "formatter" : "formatFinancialMetric"
+                },
+                {
+                    "key": this.currPerformanceMetric,
+                    "label":this.getCurrPerformanceMetricText,
+                    "sortable": true,
+                    "formatter" : "formatPerformanceMetric"
+                },
+                {
+                    "key": "expiry",
+                    "sortable": true
+                },
+                {
+                    "key": "meets_req",
+                    "label": "Meets Exposure Requirements",
+                    "sortable": true,
+                    "formatter" : "formatMeetsRequirements"
+                }
+            ];
+        },
         ...mapState([
             'currFinancialMetric',
-            'currPerformanceMetric'
-        ])
+            'currPerformanceMetric',
+            'playerData'
+        ]),
+        ...mapGetters([
+            'getCurrentTeamTableData',
+            'getCurrFinancialMetricText',
+            'getCurrPerformanceMetricText'
+        ])        
+    },
+
+    methods: {
+        protectionChanged(value) {
+            console.log("Protection changed!!")
+            console.log(value)
+        },
+        exposureChanged(value) {
+            console.log("Exposure changged!!")
+            console.log(value)
+        },
+        formatFinancialMetric(value) {
+            return "$" + value.toFixed(3) + "M";
+        },
+        formatPerformanceMetric(value) {
+            return value.toFixed(2);
+        },
+        formatMeetsRequirements(value) {
+            return value ? "Yes" : "No";
+        },
+
     }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.outline {
+    outline: 3px solid #EE0000;
+}
 h3 {
     margin: 40px 0 0;
 }

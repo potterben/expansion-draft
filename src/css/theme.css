@@ -469,12 +469,12 @@ select
 }
 
 #footer {
-	position:fixed;
 	bottom:0;
 	width:100%;
 	background-color: #ffaa00;
+	margin-top: 10px;
 	padding-top: 6px;
-	padding-bottom: 6px;
+	padding-bottom: 13px;
  }
 
 input[type=number]
