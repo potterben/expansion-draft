@@ -51,7 +51,7 @@ export default new Vuex.Store({
         applyToAllOriginalTeams: false,
         showAllOtherOriginalTeams: false,
 
-        playerData: []
+        playerData: {}
       },
       mutations: {
         setCurrTeam(state, team) {
