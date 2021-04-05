@@ -10,10 +10,14 @@
                     </b-thead>
                     <b-tbody id = "requirements">
                         <b-tr>
-                            <b-td v-for="requirement in protectionRequirements" :key="requirement.position"> {{requirement.position}}</b-td>
+                            <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
+                                {{ requirement.position }}
+                            </b-td>
                         </b-tr>
                         <b-tr>
-                            <b-td v-for="requirement in protectionRequirements" :key="requirement.position"> 0/{{requirement.limit}}</b-td>
+                            <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
+                                {{ protectedCount(requirement.ids) }}/{{ requirement.limit }}
+                            </b-td>
                         </b-tr>
                     </b-tbody>
                 </b-table-simple>
@@ -27,10 +31,14 @@
                     </b-thead>
                     <b-tbody id = "requirements">
                         <b-tr>
-                            <b-td v-for="requirement in exposureRequirements" :key="requirement.position"> {{requirement.position}}</b-td>
+                            <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
+                                {{ requirement.position }}
+                            </b-td>
                         </b-tr>
                         <b-tr>
-                            <b-td v-for="requirement in exposureRequirements" :key="requirement.position"> 0/{{requirement.limit}}</b-td>
+                            <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
+                                {{ exposedCount(requirement.ids) }}/{{ requirement.limit }}
+                            </b-td>
                         </b-tr>
                     </b-tbody>
                 </b-table-simple>
@@ -41,6 +49,7 @@
 
 <script>
 import ConstraintsInfoJson from "../../store/data/ConstraintsInfo.json"
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'TeamRequirementTable',
@@ -52,7 +61,41 @@ export default {
         }
     },
 
-    components: {
+    computed: {
+        ...mapGetters([
+            'getCurrTeamProtectedMap',
+            'getCurrTeamMeetsRequirementsMap'
+        ]),
+        protectedCount() {
+            return ids => {
+                var count = 0;
+                ids.forEach(id => {
+                    if (!this.isEmpty(this.getCurrTeamProtectedMap))
+                    {
+                        count += this.getCurrTeamProtectedMap[id].length;
+                    }
+                });
+                return count
+            }
+        },
+        exposedCount() {
+            return ids => {
+                var count = 0;
+                ids.forEach(id => {
+                    if (!this.isEmpty(this.getCurrTeamMeetsRequirementsMap))
+                    {
+                        count += this.getCurrTeamMeetsRequirementsMap[id];
+                    }
+                });
+                return count
+            }
+        }
+    },
+
+    methods: {
+        isEmpty(object) {
+            return object && Object.keys(object).length === 0 && object.constructor === Object;
+        }
     }
 }
 </script>

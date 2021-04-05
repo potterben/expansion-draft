@@ -63,7 +63,7 @@ export default new Vuex.Store({
         applyToAllOriginalTeams: false,
         showAllOtherOriginalTeams: false,
 
-        playerData: {}
+        playerData: null
       },
       mutations: {
         setCurrTeamIndex(state, index) {
@@ -265,7 +265,7 @@ export default new Vuex.Store({
             {
                 return state.playerData[currTeamAbbreviation]
             }
-            return []
+            return null
         },
         getCurrFinancialMetricText: state => {
             if (state.currFinancialMetric && state.financialMetrics)
@@ -285,13 +285,27 @@ export default new Vuex.Store({
             if (state.originalTeams) {
                 return state.originalTeams[state.currTeamIndex].protected;
             }
-            return [];
+            return null;
         },
         getCurrTeamExposedMap: state => {
             if (state.originalTeams) {
                 return state.originalTeams[state.currTeamIndex].exposed;
             }
-            return [];
+            return null;
+        },
+        getCurrTeamMeetsRequirementsMap: (state, getters) => {
+            const currTeamTableData = getters.getCurrTeamTableData;
+            let currTeamMeetsRequirementsMap = {}
+
+            if (currTeamTableData)
+            {
+                const keys = Object.keys(currTeamTableData);
+                keys.forEach(key => {
+                    // TODO account for protections
+                    currTeamMeetsRequirementsMap[key] =  currTeamTableData[key].filter(player => player.meets_req).length;
+                });
+            }
+            return currTeamMeetsRequirementsMap;
         }
     }
 })
