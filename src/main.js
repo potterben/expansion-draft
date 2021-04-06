@@ -21,5 +21,21 @@ Vue.config.productionTip = false
 new Vue({
 	el: '#app',
 	store,
-	render: h => h(App)
+	data() {
+		return {
+			isInitialized: false
+		}
+	},
+	async beforeCreate() {
+		await this.$store.dispatch("initialize");
+		this.isInitialized = true;
+	},
+	render(h) {
+		if (this.isInitialized) {
+			return h(App)
+		}
+		else {
+			return null;
+		}
+	}
 })

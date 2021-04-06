@@ -7,5 +7,8 @@ module.exports = {
                 args[0].title = "NHL Expansion Draft Optimizer";
                 return args;
             })
-    }
+    },
+    devServer: {
+        host: 'localhost',
+      }
 }

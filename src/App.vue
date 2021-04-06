@@ -22,11 +22,6 @@ export default {
         FooterArea
     },
 
-    created() {
-        this.initialize();
-        this.loadPlayerData();
-    },
-
     methods: {
         ...mapActions([
             'initialize',

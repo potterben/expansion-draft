@@ -197,6 +197,7 @@ export default new Vuex.Store({
         initialize({dispatch}) {
             dispatch('initializeTeamData');
             dispatch('initializeLoadMetrics');
+            dispatch('loadPlayerData');
         },
         setCurrTeamIndex(context, index) {
             context.commit("setCurrTeamIndex", index);
