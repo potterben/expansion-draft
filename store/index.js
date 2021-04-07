@@ -300,10 +300,12 @@ export default new Vuex.Store({
 
             if (currTeamTableData)
             {
+                const protectedMap = getters.getCurrTeamProtectedMap;
                 const keys = Object.keys(currTeamTableData);
                 keys.forEach(key => {
-                    // TODO account for protections
-                    currTeamMeetsRequirementsMap[key] =  currTeamTableData[key].filter(player => player.meets_req).length;
+                    const protectedSet = new Set(protectedMap[key]);
+                    console.log(protectedSet);
+                    currTeamMeetsRequirementsMap[key] = currTeamTableData[key].filter(player => player.meets_req && !protectedSet.has(player._id)).length;
                 });
             }
             return currTeamMeetsRequirementsMap;
