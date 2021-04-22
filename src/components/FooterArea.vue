@@ -1,53 +1,51 @@
 <template>
     <footer class="fixed-bottom">
-        <b-container class="shrink">
-            <b-container>
-                <b-button block variant="primary" id ='optimize'>Optimize</b-button>
-            </b-container>
-            <b-container>
-                <b-link v-b-modal.advanced-options id="advanced-options">Advanced Options</b-link>
-            </b-container>
-            <b-modal scrollable size="xl" id="advanced-options" title="Optimizer Options">
-                <b-container>
-                    <b-row>
-                        <b-col>
-                        Financial Flexibility
-                        </b-col>
-                        <b-col>
-                        On-Ice Performance
-                        </b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col>
-                            <b-form-select v-model="financialMetric" :options="this.financialMetrics"></b-form-select>
-                        </b-col>
-                        <b-col>
-                            <b-form-select v-model="performanceMetric" :options="this.performanceMetrics"></b-form-select>
-                        </b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col>
-                            <b-form-checkbox id ="ufa" v-model="considerUFAState">
-                                Don't Consider UFAs
-                            </b-form-checkbox>
-                        </b-col>
-                        <b-col/>
-                    </b-row>
-                    <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
-                    <TeamSlider :teamName="getCurrTeamName" v-if="getCurrTeamName"/>
-                    <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
-
-                </b-container>
-                <template #modal-footer>
-                    <b-form-checkbox id="applyToAll" v-model="applyToAll">
-                        Sync all original teams sliders
-                    </b-form-checkbox>
-                    <b-button variant="info" block :pressed.sync="showAllOtherTeams">
-                        {{ showAllOtherTeams ? "Hide all other teams":"Show all other teams" }}
-                    </b-button>
-                </template>
-            </b-modal>
+        <b-container>
+            <b-button block variant="primary" id ='optimize'>Optimize</b-button>
         </b-container>
+        <b-container>
+            <b-link v-b-modal.advanced-options id="advanced-options">Advanced Options</b-link>
+        </b-container>
+        <b-modal scrollable size="xl" id="advanced-options" title="Optimizer Options">
+            <b-container>
+                <b-row>
+                    <b-col>
+                    Financial Flexibility
+                    </b-col>
+                    <b-col>
+                    On-Ice Performance
+                    </b-col>
+                </b-row>
+                <b-row>
+                    <b-col>
+                        <b-form-select v-model="financialMetric" :options="this.financialMetrics"></b-form-select>
+                    </b-col>
+                    <b-col>
+                        <b-form-select v-model="performanceMetric" :options="this.performanceMetrics"></b-form-select>
+                    </b-col>
+                </b-row>
+                <b-row>
+                    <b-col>
+                        <b-form-checkbox id ="ufa" v-model="considerUFAState">
+                            Don't Consider UFAs
+                        </b-form-checkbox>
+                    </b-col>
+                    <b-col/>
+                </b-row>
+                <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
+                <TeamSlider :teamName="getCurrTeamName" v-if="getCurrTeamName"/>
+                <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
+
+            </b-container>
+            <template #modal-footer>
+                <b-form-checkbox id="applyToAll" v-model="applyToAll">
+                    Sync all original teams sliders
+                </b-form-checkbox>
+                <b-button variant="info" block :pressed.sync="showAllOtherTeams">
+                    {{ showAllOtherTeams ? "Hide all other teams":"Show all other teams" }}
+                </b-button>
+            </template>
+        </b-modal>
     </footer>
 </template>
 
