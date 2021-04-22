@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 // Import Bootstrap and BootstrapVue SCSS files (order is important)
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../../node_modules/bootstrap-vue/src/index.scss';
@@ -5,13 +7,13 @@
 @import '_variables.scss';
 @import '_mixins.scss';
 
-
 // Background
 nav {
 	background-color: $ice-blue;
 }
 
 body {
+	font-family: 'Open Sans', sans-serif;
 	background-color: $deep-sea-blue;
 	margin: 0;
 }
@@ -38,10 +40,12 @@ footer {
 }
 
 // Foreground
-h1,h2,h3,h4,h5
+h1, h2
 {
 	text-align: center;
+	color: white;
 }
+
 
 // Details
 // Image related
