@@ -1,7 +1,10 @@
 <template>
-    <b-container class='theme-showcase' role='main'>
-        <b-card no-body>
-            <b-tabs content-class="mt-3" align="center" pills card>
+    <b-container class='main-area' >
+        <b-container class="text-center">
+            <h1>NHL Expansion Draft Optimizier</h1>
+        </b-container>
+        <b-card no-body fill>
+            <b-tabs class="myTab" content-class="mt-3" align="center" pills card fill> 
                 <b-tab title="Original Teams" active>
                     <b-container v-if="this.currentTeam" class="centered-text">
                         <span class="inline">

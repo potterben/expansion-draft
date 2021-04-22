@@ -1,9 +1,11 @@
 <template>
     <div class = 'team-table' :id ="teamInit">
-        <h2 v-bind:class="teamInit">
-            {{ teamName }}
-        </h2>
-        <b-container class = "top-center">
+        <b-container class="text-center">
+            <h2 v-bind:class="teamInit">
+                {{ teamName }}
+            </h2>
+        </b-container>
+        <b-container>
             <TeamRequirementTable v-if="!isExpansionTeam"/>
         </b-container>
         <b-container >
