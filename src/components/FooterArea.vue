@@ -1,14 +1,14 @@
 <template>
-    <footer id="footer">
-        <b-container class = 'center'>
+    <footer class="fixed-bottom">
+        <b-container class="shrink">
             <b-container>
                 <b-button block variant="primary" id ='optimize'>Optimize</b-button>
             </b-container>
-            <b-container class="text-center">
-                <b-link v-b-modal.parameters id="parameters">Advanced Options</b-link>
+            <b-container>
+                <b-link v-b-modal.advanced-options id="advanced-options">Advanced Options</b-link>
             </b-container>
-            <b-modal scrollable size="xl" id="parameters" title="Optimizer Options">
-                <b-container id="parameter-center">
+            <b-modal scrollable size="xl" id="advanced-options" title="Optimizer Options">
+                <b-container>
                     <b-row>
                         <b-col>
                         Financial Flexibility
@@ -39,7 +39,7 @@
 
                 </b-container>
                 <template #modal-footer>
-                    <b-form-checkbox id = "applyToAll" v-model="applyToAll">
+                    <b-form-checkbox id="applyToAll" v-model="applyToAll">
                         Sync all original teams sliders
                     </b-form-checkbox>
                     <b-button variant="info" block :pressed.sync="showAllOtherTeams">
