@@ -304,7 +304,6 @@ export default new Vuex.Store({
                 const keys = Object.keys(currTeamTableData);
                 keys.forEach(key => {
                     const protectedSet = new Set(protectedMap[key]);
-                    console.log(protectedSet);
                     currTeamMeetsRequirementsMap[key] = currTeamTableData[key].filter(player => player.meets_req && !protectedSet.has(player._id)).length;
                 });
             }
