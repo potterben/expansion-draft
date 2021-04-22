@@ -1,0 +1,77 @@
+// Import Bootstrap and BootstrapVue SCSS files (order is important)
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../../node_modules/bootstrap-vue/src/index.scss';
+
+@import '_variables.scss';
+@import '_mixins.scss';
+
+
+// Background
+nav {
+	background-color: $ice-blue;
+}
+
+body {
+	background-color: $deep-sea-blue;
+	margin: 0;
+}
+
+.main-area {
+	color: $ice-blue;
+}
+
+.card {
+	background-color: $deep-sea-blue;
+}
+
+.card-header {
+	border:none;
+}
+
+.flex {
+	display: flex;
+}
+footer {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: $deep-sea-blue;
+}
+
+// Foreground
+h1,h2,h3,h4,h5
+{
+	text-align: center;
+}
+
+// Details
+// Image related
+.center 
+{
+	img
+	{
+		min-width: 30px;
+		width: 3%;
+		height:auto;
+	}
+	background-color: transparent;
+}
+
+img
+{
+	max-width: 80%;
+	height: auto;
+	background-color: transparent;
+}
+
+// slider
+
+// Tabs
+
+// Table related styling
+td {
+	color: $ice-blue;
+}
+
+
+
+
