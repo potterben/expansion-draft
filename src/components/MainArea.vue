@@ -14,7 +14,16 @@
                             <p> Click to choose a team</p>
                         </b-row>
                         <b-row class="col-12 py-4">
-                            <img v-for="(team, index) in this.originalTeams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" :index="index" @click="handleImgClick($event)"/>
+                            <swiper ref="mySwiper" :options="swiperOptions" @slideChange="handleSwiperIndexChanged">
+                                <template v-for="(team, index) in this.originalTeams">
+                                    <swiper-slide :key="index">
+                                        <img :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation"/>
+                                    </swiper-slide>
+                                </template>
+                                <div class="swiper-button-prev" slot="button-prev"></div>
+                                <div class="swiper-button-next" slot="button-next"></div>
+                                <div class="swiper-pagination" slot="pagination"></div>
+                            </swiper>
                         </b-row>
                     </b-container>
                     <b-container v-if="this.currentTeam" class="text-center py-4">
@@ -35,6 +44,7 @@
 import TeamTable from './TeamTable.vue'
 import TeamInfoJson from '../../store/data/TeamsInfo.json'
 import { mapActions, mapGetters, mapState } from 'vuex'
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 
 export default {
     name: 'MainArea',
@@ -42,15 +52,39 @@ export default {
     // Need to the originalTeams object in local scope so WebPack can get the static image files at compile time
     data() {
         return {
-            originalTeams: TeamInfoJson.originalTeams
+            originalTeams: TeamInfoJson.originalTeams,
+            swiperOptions: {
+                slidesPerView: 5,
+                spaceBetween: 30,
+                centeredSlides: true,
+                loop: true,
+                mousewheel: true,
+                grabCursor: true,
+                keyboard: {
+                    enabled: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true
+                }
+            }
         }
     },
 
     components: {
-        TeamTable
+        TeamTable,
+        Swiper,
+        SwiperSlide
     },
 
     computed: {
+        swiper () {
+            return this.$refs.mySwiper.$swiper;
+            },
         currentTeam: function () {
             if (this.originalTeams) {
                 return [this.originalTeams[this.currTeamIndex]];
@@ -70,9 +104,8 @@ export default {
         ...mapActions([
             'setCurrTeamIndex'
         ]),
-        handleImgClick: function (event)
-        {
-            var index = event.target.attributes.index.value;
+        handleSwiperIndexChanged: function() {
+            var index = this.swiper.realIndex
             this.setCurrTeamIndex(index);
         }
     }
