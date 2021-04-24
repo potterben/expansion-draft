@@ -225,8 +225,10 @@ export default new Vuex.Store({
         },
         setApplyToAllOriginalTeams(context, value) {
             if (value) {
-                let currTeamSliderValue = context.state.currTeam.beta;
-                context.commit('setAllOriginalTeamsSliderValue', currTeamSliderValue);
+                if (context.state.originalTeams) {
+                    let currTeamSliderValue = context.state.originalTeams[context.state.currTeamIndex].beta;
+                    context.commit('setAllOriginalTeamsSliderValue', currTeamSliderValue);
+                }
             }
             context.commit("setApplyToAllOriginalTeams", value);
         },
