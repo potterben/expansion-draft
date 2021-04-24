@@ -1,24 +1,28 @@
 <template>
     <b-container class='main-area' >
-        <b-container class="text-center">
-            <h1>NHL Expansion Draft Optimizier</h1>
+        <b-container class="text-center py-5">
+            <h1>NHL Expansion Draft Optimizer</h1>
         </b-container>
         <b-card no-body fill>
             <b-tabs class="myTab" content-class="mt-3" align="center" pills card fill> 
                 <b-tab title="Original Teams" active>
-                    <b-container v-if="this.currentTeam" class="centered-text">
-                        <span class="inline">
+                    <b-container class="py-4">
+                        <b-row class="col-12 py-1">
                             <h5>Team Selector:</h5>
+                        </b-row>
+                        <b-row class="col-12 py-1">
                             <p> Click to choose a team</p>
-                        </span>
-                        <b-row class="center" align-h="center">
+                        </b-row>
+                        <b-row class="col-12 py-4">
                             <img v-for="(team, index) in this.originalTeams" :key="team.abbreviation" :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" :index="index" @click="handleImgClick($event)"/>
                         </b-row>
+                    </b-container>
+                    <b-container v-if="this.currentTeam" class="text-center py-4">
                         <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
                     </b-container>
                 </b-tab>
                 <b-tab title="Results">
-                    <b-container v-if="this.expansionTeam" class="centered-text">
+                    <b-container v-if="this.expansionTeam" class="text-center py-4">
                         <TeamTable v-if="expansionTeam" :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
                     </b-container>
                 </b-tab>

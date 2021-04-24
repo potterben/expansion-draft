@@ -1,6 +1,6 @@
 <template>
-    <b-container v-if="playerData">
-        <h3>
+    <b-container v-if="playerData" class="py-4">
+        <h3 class="py-2">
             {{positionTitle}}
         </h3>
         <b-table striped outlined responsive sticky-header :fields="getCurrentTableColumns" :items="getCurrentTeamPlayerTableData">

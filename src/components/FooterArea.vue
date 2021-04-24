@@ -1,36 +1,36 @@
 <template>
-    <footer class="fixed-bottom">
-        <b-container>
-            <b-button block variant="primary" id ='optimize'>Optimize</b-button>
+    <footer class="footer py-4 fixed-bottom">
+        <b-container class="py-1">
+            <b-button block variant="info" id='optimize'>Optimize</b-button>
         </b-container>
-        <b-container>
+        <b-container class="text-center py-1">
             <b-link v-b-modal.advanced-options id="advanced-options">Advanced Options</b-link>
         </b-container>
-        <b-modal scrollable size="xl" id="advanced-options" title="Optimizer Options">
-            <b-container>
+        <b-modal scrollable size="xl" id="advanced-options" title="Advanced Options">
+            <b-container class="text-center py-4">
                 <b-row>
-                    <b-col>
+                    <b-col class="col-6 py-2">
                     Financial Flexibility
                     </b-col>
-                    <b-col>
+                    <b-col class="col-6 py-2">
                     On-Ice Performance
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col>
+                    <b-col class="col-6 py-2">
                         <b-form-select v-model="financialMetric" :options="this.financialMetrics"></b-form-select>
                     </b-col>
-                    <b-col>
+                    <b-col class="col-6 py-2">
                         <b-form-select v-model="performanceMetric" :options="this.performanceMetrics"></b-form-select>
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col>
+                    <b-col class="col-6 py-2">
                         <b-form-checkbox id ="ufa" v-model="considerUFAState">
                             Don't Consider UFAs
                         </b-form-checkbox>
                     </b-col>
-                    <b-col/>
+                    <b-col class="col-6"/>
                 </b-row>
                 <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
                 <TeamSlider :teamName="getCurrTeamName" v-if="getCurrTeamName"/>

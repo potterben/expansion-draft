@@ -1,19 +1,15 @@
 <template>
     <div class = 'team-table' :id ="teamInit">
-        <b-container class="text-center">
+        <b-container class="text-center py-4">
             <h2 v-bind:class="teamInit">
                 {{ teamName }}
             </h2>
         </b-container>
-        <b-container>
             <TeamRequirementTable v-if="!isExpansionTeam"/>
-        </b-container>
-        <b-container >
             <PlayerTable positionId="f" positionTitle="Forwards" />
             <PlayerTable positionId="d" positionTitle="Defensemen" />
             <PlayerTable positionId="g" positionTitle="Goalies" />
-        </b-container>
-    </div>
+   </div>
 </template>
 
 <script>

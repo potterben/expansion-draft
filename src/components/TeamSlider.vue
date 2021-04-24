@@ -1,18 +1,18 @@
 <template>
     <div class="m-4 p-2" id="parameter-center">
-        <b-row class="justify-content-center">
+        <b-row class="justify-content-center pt-5">
             <b-col>
                 <h4>
                     {{ teamName }}
                 </h4>
             </b-col>
         </b-row>
-        <b-row class="justify-content-center">
+        <b-row class="justify-content-center py-3">
             <b-col cols=6>
-                <vue-slider v-model="sliderValue" :lazy="true" :disabled="disableSlider ? true: false" />
+                <vue-slider class="" v-model="sliderValue" :lazy="true" :disabled="disableSlider ? true: false" />
             </b-col>
             </b-row>
-        <b-row class="justify-content-center">
+        <b-row class="justify-content-center py-3">
             <b-col>
                 <label class="p-2" for="financial_flexiblity">
                     Financial Flexibility:
@@ -20,7 +20,9 @@
                 <input type="number" min="0" max="100" name="financial_flexiblity" id="financial_flexiblity" v-model="sliderValue">%
             </b-col>
             <b-col>
-                <label class="p-2" for="on_ice_performance">On-Ice Performance:</label>
+                <label class="p-2" for="on_ice_performance">
+                    On-Ice Performance:
+                </label>
                 <input type="number" min="0" max="100" name="on_ice_performance" id="on_ice_performance" v-model="invertedPercentageValue">%
             </b-col>
         </b-row>

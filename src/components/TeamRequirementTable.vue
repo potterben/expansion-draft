@@ -1,5 +1,5 @@
 <template>
-    <b-container>
+    <b-container class="py-4">
         <b-row>
             <b-col>
                 <b-table-simple class="center-text panel panel-default panel-table">

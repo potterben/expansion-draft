@@ -15,7 +15,7 @@ nav {
 body {
 	font-family: 'Open Sans', sans-serif;
 	background-color: $deep-sea-blue;
-	margin: 0;
+	margin-bottom: $spacer*10;
 }
 
 .main-area {
@@ -33,10 +33,10 @@ body {
 .flex {
 	display: flex;
 }
-footer {
-	padding-top: 20px;
-	padding-bottom: 20px;
-	background-color: $deep-sea-blue;
+
+.footer {
+	padding: $spacer*2 0 $spacer*2 0;
+	background-color: $ice-blue;
 }
 
 // Foreground
@@ -46,25 +46,17 @@ h1, h2
 	color: white;
 }
 
-
 // Details
 // Image related
-.center 
-{
-	img
-	{
-		min-width: 30px;
-		width: 3%;
-		height:auto;
-	}
-	background-color: transparent;
-}
 
 img
 {
 	max-width: 80%;
 	height: auto;
 	background-color: transparent;
+	min-width: 30px;
+	width: 3%;
+	height:auto;
 }
 
 // slider
