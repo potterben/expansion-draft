@@ -48,6 +48,23 @@ h1, h2
 }
 
 // Details
+
+:root {
+	--swiper-theme-color: $boundless-blue;
+}
+
+.swiper-pagination-bullet {
+	background: $boundless-blue;
+}
+
+.swiper-slide {
+	opacity: 25%;
+}
+
+.swiper-slide-active {
+	opacity: 100%;
+}
+
 // Image related
 
 img {
