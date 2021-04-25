@@ -1,11 +1,11 @@
 <template>
     <footer class="footer py-4 fixed-bottom">
-        <b-container class="py-1">
-            <b-button block variant="info" id='optimize'>Optimize</b-button>
-        </b-container>
-        <b-container class="text-center py-1">
+        <b-row class="col-12 py-1" align-h="center">
+            <b-button variant="info" id='optimize'>Optimize</b-button>
+        </b-row>
+        <b-row class="col-12 text-center py-1" align-h="center">
             <b-link v-b-modal.advanced-options id="advanced-options">Advanced Options</b-link>
-        </b-container>
+        </b-row>
         <b-modal scrollable size="xl" id="advanced-options" title="Advanced Options">
             <b-container class="text-center py-4">
                 <b-row>

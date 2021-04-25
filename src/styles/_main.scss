@@ -59,6 +59,9 @@ h1, h2
 
 .swiper-slide {
     opacity: 10%;
+    &:hover {
+        opacity: 65%;
+    }
 }
 
 .swiper-slide-active {
@@ -74,11 +77,23 @@ img {
     max-height: 100%;
     left: 50%;
     top: 50%;
+
+
 }
 
 // slider
 
 // Tabs
+.nav-link {
+    color: $ice-blue !important;
+    border: 1px solid $ice-blue;
+    border-radius: 0px !important;
+}
+.nav-link.active {
+    border: 1px solid white;
+    color: $deep-sea-blue !important;
+    background-color: white !important;
+}
 
 // Table related styling
 .requirements-border {
@@ -103,14 +118,14 @@ img {
 }
 
 .player-table-border {
-    border: 1px solid white;
+    border: 1px solid $deep-sea-blue;
     border-radius: 5px;
     border-spacing: 0px;
     border-collapse: separate;
 }
 
 .player-table-header {
-    background-color: $ice-blue !important;
+    background-color: $boundless-blue !important;
     color: $deep-sea-blue !important;
 }
 

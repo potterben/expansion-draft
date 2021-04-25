@@ -3,8 +3,8 @@
         <b-container class="text-center py-5">
             <h1>NHL Expansion Draft Optimizer</h1>
         </b-container>
-        <b-card no-body fill>
-            <b-tabs class="myTab" content-class="mt-3" align="center" pills card fill> 
+        <b-card no-body>
+            <b-tabs class="myTab" content-class="mt-3" align="center" pills card> 
                 <b-tab title="Original Teams" active>
                     <b-container class="py-4">
                         <b-row class="col-12 py-1">
