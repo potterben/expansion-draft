@@ -77,8 +77,6 @@ img {
     max-height: 100%;
     left: 50%;
     top: 50%;
-
-
 }
 
 // slider
@@ -96,40 +94,20 @@ img {
 }
 
 // Table related styling
-.requirements-border {
-    border: 1px solid $ice-blue;
-    border-radius: 5px;
-    border-spacing: 0px;
-    border-collapse: separate;
-}
-.requirements-header-row {
-    background-color: $boundless-blue;
-    color: $deep-sea-blue
-}
 
-.position-requirements-header-row {
-    background-color: $ice-blue;
-    color: $deep-sea-blue
-}
-
-.position-requirements-row {
-    background-color: $deep-sea-blue;
-    color: $ice-blue
-}
-
-.player-table-border {
+.table-border {
     border: 1px solid $deep-sea-blue;
     border-radius: 5px;
     border-spacing: 0px;
     border-collapse: separate;
 }
 
-.player-table-header {
+.table-header {
     background-color: $boundless-blue !important;
     color: $deep-sea-blue !important;
 }
 
-.player-table-row {
+.table-row {
     background-color: $white;
 } 
 

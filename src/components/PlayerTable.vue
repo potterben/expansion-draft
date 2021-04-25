@@ -1,12 +1,13 @@
 <template>
     <b-container v-if="playerData" class="py-4">
-        <h3 class="py-2">
-            {{positionTitle}}
-        </h3>
+        <b-row class="col-12 justify-content-center"> 
+            <h3 class="py-2">
+                {{positionTitle}}
+            </h3>
+        </b-row>
         <b-table
         responsive
         sticky-header
-        class="player-table-border"
         :fields="getCurrentTableColumns"
         :items="getCurrentTeamPlayerTableData" 
         >
@@ -63,61 +64,61 @@ export default {
             return [
                 {
                     "key": "protect",
-                    "tdClass": "player-table-row",
-                    "thClass": "player-table-header"
+                    "tdClass": "table-row",
+                    "thClass": "table-header"
                 },
                 {
                     "key": "expose",
-                    "tdClass": "player-table-row",
-                    "thClass": "player-table-header"
+                    "tdClass": "table-row",
+                    "thClass": "table-header"
                 },
                 {
                     "key": "name",
                     "sortable": true,
-                    "tdClass": "player-table-row",
-                    "thClass": "player-table-header"
+                    "tdClass": "table-row",
+                    "thClass": "table-header"
                 },
                 {
                     "key": "age",
                     "sortable": true,
-                    "tdClass": "player-table-row",
-                    "thClass": "player-table-header"
+                    "tdClass": "table-row",
+                    "thClass": "table-header"
                 },
                 {
                     "key": "position",
                     "sortable": true,
-                    "tdClass": "player-table-row",
-                    "thClass": "player-table-header"
+                    "tdClass": "table-row",
+                    "thClass": "table-header"
                 },
                 {
                     "key": this.currFinancialMetric,
                     "label": this.getCurrFinancialMetricText,
                     "sortable": true,
                     "formatter" : "formatFinancialMetric",
-                    "tdClass": "player-table-row",
-                    "thClass": "player-table-header"
+                    "tdClass": "table-row",
+                    "thClass": "table-header"
                 },
                 {
                     "key": this.currPerformanceMetric,
                     "label":this.getCurrPerformanceMetricText,
                     "sortable": true,
                     "formatter" : "formatPerformanceMetric",
-                    "tdClass": "player-table-row",
-                    "thClass": "player-table-header"
+                    "tdClass": "table-row",
+                    "thClass": "table-header"
                 },
                 {
                     "key": "expiry",
                     "sortable": true,
-                    "tdClass": "player-table-row",
-                    "thClass": "player-table-header"
+                    "tdClass": "table-row",
+                    "thClass": "table-header"
                 },
                 {
                     "key": "meets_req",
                     "label": "Meets Exposure Requirements",
                     "sortable": true,
                     "formatter" : "formatMeetsRequirements",
-                    "tdClass": "player-table-row",
-                    "thClass": "player-table-header"
+                    "tdClass": "table-row",
+                    "thClass": "table-header"
                 }
             ];
         }      
