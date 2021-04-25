@@ -41,7 +41,7 @@ body {
 }
 
 // Foreground
-h1, h2
+h1, h2, h3
 {
     text-align: center;
     color: white;
@@ -50,11 +50,8 @@ h1, h2
 // Details
 
 :root {
-    --swiper-theme-color: $boundless-blue;
-}
-
-.swiper-pagination-bullet {
-    background: $boundless-blue;
+    --swiper-theme-color: $ice-blue !important
+    ;
 }
 
 .swiper-slide {
