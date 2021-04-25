@@ -10,71 +10,71 @@
 
 // Background
 nav {
-	background-color: $ice-blue;
+    background-color: $ice-blue;
 }
 
 body {
-	font-family: 'Open Sans', sans-serif;
-	background-color: $deep-sea-blue;
-	margin-bottom: $spacer*10;
+    font-family: 'Open Sans', sans-serif;
+    background-color: $deep-sea-blue;
+    margin-bottom: $spacer*10;
 }
 
 .main-area {
-	color: $ice-blue;
+    color: $ice-blue;
 }
 
 .card {
-	background-color: $deep-sea-blue;
+    background-color: $deep-sea-blue;
 }
 
 .card-header {
-	border:none;
+    border:none;
 }
 
 .flex {
-	display: flex;
+    display: flex;
 }
 
 .footer {
-	padding: $spacer*2 0 $spacer*2 0;
-	background-color: $ice-blue;
+    padding: $spacer*2 0 $spacer*2 0;
+    background-color: $ice-blue;
 }
 
 // Foreground
 h1, h2
 {
-	text-align: center;
-	color: white;
+    text-align: center;
+    color: white;
 }
 
 // Details
 
 :root {
-	--swiper-theme-color: $boundless-blue;
+    --swiper-theme-color: $boundless-blue;
 }
 
 .swiper-pagination-bullet {
-	background: $boundless-blue;
+    background: $boundless-blue;
 }
 
 .swiper-slide {
-	opacity: 10%;
+    opacity: 10%;
 }
 
 .swiper-slide-active {
-	opacity: 100%;
+    opacity: 100%;
 }
 
 // Image related
 
 img {
-	width: auto;
-	height: auto;
-	max-width: 100%;
-	max-height: 100%;
-	left: 50%;
-	top: 50%;
-  }
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    left: 50%;
+    top: 50%;
+}
 
 // slider
 
@@ -82,40 +82,40 @@ img {
 
 // Table related styling
 .requirements-border {
-	border: 1px solid $ice-blue;
-	border-radius: 5px;
-	border-spacing: 0px;
-	border-collapse: separate;
+    border: 1px solid $ice-blue;
+    border-radius: 5px;
+    border-spacing: 0px;
+    border-collapse: separate;
 }
 .requirements-header-row {
-	background-color: $boundless-blue;
-	color: $deep-sea-blue
+    background-color: $boundless-blue;
+    color: $deep-sea-blue
 }
 
 .position-requirements-header-row {
-	background-color: $ice-blue;
-	color: $deep-sea-blue
+    background-color: $ice-blue;
+    color: $deep-sea-blue
 }
 
 .position-requirements-row {
-	background-color: $deep-sea-blue;
-	color: $ice-blue
+    background-color: $deep-sea-blue;
+    color: $ice-blue
 }
 
 .player-table-border {
-	border: 1px solid white;
-	border-radius: 5px;
-	border-spacing: 0px;
-	border-collapse: separate;
+    border: 1px solid white;
+    border-radius: 5px;
+    border-spacing: 0px;
+    border-collapse: separate;
 }
 
 .player-table-header {
-	background-color: $ice-blue !important;
-	color: $deep-sea-blue !important;
+    background-color: $ice-blue !important;
+    color: $deep-sea-blue !important;
 }
 
 .player-table-row {
-	background-color: $white;
+    background-color: $white;
 } 
 
 
