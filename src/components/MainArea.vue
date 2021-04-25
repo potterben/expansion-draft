@@ -4,7 +4,7 @@
             <h1>NHL Expansion Draft Optimizer</h1>
         </b-container>
         <b-card no-body>
-            <b-tabs class="myTab" content-class="mt-3" align="center" pills card> 
+            <b-tabs class="nav-justified" content-class="mt-3" align="center" pills card> 
                 <b-tab title="Original Teams" active>
                     <b-container class="py-4">
                         <b-row class="col-12 py-1">
@@ -14,7 +14,7 @@
                             <p> Click to choose a team</p>
                         </b-row>
                         <b-row class="col-12 py-4">
-                            <swiper ref="mySwiper" :options="swiperOptions" @slideChange="handleSwiperIndexChanged">
+                            <swiper ref="teamSelectionSwiper" :options="swiperOptions" @slideChange="handleSwiperIndexChanged">
                                 <template v-for="(team, index) in this.originalTeams">
                                     <swiper-slide :key="index">
                                         <img :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation"/>
@@ -77,7 +77,7 @@ export default {
 
     computed: {
         swiper () {
-            return this.$refs.mySwiper.$swiper;
+            return this.$refs.teamSelectionSwiper.$swiper;
             },
         currentTeam: function () {
             if (this.originalTeams) {
