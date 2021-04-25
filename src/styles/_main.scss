@@ -79,12 +79,12 @@ img {
 // slider
 
 // Tabs
-.nav-link {
+.nav-link[role=tab] {
     color: $ice-blue !important;
     border: 1px solid $ice-blue;
     border-radius: 0px !important;
 }
-.nav-link.active {
+.nav-link.active[role=tab] {
     border: 1px solid white;
     color: $deep-sea-blue !important;
     background-color: white !important;
