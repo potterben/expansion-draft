@@ -22,7 +22,6 @@
                                 </template>
                                 <div class="swiper-button-prev" slot="button-prev"></div>
                                 <div class="swiper-button-next" slot="button-next"></div>
-                                <div class="swiper-pagination" slot="pagination"></div>
                             </swiper>
                         </b-row>
                     </b-container>
@@ -54,22 +53,13 @@ export default {
         return {
             originalTeams: TeamInfoJson.originalTeams,
             swiperOptions: {
-                slidesPerView: 5,
-                spaceBetween: 30,
+                slidesPerView: 12,
+                spaceBetween: 15,
+                slideToClickedSlide: true,
                 centeredSlides: true,
                 loop: true,
-                mousewheel: true,
-                grabCursor: true,
                 keyboard: {
                     enabled: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev'
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true
                 }
             }
         }
