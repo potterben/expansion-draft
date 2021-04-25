@@ -3,7 +3,13 @@
         <h3 class="py-2">
             {{positionTitle}}
         </h3>
-        <b-table striped outlined responsive sticky-header :fields="getCurrentTableColumns" :items="getCurrentTeamPlayerTableData">
+        <b-table
+        responsive
+        sticky-header
+        class="player-table-border"
+        :fields="getCurrentTableColumns"
+        :items="getCurrentTeamPlayerTableData" 
+        >
             <template #cell(protect)="row">
                 <ProtectedCheckbox :id="row.item._id" :positionId="positionId" />
             </template>
@@ -56,44 +62,62 @@ export default {
         getCurrentTableColumns() {
             return [
                 {
-                    "key": "protect"
+                    "key": "protect",
+                    "tdClass": "player-table-row",
+                    "thClass": "player-table-header"
                 },
                 {
-                    "key": "expose"
+                    "key": "expose",
+                    "tdClass": "player-table-row",
+                    "thClass": "player-table-header"
                 },
                 {
                     "key": "name",
-                    "sortable": true
+                    "sortable": true,
+                    "tdClass": "player-table-row",
+                    "thClass": "player-table-header"
                 },
                 {
                     "key": "age",
-                    "sortable": true
+                    "sortable": true,
+                    "tdClass": "player-table-row",
+                    "thClass": "player-table-header"
                 },
                 {
                     "key": "position",
-                    "sortable": true
+                    "sortable": true,
+                    "tdClass": "player-table-row",
+                    "thClass": "player-table-header"
                 },
                 {
                     "key": this.currFinancialMetric,
                     "label": this.getCurrFinancialMetricText,
                     "sortable": true,
-                    "formatter" : "formatFinancialMetric"
+                    "formatter" : "formatFinancialMetric",
+                    "tdClass": "player-table-row",
+                    "thClass": "player-table-header"
                 },
                 {
                     "key": this.currPerformanceMetric,
                     "label":this.getCurrPerformanceMetricText,
                     "sortable": true,
-                    "formatter" : "formatPerformanceMetric"
+                    "formatter" : "formatPerformanceMetric",
+                    "tdClass": "player-table-row",
+                    "thClass": "player-table-header"
                 },
                 {
                     "key": "expiry",
-                    "sortable": true
+                    "sortable": true,
+                    "tdClass": "player-table-row",
+                    "thClass": "player-table-header"
                 },
                 {
                     "key": "meets_req",
                     "label": "Meets Exposure Requirements",
                     "sortable": true,
-                    "formatter" : "formatMeetsRequirements"
+                    "formatter" : "formatMeetsRequirements",
+                    "tdClass": "player-table-row",
+                    "thClass": "player-table-header"
                 }
             ];
         }      

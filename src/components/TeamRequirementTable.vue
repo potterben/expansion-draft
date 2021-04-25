@@ -2,19 +2,19 @@
     <b-container class="py-4">
         <b-row>
             <b-col>
-                <b-table-simple class="center-text panel panel-default panel-table">
+                <b-table-simple class="requirements-border center-text panel panel-default panel-table">
                     <b-thead>
-                        <b-tr>
+                        <b-tr class="requirements-header-row">
                             <b-td :colspan="protectionRequirements.length">Protection Requirements</b-td>
                         </b-tr>
                     </b-thead>
                     <b-tbody id = "requirements">
-                        <b-tr>
+                        <b-tr class="position-requirements-header-row">
                             <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
                                 {{ requirement.position }}
                             </b-td>
                         </b-tr>
-                        <b-tr>
+                        <b-tr class="position-requirements-row">
                             <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
                                 {{ protectedCount(requirement.ids) }}/{{ requirement.limit }}
                             </b-td>
@@ -23,19 +23,19 @@
                 </b-table-simple>
             </b-col>
             <b-col>
-                <b-table-simple class="panel panel-default panel-table">
+                <b-table-simple class="requirements-border panel panel-default panel-table">
                     <b-thead>
-                        <b-tr>
+                        <b-tr class="requirements-header-row">
                             <b-td :colspan="exposureRequirements.length">Exposure Requirements</b-td>
                         </b-tr>
                     </b-thead>
                     <b-tbody id = "requirements">
-                        <b-tr>
+                        <b-tr class="position-requirements-header-row">
                             <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
                                 {{ requirement.position }}
                             </b-td>
                         </b-tr>
-                        <b-tr>
+                        <b-tr class="position-requirements-row">
                             <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
                                 {{ exposedCount(requirement.ids) }}/{{ requirement.limit }}
                             </b-td>

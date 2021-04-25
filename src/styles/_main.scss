@@ -81,9 +81,42 @@ img {
 // Tabs
 
 // Table related styling
-td {
-	color: $ice-blue;
+.requirements-border {
+	border: 1px solid $ice-blue;
+	border-radius: 5px;
+	border-spacing: 0px;
+	border-collapse: separate;
 }
+.requirements-header-row {
+	background-color: $boundless-blue;
+	color: $deep-sea-blue
+}
+
+.position-requirements-header-row {
+	background-color: $ice-blue;
+	color: $deep-sea-blue
+}
+
+.position-requirements-row {
+	background-color: $deep-sea-blue;
+	color: $ice-blue
+}
+
+.player-table-border {
+	border: 1px solid white;
+	border-radius: 5px;
+	border-spacing: 0px;
+	border-collapse: separate;
+}
+
+.player-table-header {
+	background-color: $ice-blue !important;
+	color: $deep-sea-blue !important;
+}
+
+.player-table-row {
+	background-color: $white;
+} 
 
 
 
