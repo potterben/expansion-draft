@@ -60,6 +60,10 @@ export default {
                 loop: true,
                 keyboard: {
                     enabled: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
                 }
             }
         }
