@@ -1,15 +1,15 @@
 <template>
     <b-container v-if="playerData" class="py-4">
-        <b-row class="col-12 justify-content-center"> 
-            <h3 class="py-2">
+        <b-row class="py-2 col-12 justify-content-center"> 
+            <h3>
                 {{positionTitle}}
             </h3>
         </b-row>
         <b-table
-        responsive
-        sticky-header
         :fields="getCurrentTableColumns"
-        :items="getCurrentTeamPlayerTableData" 
+        :items="getCurrentTeamPlayerTableData"
+        responsive
+        class ="text-nowrap"
         >
             <template #cell(protect)="row">
                 <ProtectedCheckbox :id="row.item._id" :positionId="positionId" />

@@ -1,10 +1,10 @@
 <template>
     <div class = 'team-table' :id ="teamInit">
-        <b-container class="text-center py-4">
+        <b-row class="py-4 col-12 justify-content-center"> 
             <h2 v-bind:class="teamInit">
                 {{ teamName }}
             </h2>
-        </b-container>
+        </b-row>
             <TeamRequirementTable v-if="!isExpansionTeam"/>
             <PlayerTable positionId="f" positionTitle="Forwards" />
             <PlayerTable positionId="d" positionTitle="Defensemen" />

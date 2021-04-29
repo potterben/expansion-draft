@@ -4,3 +4,11 @@ $yellow: #FFC24C;
 $boundless-blue: #68A2B9;
 $shadow-blue: #355464;
 $red-alert: #E9072B;
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1280px,
+        xxl: 1400px
+) !default;
