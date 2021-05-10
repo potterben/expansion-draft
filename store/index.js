@@ -60,9 +60,7 @@ export default new Vuex.Store({
         performanceMetrics: [],
 
         considerUFAs: false,
-        applyToAllOriginalTeams: false,
-        showAllOtherOriginalTeams: false,
-
+        applyToAllOriginalTeams: true,
         playerData: null
       },
       mutations: {
@@ -106,9 +104,6 @@ export default new Vuex.Store({
         },
         setApplyToAllOriginalTeams(state, value) {
             state.applyToAllOriginalTeams = value;
-        },
-        setShowAllOtherOriginalTeams(state, value) {
-            state.showAllOtherOriginalTeams = value;
         },
         setPlayerData(state, playerData) {
             state.playerData = playerData;
@@ -214,11 +209,8 @@ export default new Vuex.Store({
         setExpansionTeamSliderValue(context, value) {
             context.commit("setExpansionTeamSliderValue", value);
         },
-        setCurrTeamSliderValue(context, value) {
-            context.commit("setCurrTeamSliderValue", value);
-            if (context.state.applyToAllOriginalTeams) {
-                context.commit('setAllOriginalTeamsSliderValue', value);
-            }
+        setAllOriginalTeamsSliderValue(context, value) {
+            context.commit('setAllOriginalTeamsSliderValue', value);
         },
         setOriginalTeamSliderValue(context, payload) {
             context.commit("setOriginalTeamSliderValue", payload);
@@ -231,9 +223,6 @@ export default new Vuex.Store({
                 }
             }
             context.commit("setApplyToAllOriginalTeams", value);
-        },
-        setShowAllOtherOriginalTeams(context, value) {
-            context.commit("setShowAllOtherOriginalTeams", value);
         },
         addToCurrTeamProtectedMap(context, payload) {
             context.commit("addToCurrTeamProtectedMap", payload);

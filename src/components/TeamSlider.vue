@@ -88,7 +88,7 @@ export default {
                 }
                 else {
                     if (this.teamIndex == -1) {
-                        this.setCurrTeamSliderValue(value);
+                        this.setAllOriginalTeamsSliderValue(value);
                     }
                     else {
                         let payload = {
@@ -111,7 +111,7 @@ export default {
     methods: {
         ...mapActions([
             'setExpansionTeamSliderValue',
-            'setCurrTeamSliderValue',
+            'setAllOriginalTeamsSliderValue',
             'setOriginalTeamSliderValue'
         ])
     }

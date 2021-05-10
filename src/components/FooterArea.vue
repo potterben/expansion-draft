@@ -33,29 +33,24 @@
                     <b-col class="col-6"/>
                 </b-row>
                 <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
-                <TeamSlider :teamName="getCurrTeamName" v-if="getCurrTeamName"/>
-                        <b-collapse id="all-other-teams" v-model="showAllOtherTeams">
-                            <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
-                        </b-collapse>
-                        <b-link class="toggle" v-b-toggle="'all-other-teams'">
-                            <template v-if="showAllOtherTeams">
-                                <b-icon icon="chevron-up" aria-hidden="true"></b-icon>
-                                Hide all other teams
-                            </template>
-                            <template v-else>
-                                <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
-                                Show all other teams
-                            </template>
-                        </b-link>
+                <TeamSlider :teamName="'All Original Teams'" v-if="applyToAll"/>
+                <b-collapse id="all-other-teams" v-model="doNotApplyToAll">
+                    <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
+                </b-collapse>
+                <b-link class="toggle" v-b-toggle="'all-other-teams'">
+                    <template v-if="doNotApplyToAll">
+                        <b-icon icon="chevron-up" aria-hidden="true"></b-icon>
+                        Hide all other teams
+                    </template>
+                    <template v-else>
+                        <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
+                        Show all other teams
+                    </template>
+                </b-link>
             </b-container>
             <template #modal-footer>
                 <b-row>
-                    <b-col cols=6>
-                        <b-form-checkbox id="applyToAll" v-model="applyToAll">
-                            Sync all original teams sliders
-                        </b-form-checkbox>
-                    </b-col>
-                    <b-col cols=6>
+                    <b-col cols=12>
                         <b-button variant="info" block>
                             Optimize Results
                         </b-button>
@@ -110,16 +105,16 @@ export default {
                 this.setApplyToAllOriginalTeams(value);
             }
         },
-        showAllOtherTeams: {
+        doNotApplyToAll: {
             get() {
-                return this.showAllOtherOriginalTeams;
+                return !this.applyToAllOriginalTeams;
             },
             set(value) {
-                this.setShowAllOtherOriginalTeams(value);
+                this.setApplyToAllOriginalTeams(!value);
             }
         },
         allOtherTeams: function () {
-            return this.originalTeams.filter(team => team.index !== this.currTeamIndex);
+            return this.originalTeams;
         },
         ...mapState([
             'currFinancialMetric',
@@ -130,8 +125,7 @@ export default {
             'originalTeams',
             'currTeamIndex',
             'considerUFAs',
-            'applyToAllOriginalTeams',
-            'showAllOtherOriginalTeams'
+            'applyToAllOriginalTeams'
         ]),
         ...mapGetters([
             'getCurrTeamName'
@@ -144,8 +138,7 @@ export default {
             'setCurrFinancialMetric',
             'setCurrPerformanceMetric',
             'setConsiderUFAs',
-            'setApplyToAllOriginalTeams',
-            'setShowAllOtherOriginalTeams'
+            'setApplyToAllOriginalTeams'
         ])
     }
 }
