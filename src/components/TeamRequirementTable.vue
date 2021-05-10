@@ -1,47 +1,62 @@
 <template>
-    <b-container class="py-4">
+    <b-container class="py-4 text-center">
         <b-row>
-            <b-col>
-                <b-table-simple class="center-text panel panel-default panel-table">
-                    <b-thead>
-                        <b-tr class="table-header">
-                            <b-td :colspan="protectionRequirements.length">Protection Requirements</b-td>
-                        </b-tr>
-                    </b-thead>
-                    <b-tbody id = "requirements">
-                        <b-tr class="table-row">
-                            <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
-                                {{ requirement.position }}
-                            </b-td>
-                        </b-tr>
-                        <b-tr class="table-row">
-                            <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
-                                {{ protectedCount(requirement.ids) }}/{{ requirement.limit }}
-                            </b-td>
-                        </b-tr>
-                    </b-tbody>
-                </b-table-simple>
+            <b-col sm="6">
+                <b-row class ="py-2">
+                    <b-col cols="12">
+                        <h4>Protection Requirements</h4>
+                    </b-col>
+                </b-row>
+                <b-row>
+                    <b-col cols="12">
+                        <b-table-simple outlined class=" mx-4 center-text panel panel-default panel-table">
+                            <b-thead>
+                                <b-tr class="table-header">
+                                    <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
+                                        {{ requirement.position }}
+                                    </b-td>
+                                </b-tr>
+                            </b-thead>
+                            <b-tbody id = "requirements">
+                                <b-tr class="table-row">
+
+                                </b-tr>
+                                <b-tr class="table-row">
+                                    <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
+                                        {{ protectedCount(requirement.ids) }}/{{ requirement.limit }}
+                                    </b-td>
+                                </b-tr>
+                            </b-tbody>
+                        </b-table-simple>
+                    </b-col>
+                </b-row>
             </b-col>
-            <b-col>
-                <b-table-simple class=" panel panel-default panel-table">
-                    <b-thead>
-                        <b-tr class="table-header">
-                            <b-td :colspan="exposureRequirements.length">Exposure Requirements</b-td>
-                        </b-tr>
-                    </b-thead>
-                    <b-tbody id = "requirements">
-                        <b-tr class="table-row">
-                            <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
-                                {{ requirement.position }}
-                            </b-td>
-                        </b-tr>
-                        <b-tr class="table-row">
-                            <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
-                                {{ exposedCount(requirement.ids) }}/{{ requirement.limit }}
-                            </b-td>
-                        </b-tr>
-                    </b-tbody>
-                </b-table-simple>
+            <b-col sm="6">
+                <b-row class ="py-2">
+                    <b-col cols="12">
+                        <h4>Exposure Requirements</h4>
+                    </b-col>
+                </b-row>
+                <b-row >
+                    <b-col cols="12">
+                        <b-table-simple outlined class="mx-4 panel panel-default panel-table">
+                            <b-thead>
+                                <b-tr class="table-header">
+                                    <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
+                                        {{ requirement.position }}
+                                    </b-td>
+                                </b-tr>
+                            </b-thead>
+                            <b-tbody>
+                                <b-tr>
+                                    <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
+                                        {{ exposedCount(requirement.ids) }}/{{ requirement.limit }}
+                                    </b-td>
+                                </b-tr>
+                            </b-tbody>
+                        </b-table-simple>
+                    </b-col>
+                </b-row>
             </b-col>
         </b-row>
     </b-container>

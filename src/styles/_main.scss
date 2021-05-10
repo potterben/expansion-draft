@@ -9,27 +9,29 @@
 
 @import '../../node_modules/swiper/css/swiper.css';
 
-// Background
+/* Background */
 nav {
-    background-color: $ice-blue;
+    background-color: $deep-sea-blue;
 }
 
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: $deep-sea-blue;
+    background-color: $white;
     margin-bottom: $spacer*10;
 }
 
 .main-area {
-    color: $ice-blue;
+    color: $deep-sea-blue;
 }
 
 .card {
-    background-color: $deep-sea-blue;
+    background-color: $white;
+    border: none;
 }
 
 .card-header {
     border:none;
+    background-color: $white;
 }
 
 .flex {
@@ -38,21 +40,24 @@ body {
 
 .footer {
     padding: $spacer*2 0 $spacer*2 0;
-    background-color: $ice-blue;
+    background-color: $deep-sea-blue;
 }
 
-// Foreground
+/* Foreground */
 h1, h2, h3
 {
     text-align: center;
-    color: white;
+    color: $deep-sea-blue;
 }
 
-// Details
-
+/* Details */
+// Navbar 
+a.nav-link {
+    color: $white;
+}
+// Team Selector
 :root {
-    --swiper-theme-color: $ice-blue !important
-    ;
+    --swiper-theme-color: $deep-sea-blue !important;
 }
 
 .swiper-slide {
@@ -67,7 +72,6 @@ h1, h2, h3
 }
 
 // Image related
-
 img {
     width: auto;
     height: auto;
@@ -77,43 +81,83 @@ img {
     top: 50%;
 }
 
-// slider
+// Slider
+.vue-slider-dot-handle {
+    border: 2px solid $ice-blue !important;
+}
+
+.vue-slider:hover 
+.vue-slider-dot-handle  {
+        border: 2px solid $boundless-blue !important;
+}
+.vue-slider-dot-handle-disabled {
+    cursor: not-allowed;
+    border-color: #ddd !important;
+}
+
+.vue-slider-process {
+    background-color: $ice-blue !important;
+}
+
+.vue-slider:hover .vue-slider-process {
+    background-color: $boundless-blue !important;
+}
+
+.vue-slider-disabled .vue-slider-process{
+    background-color: #a7a7a7 !important;
+}
+
 
 // Tabs
 .nav-link[role=tab] {
-    color: $ice-blue !important;
-    border: 1px solid $ice-blue;
+    color: $deep-sea-blue !important;
+    border: 1px solid $deep-sea-blue;
     border-radius: 0px !important;
 }
 .nav-link.active[role=tab] {
-    border: 1px solid white;
-    color: $deep-sea-blue !important;
-    background-color: white !important;
+    border: 1px solid $deep-sea-blue;
+    color: $white !important;
+    background-color: $deep-sea-blue !important;
 }
 
-// Table related styling
-
+// Tables
 .table-header {
-    background-color: $boundless-blue !important;
+    background-color: $ice-blue !important;
     color: $deep-sea-blue !important;
 }
 
-.table-row {
-    background-color: $white;
-}
-
+// Note: this solves the issue of a white line at the top of the table 
 th,
 td {
     border-top: none;
     border-bottom: 1px solid #dee2e6;
 }
 
-.table td {
-    padding: 2px;
-    border-top: none;
+// Footer
+.btn-info {
+    color: $deep-sea-blue;
+    background-color: $ice-blue;
+    border-color: $ice-blue;
 }
 
-//modal
+.btn-info:hover {
+    color: #fff;
+    background-color: $boundless-blue;
+    border-color: $boundless-blue;
+}
+
+a#advanced-options{
+    color: $ice-blue
+}
+
+// Advanced Settings modal
 .percentage {
     width: 4rem;
+}
+
+a.toggle {
+    color: $boundless-blue;
+    a:hover {
+        color: $boundless-blue;
+    }
 }

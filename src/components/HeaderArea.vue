@@ -1,5 +1,5 @@
 <template>
-    <b-navbar toggleable="lg" class='navbar-default navbar-fixed-top'>
+    <b-navbar toggleable="lg" class='navbar-dark navbar-fixed-top'>
         <b-navbar-brand href="" left>
             NHL Expansion Draft Optimizer
         </b-navbar-brand>

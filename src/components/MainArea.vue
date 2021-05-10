@@ -7,11 +7,11 @@
             <b-tabs content-class="mt-3" align="center" pills card> 
                 <b-tab title="Original Teams" active>
                     <b-container class="py-4">
-                        <b-row class="col-12 py-1">
-                            <h5>Team Selector:</h5>
+                        <b-row class="col-12 py-1 justify-content-center">
+                            <h2>Team Selector</h2>
                         </b-row>
-                        <b-row class="col-12 py-1">
-                            <p> Click to choose a team</p>
+                        <b-row class="col-12 py-1 justify-content-center">
+                            <h4>Click to choose a team</h4>
                         </b-row>
                         <b-row class="col-12 py-4">
                             <swiper ref="teamSelectionSwiper" :options="swiperOptions" @slideChange="handleSwiperIndexChanged">
@@ -29,7 +29,7 @@
                         <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
                     </b-container>
                 </b-tab>
-                <b-tab title="Results">
+                <b-tab title="Optimizer Results">
                     <b-container v-if="this.expansionTeam" class="text-center py-4">
                         <TeamTable v-if="expansionTeam" :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
                     </b-container>
@@ -58,9 +58,6 @@ export default {
                 slideToClickedSlide: true,
                 centeredSlides: true,
                 loop: true,
-                keyboard: {
-                    enabled: true,
-                },
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev'

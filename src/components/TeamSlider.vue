@@ -9,7 +9,7 @@
         </b-row>
         <b-row class="justify-content-center py-3">
             <b-col cols=6>
-                <vue-slider class="" v-model="sliderValue" :lazy="true" :disabled="disableSlider ? true: false" />
+                <vue-slider class="" v-model="sliderValue" :lazy="true" :tooltip="'none'" :disabled="disableSlider ? true: false" />
             </b-col>
             </b-row>
         <b-row class="justify-content-center py-3">

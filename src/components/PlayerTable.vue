@@ -8,6 +8,7 @@
         <b-table
         :fields="getCurrentTableColumns"
         :items="getCurrentTeamPlayerTableData"
+        outlined
         responsive
         class ="text-nowrap"
         >
