@@ -12,3 +12,9 @@ $container-max-widths: (
         xl: 1280px,
         xxl: 1400px
 ) !default;
+
+$checkbox-grey: #696969;
+$input-focus-border-color: lighten($checkbox-grey, 25%) !default;
+$input-focus-box-shadow: 0 0 0 .2rem rgba($checkbox-grey, .25) !default;
+$custom-control-indicator-checked-bg: $checkbox-grey!default;
+$custom-control-indicator-active-bg: lighten($checkbox-grey, 35%) !default;
