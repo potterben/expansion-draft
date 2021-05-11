@@ -1,6 +1,7 @@
 <template>
     <div>
         <HeaderArea />
+        <IntroModal/>
         <MainArea />
         <FooterArea />
     </div>
@@ -8,6 +9,7 @@
 
 <script>
 import HeaderArea from './components/HeaderArea.vue'
+import IntroModal from './components/IntroModal.vue'
 import MainArea from './components/MainArea.vue'
 import FooterArea from './components/FooterArea.vue'
 import { mapActions } from 'vuex'
@@ -18,6 +20,7 @@ export default {
 
     components: {
         HeaderArea,
+        IntroModal,
         MainArea,
         FooterArea
     },
