@@ -1,7 +1,7 @@
 <template>
     <footer class="footer py-4 fixed-bottom">
         <b-row class="col-12 py-1" align-h="center">
-            <b-button variant="info" id='optimize'>Optimize Results</b-button>
+            <b-button variant="info" id='optimize' @click="showOptimizeDialog">Optimize Results</b-button>
         </b-row>
         <b-row class="col-12 text-center py-1" align-h="center">
             <b-link v-b-modal.advanced-options id="advanced-options">Advanced Options</b-link>
@@ -51,7 +51,7 @@
             <template #modal-footer>
                 <b-row>
                     <b-col cols=12>
-                        <b-button variant="info" block>
+                        <b-button variant="info" block @click="showOptimizeDialog">
                             Optimize Results
                         </b-button>
                     </b-col>
@@ -134,6 +134,18 @@ export default {
     },
 
     methods: {
+        showOptimizeDialog: function () {
+            // Validate your inputs
+            console.log("Validating your inputs!");
+
+            // Error handle
+            // if (noErrors) {
+            // post to backend and create modal to get the results back
+            // }
+            // else {
+            //     popup to show what errors we need to handle
+            // }
+        },
         ...mapActions([
             'setCurrFinancialMetric',
             'setCurrPerformanceMetric',
