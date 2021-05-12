@@ -33,7 +33,7 @@
                     <b-col class="col-6"/>
                 </b-row>
                 <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
-                <TeamSlider :teamName="'All Original Teams'" v-if="applyToAll"/>
+                <TeamSlider :teamName="'All Original Teams'" v-show="applyToAll"/>
                 <b-collapse id="all-other-teams" v-model="doNotApplyToAll">
                     <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
                 </b-collapse>

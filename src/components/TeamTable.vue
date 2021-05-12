@@ -5,7 +5,7 @@
                 {{ teamName }}
             </h2>
         </b-row>
-            <TeamRequirementTable v-if="!isExpansionTeam"/>
+            <TeamRequirementTable v-show="!isExpansionTeam"/>
             <PlayerTable positionId="f" positionTitle="Forwards" />
             <PlayerTable positionId="d" positionTitle="Defensemen" />
             <PlayerTable positionId="g" positionTitle="Goalies" />

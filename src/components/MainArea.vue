@@ -25,13 +25,13 @@
                             </swiper>
                         </b-row>
                     </b-container>
-                    <b-container v-if="this.currentTeam" class="text-center py-4">
+                    <b-container v-show="this.currentTeam" class="text-center py-4">
                         <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
                     </b-container>
                 </b-tab>
                 <b-tab title="Optimizer Results">
-                    <b-container v-if="this.expansionTeam" class="text-center py-4">
-                        <TeamTable v-if="expansionTeam" :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
+                    <b-container v-show="this.expansionTeam" class="text-center py-4">
+                        <TeamTable :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
                     </b-container>
                 </b-tab>
             </b-tabs>
