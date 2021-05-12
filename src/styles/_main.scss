@@ -133,6 +133,10 @@ td {
     border-bottom: 1px solid #dee2e6;
 }
 
+.fails-requirements {
+    color: $red-alert;
+}
+
 // Footer
 .btn-info {
     color: $deep-sea-blue;

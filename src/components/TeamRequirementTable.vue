@@ -12,7 +12,7 @@
                         <b-table-simple outlined class=" mx-4 center-text panel panel-default panel-table">
                             <b-thead>
                                 <b-tr class="table-header">
-                                    <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
+                                    <b-td v-for="requirement in protectionRequirements" :key="requirement.position" >
                                         {{ requirement.position }}
                                     </b-td>
                                 </b-tr>
@@ -22,9 +22,12 @@
 
                                 </b-tr>
                                 <b-tr class="table-row">
-                                    <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
-                                        {{ protectedCount(requirement.ids) }}/{{ requirement.limit }}
-                                    </b-td>
+                                    <template v-for="requirement in protectionRequirements">
+
+                                        <b-td :key="requirement.position" :class="meetsProtectionRequirements(requirement) ? '' : 'fails-requirements'">
+                                            {{ protectedCount(requirement.ids) }}/{{ requirement.limit }}
+                                        </b-td>
+                                    </template>
                                 </b-tr>
                             </b-tbody>
                         </b-table-simple>
@@ -49,7 +52,7 @@
                             </b-thead>
                             <b-tbody>
                                 <b-tr>
-                                    <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
+                                    <b-td v-for="requirement in exposureRequirements" :key="requirement.position" :class="meetsExposureRequirements(requirement) ? '' : 'fails-requirements'">
                                         {{ exposedCount(requirement.ids) }}/{{ requirement.limit }}
                                     </b-td>
                                 </b-tr>
@@ -64,7 +67,7 @@
 
 <script>
 import ConstraintsInfoJson from "../../store/data/ConstraintsInfo.json"
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'TeamRequirementTable',
@@ -108,8 +111,42 @@ export default {
     },
 
     methods: {
+        ...mapActions([
+            'addToCurrTeamDoesNotMeetProtectReqs',
+            'removeFromCurrTeamDoesNotMeetProtectReqs',
+            'addToCurrTeamDoesNotMeetExposeReqs',
+            'removeFromCurrTeamDoesNotMeetExposeReqs'
+        ]),
         isEmpty(object) {
             return object && Object.keys(object).length === 0 && object.constructor === Object;
+        },
+        meetsProtectionRequirements(requirement) {
+            let protectedCount = this.protectedCount(requirement.ids);
+            let protectedLimit = requirement.limit;
+            let meetsProtectionRequirements =  protectedLimit >= protectedCount;
+
+            if (meetsProtectionRequirements) {
+                this.removeFromCurrTeamDoesNotMeetProtectReqs(require.position);
+            }
+            else {
+                this.addToCurrTeamDoesNotMeetProtectReqs(require.position);
+            }
+
+            return meetsProtectionRequirements;
+        },
+        meetsExposureRequirements(requirement) {
+            let exposureCount = this.exposedCount(requirement.ids);
+            let exposureLimit = requirement.limit;
+            let meetsExposureRequirements = exposureCount >= exposureLimit;
+
+            if (meetsExposureRequirements) {
+                this.removeFromCurrTeamDoesNotMeetExposeReqs(require.position);
+            }
+            else {
+                this.addToCurrTeamDoesNotMeetExposeReqs(require.position);
+            }
+
+            return meetsExposureRequirements;
         }
     }
 }
