@@ -22,12 +22,9 @@
 
                                 </b-tr>
                                 <b-tr class="table-row">
-                                    <template v-for="requirement in protectionRequirements">
-
-                                        <b-td :key="requirement.position" :class="meetsProtectionRequirements(requirement) ? '' : 'fails-requirements'">
-                                            {{ protectedCount(requirement.ids) }}/{{ requirement.limit }}
-                                        </b-td>
-                                    </template>
+                                    <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
+                                        {{ protectedCount(requirement.ids) }}/{{ requirement.limit }}
+                                    </b-td>
                                 </b-tr>
                             </b-tbody>
                         </b-table-simple>
@@ -52,7 +49,7 @@
                             </b-thead>
                             <b-tbody>
                                 <b-tr>
-                                    <b-td v-for="requirement in exposureRequirements" :key="requirement.position" :class="meetsExposureRequirements(requirement) ? '' : 'fails-requirements'">
+                                    <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
                                         {{ exposedCount(requirement.ids) }}/{{ requirement.limit }}
                                     </b-td>
                                 </b-tr>
@@ -119,34 +116,6 @@ export default {
         ]),
         isEmpty(object) {
             return object && Object.keys(object).length === 0 && object.constructor === Object;
-        },
-        meetsProtectionRequirements(requirement) {
-            let protectedCount = this.protectedCount(requirement.ids);
-            let protectedLimit = requirement.limit;
-            let meetsProtectionRequirements =  protectedLimit >= protectedCount;
-
-            if (meetsProtectionRequirements) {
-                this.removeFromCurrTeamDoesNotMeetProtectReqs(require.position);
-            }
-            else {
-                this.addToCurrTeamDoesNotMeetProtectReqs(require.position);
-            }
-
-            return meetsProtectionRequirements;
-        },
-        meetsExposureRequirements(requirement) {
-            let exposureCount = this.exposedCount(requirement.ids);
-            let exposureLimit = requirement.limit;
-            let meetsExposureRequirements = exposureCount >= exposureLimit;
-
-            if (meetsExposureRequirements) {
-                this.removeFromCurrTeamDoesNotMeetExposeReqs(require.position);
-            }
-            else {
-                this.addToCurrTeamDoesNotMeetExposeReqs(require.position);
-            }
-
-            return meetsExposureRequirements;
         }
     }
 }

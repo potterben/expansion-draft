@@ -21,8 +21,6 @@ class OriginalTeam extends Team {
         this.protected = {};
         this.exposed = {};
         this.beta = 0.0;
-        this.doesNotMeetProtectReqs = [];
-        this.doesNotMeetExposeReqs = [];
     }    
 }
 
@@ -71,8 +69,6 @@ export default new Vuex.Store({
         },
         setOriginalTeams(state, originalTeams) {
             state.originalTeams = originalTeams;
-            state.doesNotMeetProtectionRequirements = new Array(originalTeams.length);
-            state.doesNotMeetExposureRequirements = new Array(originalTeams.length);
         },
         setExpansionTeam(state, expansionTeam) {
             state.expansionTeam = expansionTeam;
@@ -136,13 +132,15 @@ export default new Vuex.Store({
             state.originalTeams[state.currTeamIndex].doesNotMeetProtectReqs.push(position);
         },
         removeFromCurrTeamDoesNotMeetProtectReqs(state, position) {
-            removeFromArray(state.originalTeams[state.currTeamIndex].doesNotMeetProtectReqs, position);
+            const updatedArray = removeFromArray(state.originalTeams[state.currTeamIndex].doesNotMeetProtectReqs, position);
+            state.originalTeams[state.currTeamIndex].doesNotMeetProtectReqs = updatedArray;
         },
         addToCurrTeamDoesNotMeetExposeReqs(state, position) {
             state.originalTeams[state.currTeamIndex].doesNotMeetExposeReqs.push(position);
         },
         removeFromCurrTeamDoesNotMeetExposeReqs(state, position) {
-            removeFromArray(state.originalTeams[state.currTeamIndex].doesNotMeetExposeReqs, position);
+            const updatedArray = removeFromArray(state.originalTeams[state.currTeamIndex].doesNotMeetExposeReqs, position);
+            state.originalTeams[state.currTeamIndex].doesNotMeetExposeReqs = updatedArray;
         }
       },
     actions: {
@@ -251,34 +249,6 @@ export default new Vuex.Store({
         },
         removeFromCurrTeamExposedMap(context, payload) {
             context.commit("removeFromCurrTeamExposedMap", payload);
-        },
-        addToCurrTeamDoesNotMeetProtectReqs(context, position) {
-            let doesNotMeetProtectReqs = context.state.originalTeams[context.state.currTeamIndex].doesNotMeetProtectReqs;
-            if (!doesNotMeetProtectReqs.includes(position))
-            {
-                context.commit("addToCurrTeamDoesNotMeetProtectReqs", position);
-            }
-        },
-        removeFromCurrTeamDoesNotMeetProtectReqs(context, position) {
-            let doesNotMeetProtectReqs = context.state.originalTeams[context.state.currTeamIndex].doesNotMeetProtectReqs;
-            if (doesNotMeetProtectReqs.includes(position))
-            {
-                context.commit("removeFromCurrTeamDoesNotMeetProtectReqs", position);
-            }
-        },
-        addToCurrTeamDoesNotMeetExposeReqs(context, position) {
-            let doesNotMeetExposeReqs = context.state.originalTeams[context.state.currTeamIndex].doesNotMeetExposeReqs;
-            if (!doesNotMeetExposeReqs.includes(position))
-            {
-                context.commit("addToCurrTeamDoesNotMeetExposeReqs", position);
-            }
-        },
-        removeFromCurrTeamDoesNotMeetExposeReqs(context, position) {
-            let doesNotMeetExposeReqs = context.state.originalTeams[context.state.currTeamIndex].doesNotMeetExposeReqs;
-            if (doesNotMeetExposeReqs.includes(position))
-            {
-                context.commit("removeFromCurrTeamDoesNotMeetExposeReqs", position);
-            }
         }
     },
     getters: {
