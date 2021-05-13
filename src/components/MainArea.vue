@@ -11,7 +11,7 @@
                             <h2>Team Selector</h2>
                         </b-row>
                         <b-row class="col-12 py-1 justify-content-center">
-                            <h4>Click to choose a team</h4>
+                            <h5>Click to choose a team</h5>
                         </b-row>
                         <b-row class="col-12 py-4">
                             <swiper ref="teamSelectionSwiper" :options="swiperOptions" @slideChange="handleSwiperIndexChanged">

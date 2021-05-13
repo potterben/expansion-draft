@@ -9,7 +9,7 @@
                 </b-row>
                 <b-row>
                     <b-col cols="12">
-                        <b-table-simple outlined class=" mx-4 center-text panel panel-default panel-table">
+                        <b-table-simple outlined class="panel panel-default panel-table">
                             <b-thead>
                                 <b-tr class="table-header">
                                     <b-td v-for="requirement in protectionRequirements" :key="requirement.position" >
@@ -39,7 +39,7 @@
                 </b-row>
                 <b-row >
                     <b-col cols="12">
-                        <b-table-simple outlined class="mx-4 panel panel-default panel-table">
+                        <b-table-simple outlined class="panel panel-default panel-table">
                             <b-thead>
                                 <b-tr class="table-header">
                                     <b-td v-for="requirement in exposureRequirements" :key="requirement.position">

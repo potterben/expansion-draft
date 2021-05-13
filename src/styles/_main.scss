@@ -67,6 +67,11 @@ a.nav-link {
     }
 }
 
+.swiper-container {
+    margin-left: 50px;
+    margin-right: 50px;
+    position: initial;
+}
 .swiper-slide-active {
     opacity: 100%;
 }
@@ -106,7 +111,6 @@ img {
 .vue-slider-disabled .vue-slider-process{
     background-color: #a7a7a7 !important;
 }
-
 
 // Tabs
 .nav-link[role=tab] {
