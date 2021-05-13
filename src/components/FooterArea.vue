@@ -135,16 +135,15 @@ export default {
 
     methods: {
         showOptimizeDialog: function () {
-            // Validate your inputs
-            console.log("Validating your inputs!");
+            // Build payload here
+            let payload = {
+                originalTeams: this.originalTeams,
+                financialMetric: this.currFinancialMetric,
+                performanceMetric: this.performanceMetric,
+                alpha: this.expansionTeam.alpha
+            }
 
-            // Error handle
-            // if (noErrors) {
-            // post to backend and create modal to get the results back
-            // }
-            // else {
-            //     popup to show what errors we need to handle
-            // }
+            console.log(payload);
         },
         ...mapActions([
             'setCurrFinancialMetric',
