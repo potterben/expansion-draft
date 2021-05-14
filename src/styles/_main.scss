@@ -178,11 +178,9 @@ a.toggle {
     display: none;
 }
 
-.step-wrapper {
-    padding: 20px 0;
-    display: block;
-    
-    // &.active {
-    //     display: block;
-    // }
+#intro-modal{
+    .modal-content 
+    {
+        height: 650px;
+    }
 }
