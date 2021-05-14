@@ -33,6 +33,13 @@ class ExpansionTeam extends Team {
     }    
 }
 
+class ComboBoxOption {
+    constructor(text, value) {
+        this.text = text;
+        this.value = value;
+   }   
+}
+
 const removeFromArray = (array, value) => {
     const newArray = [...array];
     const index = newArray.indexOf(value);
@@ -51,6 +58,8 @@ export default new Vuex.Store({
         originalTeams: [],
 
         expansionTeam: null,
+
+        allTeams: [],
 
         currFinancialMetric: "",
         financialMetrics: [],
@@ -72,6 +81,9 @@ export default new Vuex.Store({
         },
         setExpansionTeam(state, expansionTeam) {
             state.expansionTeam = expansionTeam;
+        },
+        setAllTeams(state, allTeams) {
+            state.allTeams = allTeams;
         },
         setCurrFinancialMetric(state, financialMetric) {
             state.currFinancialMetric = financialMetric;
@@ -145,17 +157,22 @@ export default new Vuex.Store({
       },
     actions: {
         initializeTeamData(context) {
-            let expansionTeam = TeamInfoJson.expansionTeam;
-            let expansionTeamObject = new ExpansionTeam(expansionTeam[0].name, expansionTeam[0].abbreviation);
-            context.commit("setExpansionTeam", expansionTeamObject);
-
+            let allTeamsArray = [];
             let originalTeams = TeamInfoJson.originalTeams;
             let originalTeamsArray = []
+            
             for (let i =0; i < originalTeams.length; i++) {
-                let teamToAdd = new OriginalTeam(originalTeams[i].name,originalTeams[i].abbreviation, i);
-                originalTeamsArray.push(teamToAdd);
+                originalTeamsArray.push(new OriginalTeam(originalTeams[i].name,originalTeams[i].abbreviation, i));
+                allTeamsArray.push(new ComboBoxOption(originalTeams[i].name, i));
             }
             context.commit("setOriginalTeams", originalTeamsArray);
+
+            let expansionTeam = TeamInfoJson.expansionTeam;
+            let expansionTeamObject = new ExpansionTeam(expansionTeam[0].name, expansionTeam[0].abbreviation);
+            allTeamsArray.unshift(new ComboBoxOption(expansionTeamObject.name, originalTeams.length));
+
+            context.commit("setExpansionTeam", expansionTeamObject);
+            context.commit("setAllTeams", allTeamsArray)
         },
         initializeLoadMetrics(context) {
             let financialMetrics = MetricsInfoJson.financialMetrics;

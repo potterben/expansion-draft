@@ -144,6 +144,12 @@ td {
     border-color: $ice-blue;
 }
 
+.btn-info:disabled {
+    color: $deep-sea-blue;
+    background-color: $ice-blue;
+    border-color: $ice-blue;
+}
+
 .btn-info:hover {
     color: #fff;
     background-color: $boundless-blue;
@@ -170,4 +176,13 @@ a.toggle {
     -webkit-transition: none;
     transition: none;
     display: none;
+}
+
+.step-wrapper {
+    padding: 20px 0;
+    display: block;
+    
+    // &.active {
+    //     display: block;
+    // }
 }

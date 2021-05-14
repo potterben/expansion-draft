@@ -139,7 +139,7 @@ export default {
             let payload = {
                 originalTeams: this.originalTeams,
                 financialMetric: this.currFinancialMetric,
-                performanceMetric: this.performanceMetric,
+                performanceMetric: this.currPerformanceMetric,
                 alpha: this.expansionTeam.alpha
             }
 
