@@ -17,7 +17,7 @@
                             <swiper ref="teamSelectionSwiper" :options="swiperOptions" @slideChange="handleSwiperIndexChanged">
                                 <template v-for="(team, index) in this.originalTeams">
                                     <swiper-slide :key="index">
-                                        <img :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation"/>
+                                        <img :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" :alt="team.name" :title="team.name"/>
                                     </swiper-slide>
                                 </template>
                                 <div class="swiper-button-prev" slot="button-prev"></div>
