@@ -112,6 +112,14 @@ img {
     background-color: #a7a7a7 !important;
 }
 
+.vue-slider-rail {
+    background-color: #d4d4d4 !important;
+}
+
+.vue-slider-rail:hover {
+    background-color: #bbbbbb !important;
+}
+
 // Tabs
 .nav-link[role=tab] {
     color: $deep-sea-blue !important;
