@@ -266,6 +266,30 @@ export default new Vuex.Store({
         },
         removeFromCurrTeamExposedMap(context, payload) {
             context.commit("removeFromCurrTeamExposedMap", payload);
+        },
+        optimize(context) {
+            return new Promise((resolve, reject) => {
+                const payload = {
+                    originalTeams: context.state.originalTeams,
+                    financialMetric: context.state.currFinancialMetric,
+                    performanceMetric: context.state.currPerformanceMetric,
+                    alpha: context.state.expansionTeam.alpha
+                };
+                const headers = {
+                    'Access-Control-Allow-Origin': '*'
+                  }
+                axios
+                .post('http://0.0.0.0:5000/optimize/', payload, { 'headers': headers})
+                .then(response => {
+                    // TODO: call mutator to update state
+                    
+                    // Let the calling function know that http is done. You may send some data back
+                    resolve(response);
+                }, error => {
+                    // http failed, let the calling function know that action did not work out
+                    reject(error);
+                })
+            })
         }
     },
     getters: {

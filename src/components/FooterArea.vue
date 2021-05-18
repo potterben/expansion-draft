@@ -134,22 +134,25 @@ export default {
     },
 
     methods: {
-        showOptimizeDialog: function () {
-            // Build payload here
-            let payload = {
-                originalTeams: this.originalTeams,
-                financialMetric: this.currFinancialMetric,
-                performanceMetric: this.currPerformanceMetric,
-                alpha: this.expansionTeam.alpha
-            }
-
-            console.log(payload);
+        showOptimizeDialog() {   
+            // TODO: make this function shared with intromodal
+            
+            this.optimize().then(response => {
+                console.log(response);
+                if (response && response.data && response.data.message) {
+                    this.$bvModal.msgBoxOk(response.data.message);
+                }
+            }, error => {
+                // TODO: show errors properly
+                console.log(error);
+            })
         },
         ...mapActions([
+            'optimize',
             'setCurrFinancialMetric',
             'setCurrPerformanceMetric',
             'setConsiderUFAs',
-            'setApplyToAllOriginalTeams'
+            'setApplyToAllOriginalTeams',
         ])
     }
 }

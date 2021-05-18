@@ -72,7 +72,7 @@
                 <b-button type="button" class="btn btn-info float-right" v-if="!lastPage" @click="nextPage" :disabled="lastPage" >
                     Next
                 </b-button>
-                <b-button type="submit" class="btn btn-info float-right" v-if="lastPage" @click="optimize">
+                <b-button type="submit" class="btn btn-info float-right" v-if="lastPage" @click="showOptimizeDialog">
                     Optimize
                 </b-button>
             </b-container>
@@ -84,7 +84,7 @@
 
 <script>
 import TeamSlider from './TeamSlider.vue'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     name: 'IntroModal',
@@ -173,17 +173,31 @@ export default {
         previousPage() {
             this.currentPage--;
         },
-        optimize() {
-            // Build payload here
-            let payload = {
-                originalTeams: this.originalTeams,
-                financialMetric: this.currFinancialMetric,
-                performanceMetric: this.currPerformanceMetric,
-                alpha: this.expansionTeam.alpha
-            }
+        showOptimizeDialog() {
+            // Hide all modals
+            this.$bvModal.hide("intro-modal");
+            this.$bvModal.hide("advanced-options");
+            
+            // Start loading here
 
-            console.log(payload);
+            this.optimize()
+            .then(response => {
+                // End loading here
+                console.log(response);
+                if (response && response.data && response.data.message) {
+                    this.$bvModal.msgBoxOk(response.data.message);
+                }
+                
+                }, error => {
+                // end loading here
+
+                // TODO: show errors properly
+                console.log(error);
+            });
         },
+        ...mapActions([
+            'optimize'
+        ])
     }
 }
 </script>
