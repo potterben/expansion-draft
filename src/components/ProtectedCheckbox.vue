@@ -1,5 +1,5 @@
 <template>
-    <b-form-checkbox :checked="isProtected" @change="checkboxChanged"></b-form-checkbox>
+    <b-form-checkbox :checked="isProtected" @change="checkboxChanged" :name="id"></b-form-checkbox>
 </template>
 
 <script>
@@ -29,6 +29,7 @@ export default {
                 "id": this.id
             }
             if (value) {
+                this.removeFromCurrTeamExposedMap(payload);
                 this.addToCurrTeamProtectedMap(payload);
             }
             else {
@@ -37,7 +38,8 @@ export default {
         },
         ...mapActions([
             'addToCurrTeamProtectedMap',
-            'removeFromCurrTeamProtectedMap'
+            'removeFromCurrTeamProtectedMap',
+            'removeFromCurrTeamExposedMap'
         ])
     }
 }
