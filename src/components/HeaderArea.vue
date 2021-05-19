@@ -1,21 +1,15 @@
 <template>
     <b-navbar toggleable="lg" class='navbar-dark navbar-fixed-top'>
-        <b-navbar-brand href="" left>
+        <b-navbar-brand :to="'/'" left>
             NHL Expansion Draft Optimizer
         </b-navbar-brand>
         <b-navbar-toggle target="nav-collapse" />
         <b-collapse id="nav-collapse" is-nav right>
             <b-navbar-nav class="ml-auto">
-                <b-nav-item href="/blog">
-                    Blog
+                <b-nav-item :to="'faq'">
+                    FAQ
                 </b-nav-item>
-                <b-nav-item href="/what">
-                    What
-                </b-nav-item>
-                <b-nav-item href="/how">
-                    How
-                </b-nav-item>
-                <b-nav-item href="/about">
+                <b-nav-item :to="'about'">
                     About
                 </b-nav-item>
             </b-navbar-nav>

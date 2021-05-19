@@ -12,22 +12,28 @@ Vue.use(IconsPlugin)
 
 
 import store from '../store'
+import router from './router'
 
 Vue.config.productionTip = false
 
 new Vue({
-	el: '#app',
-	store,
-	data() {
+    el: '#app',
+    store,
+
+    data() {
 		return {
 			isInitialized: false
 		}
 	},
-	async beforeCreate() {
+
+    async beforeCreate() {
 		await this.$store.dispatch("initialize");
 		this.isInitialized = true;
 	},
-	render(h) {
+
+    router,
+
+    render(h) {
 		if (this.isInitialized) {
 			return h(App)
 		}
