@@ -14,27 +14,35 @@
         class ="text-nowrap"
         >
             <template #cell(protect)="row">
-                <ProtectedCheckbox :id="row.item._id" :positionId="positionId" />
+                <TableCheckbox
+                :id="row.item._id"
+                :positionId="positionId"
+                :checkedMap="currTeamProtectedMap"
+                :onChange="protectedChanged"
+                @TableCheckboxChanged="checkProtectionLimits"/>
             </template>
             <template #cell(expose)="row">
-                <ExposedCheckbox :id="row.item._id" :positionId="positionId" />
+                <TableCheckbox
+                :id="row.item._id"
+                :positionId="positionId"
+                :checkedMap="currTeamExposedMap"
+                :onChange="exposedChanged"
+                @TableCheckboxChanged="checkProtectionLimits"/>
             </template>
         </b-table>
     </b-container>
 </template>
 
 <script>
-import ProtectedCheckbox from './ProtectedCheckbox.vue'
-import ExposedCheckbox from './ExposedCheckbox.vue'
+import TableCheckbox from './TableCheckbox.vue'
 
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
 
 export default {
     name: 'PlayerTable',
 
     components: {
-        ProtectedCheckbox,
-        ExposedCheckbox
+        TableCheckbox
     },
 
     props: {
@@ -51,7 +59,9 @@ export default {
         ...mapGetters([
             'getCurrTeamTableData',
             'getCurrFinancialMetricText',
-            'getCurrPerformanceMetricText'
+            'getCurrPerformanceMetricText',
+            'getCurrTeamExposedMap',
+            'getCurrTeamProtectedMap'
         ]),
         getCurrentTeamPlayerTableData() {
             let teamTableData = this.getCurrTeamTableData;
@@ -123,10 +133,22 @@ export default {
                     "thClass": "table-header"
                 }
             ];
-        }      
+        },
+        currTeamExposedMap() {
+            return this.getCurrTeamExposedMap;
+        },
+        currTeamProtectedMap() {
+            return this.getCurrTeamProtectedMap;
+        }
     },
 
     methods: {
+        ...mapActions([
+            'addToCurrTeamProtectedMap',
+            'addToCurrTeamExposedMap',
+            'removeFromCurrTeamProtectedMap',
+            'removeFromCurrTeamExposedMap'
+        ]),
         formatFinancialMetric(value) {
             return "$" + value.toFixed(3) + "M";
         },
@@ -135,6 +157,35 @@ export default {
         },
         formatMeetsRequirements(value) {
             return value ? "Yes" : "No";
+        },
+        protectedChanged(value, positionId, id) {
+            let payload = {
+                "positionId": positionId,
+                "id": id
+            }
+            if (value) {
+                this.removeFromCurrTeamExposedMap(payload);
+                this.addToCurrTeamProtectedMap(payload);
+            }
+            else {
+                this.removeFromCurrTeamProtectedMap(payload);
+            }
+        },
+        exposedChanged(value, positionId, id) {
+            let payload = {
+                "positionId": positionId,
+                "id": id
+            }
+            if (value) {
+                this.removeFromCurrTeamProtectedMap(payload);
+                this.addToCurrTeamExposedMap(payload);
+            }
+            else {
+                this.removeFromCurrTeamExposedMap(payload);
+            }
+        },
+        checkProtectionLimits() {
+            console.log("Update table status here!");
         }
     }
 }
