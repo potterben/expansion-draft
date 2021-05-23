@@ -1,5 +1,5 @@
 <template>
-  <b-container class="about text-center">
+  <b-container>
     <b-row>
       <b-col>
         <h1>About Us</h1>
@@ -15,7 +15,7 @@
         <h2>Website Development</h2>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row class="text-center">
       <b-col sm=4>
         <b-row>
           <b-col>
