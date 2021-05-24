@@ -195,3 +195,22 @@ a.toggle {
         height: 650px;
     }
 }
+
+// Loading Screen
+.loading-screen {
+    z-index: 2000 !important;
+}
+.loading-circle {
+    width: 75px !important;;
+    height: 75px !important;;
+    border: 4px solid transparent !important;
+    border-left-color: $deep-sea-blue !important;
+    animation-duration: 0.75s !important;
+    margin: 0 auto;
+  }
+
+  .loading-text {
+    color: $deep-sea-blue!important;
+    font-size: 2rem !important;
+    text-align: justify!important;
+  }

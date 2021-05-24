@@ -85,6 +85,7 @@
 <script>
 import TeamSlider from './TeamSlider.vue'
 import { mapState, mapActions } from 'vuex'
+import { asyncLoading } from 'vuejs-loading-plugin'
 
 export default {
     name: 'IntroModal',
@@ -178,19 +179,13 @@ export default {
             this.$bvModal.hide("intro-modal");
             this.$bvModal.hide("advanced-options");
             
-            // Start loading here
-
-            this.optimize()
+            asyncLoading(this.optimize())
             .then(response => {
-                // End loading here
                 console.log(response);
                 if (response && response.data && response.data.message) {
                     this.$bvModal.msgBoxOk(response.data.message);
                 }
-                
                 }, error => {
-                // end loading here
-
                 // TODO: show errors properly
                 console.log(error);
             });

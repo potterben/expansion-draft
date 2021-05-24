@@ -64,6 +64,7 @@
 <script>
 import TeamSlider from './TeamSlider.vue'
 import { mapState, mapActions, mapGetters } from 'vuex'
+import { asyncLoading } from 'vuejs-loading-plugin'
 
 export default {
     name: 'FooterArea',
@@ -113,7 +114,7 @@ export default {
                 this.setApplyToAllOriginalTeams(!value);
             }
         },
-        allOtherTeams: function () {
+        allOtherTeams() {
             return this.originalTeams;
         },
         ...mapState([
@@ -130,22 +131,25 @@ export default {
         ...mapGetters([
             'getCurrTeamName'
         ])
-
     },
 
     methods: {
-        showOptimizeDialog() {   
+        showOptimizeDialog() { 
             // TODO: make this function shared with intromodal
+            // Hide all modals
+            this.$bvModal.hide("intro-modal");
+            this.$bvModal.hide("advanced-options");
             
-            this.optimize().then(response => {
+            asyncLoading(this.optimize())
+            .then(response => {
                 console.log(response);
                 if (response && response.data && response.data.message) {
                     this.$bvModal.msgBoxOk(response.data.message);
                 }
-            }, error => {
+                }, error => {
                 // TODO: show errors properly
                 console.log(error);
-            })
+            });
         },
         ...mapActions([
             'optimize',
