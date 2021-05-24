@@ -1,5 +1,5 @@
 <template>
-    <b-form-checkbox :checked="isProtected" @change="onChange($event, positionId, id), $emit('TableCheckboxChanged')"></b-form-checkbox>
+    <b-form-checkbox :checked="isChecked" @change="onChange($event, positionId, id)" :disabled="isDisabled"></b-form-checkbox>
 </template>
 
 <script>
@@ -10,17 +10,22 @@ export default {
         id: String,
         positionId: String,
         checkedMap: Object,
-        onChange: Function
+        onChange: Function,
+        isTableDisabled: Function
     },
 
     computed: {
-        isProtected() {
+        isChecked() {
             return this.checkedMap[this.positionId].indexOf(this.id) > -1 ;
+        },
+        isDisabled() {
+            if (!this.isChecked && this.isTableDisabled) {
+                    return this.isTableDisabled();
+                }
+            else {
+                return false;
+            }
         }
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>

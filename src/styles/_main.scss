@@ -139,10 +139,13 @@ img {
 }
 
 // Note: this solves the issue of a white line at the top of the table 
-th,
-td {
+th, td {
     border-top: none;
     border-bottom: 1px solid #dee2e6;
+}
+
+.disabled-table td {
+    color: #a7a7a7 !important;
 }
 
 // Footer

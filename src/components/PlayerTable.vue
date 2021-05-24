@@ -11,7 +11,8 @@
         hover
         outlined
         responsive
-        class ="text-nowrap"
+        class="text-nowrap"
+        :class="isTableDisabled() ? 'disabled-table': ''"
         >
             <template #cell(protect)="row">
                 <TableCheckbox
@@ -19,7 +20,8 @@
                 :positionId="positionId"
                 :checkedMap="currTeamProtectedMap"
                 :onChange="protectedChanged"
-                @TableCheckboxChanged="checkProtectionLimits"/>
+                :isTableDisabled = "isTableDisabled"
+                />
             </template>
             <template #cell(expose)="row">
                 <TableCheckbox
@@ -27,7 +29,7 @@
                 :positionId="positionId"
                 :checkedMap="currTeamExposedMap"
                 :onChange="exposedChanged"
-                @TableCheckboxChanged="checkProtectionLimits"/>
+                />
             </template>
         </b-table>
     </b-container>
@@ -184,8 +186,69 @@ export default {
                 this.removeFromCurrTeamExposedMap(payload);
             }
         },
-        checkProtectionLimits() {
-            console.log("Update table status here!");
+        isTableDisabled() {
+            switch (this.positionId) {
+                case "f":
+                case "d":
+                    return this.shouldTableBeDisabled(this.positionId);
+                case "g":
+                    return this.shouldGoalieTableBeDisabled();
+                default:
+                    return false;
+            }
+        },
+        shouldTableBeDisabled(positionId) {
+            // If both rules are met, then the table should be disabled
+            if (this.isSkaterRuleMet() && this.isPositionRuleMet(positionId)) {
+                return true;
+            }
+            // If both rules are viable, the table should be enabled
+            if (this.isSkaterRuleViable() && this.isPositionRuleViable(positionId) ) {
+                return false;
+            }
+            // If only one rule is viable, check if the rules are met
+            else if (this.isSkaterRuleViable() || this.isPositionRuleViable(positionId) ) {
+                if (this.isSkaterRuleViable()) {
+                    return this.isSkaterRuleMet();
+                }
+                else {
+                    return this.isPositionRuleMet(positionId);
+                }
+            }
+            // Default to showing the table
+            else {
+                return false;
+            }
+        },
+        shouldGoalieTableBeDisabled() {
+            let numGoaliesProtected = this.getCurrTeamProtectedMap['g'].length;
+            return (numGoaliesProtected >= 1);
+        },
+        isSkaterRuleViable() {
+            let numDefensemenProtected = this.getCurrTeamProtectedMap['d'].length;
+            let numForwardsProtected = this.getCurrTeamProtectedMap['f'].length;
+            let numSkatersProtected = numDefensemenProtected + numForwardsProtected;
+            return numSkatersProtected <= 8;
+        },
+        isPositionRuleViable() {
+            let numDefensemenProtected = this.getCurrTeamProtectedMap['d'].length;
+            let numForwardsProtected = this.getCurrTeamProtectedMap['f'].length;
+            return numDefensemenProtected <= 3 && numForwardsProtected <= 7;
+        },
+        isSkaterRuleMet() {
+            let numDefensemenProtected = this.getCurrTeamProtectedMap['d'].length;
+            let numForwardsProtected = this.getCurrTeamProtectedMap['f'].length;
+            let numSkatersProtected = numDefensemenProtected + numForwardsProtected;
+            return numSkatersProtected >= 8;
+        },
+        isPositionRuleMet(positionId) {
+            let numProtectedForPosition = this.getCurrTeamProtectedMap[positionId].length;
+            if (positionId == 'd') {
+                return numProtectedForPosition >= 3;
+            }
+            if (positionId == 'f') {
+                return numProtectedForPosition >= 7;
+            }
         }
     }
 }
