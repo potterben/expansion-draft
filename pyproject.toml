@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "expansion-draft-optimizer"
+version = "0.1.0"
+description = "Backend to support Seattle Expansion Draft site."
+authors = ["Your Name <you@example.com>"]
+license = "n"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.64.0"
+uvicorn = "^0.13.4"
+pandas = "^1.2.4"
+black = "^21.5b0"
+isort = "^5.8.0"
+PuLP = "^2.4"
+flake8 = "^3.9.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
