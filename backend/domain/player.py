@@ -5,10 +5,6 @@ from .team_name import TeamName
 
 # TODO update this with new data
 class PlayerContract(BaseModel):
-    cap_hit_16_17: float
-    cap_hit_17_18: float
-    cap_hit_18_19: float
-    cap_hit_19_20: float
     cap_hit_20_21: float
     cap_hit_21_22: float
     cap_hit_22_23: float
