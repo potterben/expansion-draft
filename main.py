@@ -2,7 +2,7 @@ import logging
 from typing import List
 
 import uvicorn
-from db import seed_db
+from backend.db import seed_db
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
