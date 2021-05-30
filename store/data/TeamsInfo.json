@@ -1,0 +1,161 @@
+{
+    "originalTeams": [
+        {
+            "name": "Anaheim Ducks",
+            "imageLocation": "anaheim.svg",
+            "abbreviation": "ANA"
+        },
+        {
+            "name": "Arizona Coyotes",
+            "imageLocation": "arizona.svg",
+            "abbreviation": "ARI"
+        },
+        {
+            "name": "Boston Bruins",
+            "imageLocation": "boston.svg",
+            "abbreviation": "BOS"
+        },
+        {
+            "name": "Buffalo Sabres",
+            "imageLocation": "buffalo.svg",
+            "abbreviation": "BUF"
+        },
+        {
+            "name": "Calgary Flames",
+            "imageLocation": "calgary.svg",
+            "abbreviation": "CGY"
+        },
+        {
+            "name": "Carolina Hurricanes",
+            "imageLocation": "carolina.svg",
+            "abbreviation": "CAR"
+        },
+        {
+            "name": "Chicago Blackhawks",
+            "imageLocation": "chicago.svg",
+            "abbreviation": "CHI"
+        },
+        {
+            "name": "Colorado Avalanche",
+            "imageLocation": "colorado.svg",
+            "abbreviation": "COL"
+        },
+        {
+            "name": "Columbus Blue Jackets",
+            "imageLocation": "columbus.svg",
+            "abbreviation": "CBJ"
+        },
+        {
+            "name": "Dallas Stars",
+            "imageLocation": "dallas.svg",
+            "abbreviation": "DAL"
+        },
+        {
+            "name": "Detroit Red Wings",
+            "imageLocation": "detroit.svg",
+            "abbreviation": "DET"
+        },
+        {
+            "name": "Edmonton Oilers",
+            "imageLocation": "edmonton.svg",
+            "abbreviation": "EDM"
+        },
+        {
+            "name": "Florida Panthers",
+            "imageLocation": "florida.svg",
+            "abbreviation": "FLA"
+        },
+        {
+            "name": "Los Angeles Kings",
+            "imageLocation": "los-angeles.svg",
+            "abbreviation": "LAK"
+        },
+        {
+            "name": "Minnesota Wild",
+            "imageLocation": "minnesota.svg",
+            "abbreviation": "MIN"
+        },
+        {
+            "name": "Montreal Canadiens",
+            "imageLocation": "montreal.svg",
+            "abbreviation": "MTL"
+        },
+        {
+            "name": "Nashville Predators",
+            "imageLocation": "nashville.svg",
+            "abbreviation": "NSH"
+        },
+        {
+            "name": "New Jersey Devils",
+            "imageLocation": "new-jersey.svg",
+            "abbreviation": "NJD"
+        },
+        {
+            "name": "New York Islanders",
+            "imageLocation": "new-york-islanders.svg",
+            "abbreviation": "NYI"
+        },
+        {
+            "name": "New York Rangers",
+            "imageLocation": "new-york-rangers.svg",
+            "abbreviation": "NYR"
+        },
+        {
+            "name": "Ottawa Senators",
+            "imageLocation": "ottawa.svg",
+            "abbreviation": "OTT"
+        },
+        {
+            "name": "Philadelphia Flyers",
+            "imageLocation": "philadelphia.svg",
+            "abbreviation": "PHI"
+        },
+        {
+            "name": "Pittsburgh Penguins",
+            "imageLocation": "pittsburgh.svg",
+            "abbreviation": "PIT"
+        },
+        {
+            "name": "San Jose Sharks",
+            "imageLocation": "san-jose.svg",
+            "abbreviation": "SJS"
+        },
+        {
+            "name": "St. Louis Blues",
+            "imageLocation": "st-louis.svg",
+            "abbreviation": "STL"
+        },
+        {
+            "name": "Tampa Bay Lightning",
+            "imageLocation": "tampa-bay.svg",
+            "abbreviation": "TBL"
+        },
+        {
+            "name": "Toronto Maple Leafs",
+            "imageLocation": "toronto.svg",
+            "abbreviation": "TOR"
+        },
+        {
+            "name": "Vancouver Canucks",
+            "imageLocation": "vancouver.svg",
+            "abbreviation": "VAN"
+        },
+        {
+            "name": "Washington Capitals",
+            "imageLocation": "washington.svg",
+            "abbreviation": "WAS"
+        },
+        {
+            "name": "Winnipeg Jets",
+            "imageLocation": "winnipeg.svg",
+            "abbreviation": "WPJ"
+        }
+    ],
+    "expansionTeam": [
+        {
+            "name": "Seattle Kraken",
+            "imageLocation": "seattle.svg",
+            "abbreviation": "SEA"
+        }
+    ]
+}

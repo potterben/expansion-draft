@@ -1,0 +1,41 @@
+{
+    "protectionRequirements":[
+        {
+            "position":"Forwards",
+            "limit": 7,
+            "ids" : ["f"]
+        },
+        {
+            "position":"Defensemen",
+            "limit": 3,
+            "ids" : ["d"]
+        },
+        {
+            "position":"Skaters",
+            "limit": 8,
+            "ids" : ["f", "d"]
+        },
+        {
+            "position":"Goalies",
+            "limit": 1,
+            "ids" : ["g"]
+        }
+    ],
+    "exposureRequirements":[
+        {
+            "position":"Forwards",
+            "limit": 2,
+            "ids" : ["f"]
+        },
+        {
+            "position":"Defensemen",
+            "limit": 1,
+            "ids" : ["d"]
+        },
+        {
+            "position":"Goalies",
+            "limit": 1,
+            "ids" : ["g"]
+        }
+    ]
+}
