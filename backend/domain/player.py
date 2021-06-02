@@ -75,9 +75,6 @@ class Player(BaseModel):
     must_protect: bool
     meets_req: bool
     under_ct: bool
-    #protected_irl: bool
-    #protected_cf: bool
-    #protected_tsn: bool
 
     @property
     def var_id(self):
