@@ -77,16 +77,13 @@ def seed_db() -> MemoryDB:
             left_wing=row["LW"],
             right_def=row["RD"],
             left_def=row["LD"],
+            # games played
             gp=row["GP"],
             nmc=row["NMC"],
             game_req=row["Game Req"],
             must_protect=row["Must Protect"],
             meets_req=row["Meets Exposure"],
             under_ct=row["Under Contract 21/22"],
-            # Protection Data
-            #protected_irl=row["Protected_Official"],
-            #protected_cf=row["Protected_CF"],
-            #protected_tsn=row["Protected_TSN"],
         )
         players.append(player)
 
