@@ -14,6 +14,7 @@ class PlayerContract(BaseModel):
     cap_hit_26_27: float
     cap_hit_total: float
     cap_percent: float
+    # scaled metrics to same scale as cap hit 21-22
     cap_hit_21_22_scaled: float
     cap_hit_total_scaled: float
     ufa_expiry: int  # year the player is a ufa
@@ -27,13 +28,17 @@ class PlayerContract(BaseModel):
 
 # TODO update this with new data
 class PlayerMetrics(BaseModel):
+    # offensive PS, defensive PS, PS
     ops: float
     dps: float
     ps: float
+    # game-adjusted metrics
     gaops: float
     gadps: float
     gaps: float
+    # ratings from NHL 2021
     ea_rating: float
+    # scaled metrics to same scale as cap hit 21-22
     ops_scaled: float
     dps_scaled: float
     ps_scaled: float
