@@ -32,3 +32,4 @@ class TeamName(str, Enum):
     VAN = "VAN"
     WAS = "WAS"
     WPJ = "WPJ"
+    SEA = "SEA"

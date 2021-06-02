@@ -91,9 +91,9 @@ def optimize_existing_protection_scenario(
 
     if eight_skaters:
         skaters_constraint = pulp.lpSum(
-            [protect_var[player.id] for player in team.defencemen]
+            [protect_var[player.id] for player in team.skaters]
         )
-        model += skaters_constraint == 8, "Defenders"
+        model += skaters_constraint == 8, "Skaters"
 
     else:
         # Must protect 3 Defenders

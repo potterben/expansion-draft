@@ -1,12 +1,13 @@
 import logging
-from typing import List
+from collections import defaultdict
+from typing import List, Optional, Tuple
 
 import uvicorn
 from backend.db import seed_db
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.domain import Team, TeamDraft
+from backend.domain import SeattleTeamDraft, Team, TeamDraft
 from backend.domain.optimization_parameters import OptimizationParameters
 from backend.optimize.main import run_draft
 
@@ -35,9 +36,16 @@ def data():
     return MemDB.teams
 
 
-@app.get("/optimize", response_model=List[TeamDraft])
-def draft(params: OptimizationParameters):
-    return run_draft(params, MemDB.teams)
+@app.get("/optimize")
+def optimize(params: Optional[OptimizationParameters] = None):
+    # TODO remove massive hack and actually pass the params.
+    existing_team_draft, seattle_team_draft = run_draft(
+        MemDB.teams, defaultdict(lambda: None)
+    )
+    return {
+        "existing_teams": existing_team_draft,
+        "seattle_team_draft": seattle_team_draft,
+    }
 
 
 if __name__ == "__main__":
