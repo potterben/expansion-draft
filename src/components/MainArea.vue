@@ -11,9 +11,12 @@
                             <h2>Team Selector</h2>
                         </b-row>
                         <b-row class="col-12 py-1 justify-content-center">
-                            <h5>Click to choose a team</h5>
+                            <h5>Select a team</h5>
                         </b-row>
-                        <b-row class="col-12 py-4">
+                        <b-row class="col-12 py-4 d-md-none">
+                            <b-form-select v-model="currentIndex" :options="this.originalTeamsOptions"/>
+                        </b-row>
+                        <b-row class="col-12 py-4 d-none d-md-block">
                             <swiper ref="teamSelectionSwiper" :options="swiperOptions" @slideChange="handleSwiperIndexChanged">
                                 <template v-for="(team, index) in this.originalTeams">
                                     <swiper-slide :key="index">
@@ -73,17 +76,35 @@ export default {
     },
 
     computed: {
+        currentIndex: {
+            get() {
+                return this.currTeamIndex;
+            },
+            set(value) {
+                console.log(value);
+                this.setCurrTeamIndex(value);
+            }
+        },
         swiper () {
             return this.$refs.teamSelectionSwiper.$swiper;
-            },
+        },
         currentTeam: function () {
             if (this.originalTeams) {
                 return [this.originalTeams[this.currTeamIndex]];
             }
             return [];
         },
+        originalTeamsOptions: function () {
+            if (this.allTeams) {
+                let originalTeamsOptions = this.allTeams;
+                originalTeamsOptions.shift();
+                return originalTeamsOptions
+            }
+            return [];
+        },
         ...mapState([
             "currTeamIndex",
+            'allTeams',
             "expansionTeam"
         ]),
         ...mapGetters([
