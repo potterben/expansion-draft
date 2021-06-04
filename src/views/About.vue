@@ -68,7 +68,7 @@
          </b-row>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row class="text-center">
       <b-col sm=4>
         <b-row>
           <b-col>
@@ -132,7 +132,7 @@
         <p>The NHL Expansion Draft Optimizer's models are based on optimization models developed in a research paper that is in preparation by the authors below.</p>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row class="text-center">
       <b-col sm=4>
         <b-row>
           <b-col>
