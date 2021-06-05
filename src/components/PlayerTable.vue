@@ -1,8 +1,8 @@
 <template>
     <b-container v-if="playerData" class="py-4">
         <b-row class="py-2 col-12 justify-content-center"> 
-            <h3>
-                {{positionTitle}}
+            <h3 class="capitalize">
+                {{position}}
             </h3>
         </b-row>
         <b-table
@@ -16,8 +16,8 @@
         >
             <template #cell(protect)="row">
                 <TableCheckbox
-                :id="row.item._id"
-                :positionId="positionId"
+                :id="row.item.id"
+                :position="position"
                 :checkedMap="currTeamProtectedMap"
                 :onChange="protectedChanged"
                 :isTableDisabled = "isTableDisabled"
@@ -25,8 +25,8 @@
             </template>
             <template #cell(expose)="row">
                 <TableCheckbox
-                :id="row.item._id"
-                :positionId="positionId"
+                :id="row.item.id"
+                :position="position"
                 :checkedMap="currTeamExposedMap"
                 :onChange="exposedChanged"
                 />
@@ -48,27 +48,32 @@ export default {
     },
 
     props: {
-        positionTitle: String,
-        positionId: String
+        position: String
     },
 
     computed: {
         ...mapState([
             'currFinancialMetric',
             'currPerformanceMetric',
-            'playerData'
+            'playerData',
+            'forwardsString',
+            'defensemenString',
+            'goaliesString'
         ]),
         ...mapGetters([
             'getCurrTeamTableData',
             'getCurrFinancialMetricText',
             'getCurrPerformanceMetricText',
             'getCurrTeamExposedMap',
-            'getCurrTeamProtectedMap'
+            'getCurrTeamProtectedMap',
+            'getForwardsString',
+            'getDefensemenString',
+            'getGoaliesString'
         ]),
         getCurrentTeamPlayerTableData() {
             let teamTableData = this.getCurrTeamTableData;
             if (teamTableData) {
-                return teamTableData[this.positionId];
+                return teamTableData[this.position];
             }
             else {
                 return []
@@ -160,9 +165,9 @@ export default {
         formatMeetsRequirements(value) {
             return value ? "Yes" : "No";
         },
-        protectedChanged(value, positionId, id) {
+        protectedChanged(value, position, id) {
             let payload = {
-                "positionId": positionId,
+                "position": position,
                 "id": id
             }
             if (value) {
@@ -173,9 +178,9 @@ export default {
                 this.removeFromCurrTeamProtectedMap(payload);
             }
         },
-        exposedChanged(value, positionId, id) {
+        exposedChanged(value, position, id) {
             let payload = {
-                "positionId": positionId,
+                "position": position,
                 "id": id
             }
             if (value) {
@@ -188,31 +193,31 @@ export default {
         },
         isTableDisabled() {
             switch (this.positionId) {
-                case "f":
-                case "d":
-                    return this.shouldTableBeDisabled(this.positionId);
-                case "g":
+                case "forwards":
+                case "defensemen":
+                    return this.shouldTableBeDisabled(this.position);
+                case "goalies":
                     return this.shouldGoalieTableBeDisabled();
                 default:
                     return false;
             }
         },
-        shouldTableBeDisabled(positionId) {
+        shouldTableBeDisabled(position) {
             // If both rules are met, then the table should be disabled
-            if (this.isSkaterRuleMet() && this.isPositionRuleMet(positionId)) {
+            if (this.isSkaterRuleMet() && this.isPositionRuleMet(position)) {
                 return true;
             }
             // If both rules are viable, the table should be enabled
-            if (this.isSkaterRuleViable() && this.isPositionRuleViable(positionId) ) {
+            if (this.isSkaterRuleViable() && this.isPositionRuleViable(position) ) {
                 return false;
             }
             // If only one rule is viable, check if the rules are met
-            else if (this.isSkaterRuleViable() || this.isPositionRuleViable(positionId) ) {
+            else if (this.isSkaterRuleViable() || this.isPositionRuleViable(position) ) {
                 if (this.isSkaterRuleViable()) {
                     return this.isSkaterRuleMet();
                 }
                 else {
-                    return this.isPositionRuleMet(positionId);
+                    return this.isPositionRuleMet(position);
                 }
             }
             // Default to showing the table
@@ -221,32 +226,32 @@ export default {
             }
         },
         shouldGoalieTableBeDisabled() {
-            let numGoaliesProtected = this.getCurrTeamProtectedMap['g'].length;
+            let numGoaliesProtected = this.getCurrTeamProtectedMap[this.getGoaliesString].length;
             return (numGoaliesProtected >= 1);
         },
         isSkaterRuleViable() {
-            let numDefensemenProtected = this.getCurrTeamProtectedMap['d'].length;
-            let numForwardsProtected = this.getCurrTeamProtectedMap['f'].length;
+            let numDefensemenProtected = this.getCurrTeamProtectedMap[this.getDefensemenString].length;
+            let numForwardsProtected = this.getCurrTeamProtectedMap[this.getForwardsString].length;
             let numSkatersProtected = numDefensemenProtected + numForwardsProtected;
             return numSkatersProtected <= 8;
         },
         isPositionRuleViable() {
-            let numDefensemenProtected = this.getCurrTeamProtectedMap['d'].length;
-            let numForwardsProtected = this.getCurrTeamProtectedMap['f'].length;
+            let numDefensemenProtected = this.getCurrTeamProtectedMap[this.getDefensemenString].length;
+            let numForwardsProtected = this.getCurrTeamProtectedMap[this.getForwardsString].length;
             return numDefensemenProtected <= 3 && numForwardsProtected <= 7;
         },
         isSkaterRuleMet() {
-            let numDefensemenProtected = this.getCurrTeamProtectedMap['d'].length;
-            let numForwardsProtected = this.getCurrTeamProtectedMap['f'].length;
+            let numDefensemenProtected = this.getCurrTeamProtectedMap[this.getDefensemenString].length;
+            let numForwardsProtected = this.getCurrTeamProtectedMap[this.getForwardsString].length;
             let numSkatersProtected = numDefensemenProtected + numForwardsProtected;
             return numSkatersProtected >= 8;
         },
-        isPositionRuleMet(positionId) {
-            let numProtectedForPosition = this.getCurrTeamProtectedMap[positionId].length;
-            if (positionId == 'd') {
+        isPositionRuleMet(position) {
+            let numProtectedForPosition = this.getCurrTeamProtectedMap[position].length;
+            if (position === this.getDefensemenString) {
                 return numProtectedForPosition >= 3;
             }
-            if (positionId == 'f') {
+            if (position === this.getForwardsString) {
                 return numProtectedForPosition >= 7;
             }
         }

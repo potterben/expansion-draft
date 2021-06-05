@@ -6,9 +6,9 @@
             </h2>
         </b-row>
             <TeamRequirementTable v-show="!isExpansionTeam"/>
-            <PlayerTable positionId="f" positionTitle="Forwards" />
-            <PlayerTable positionId="d" positionTitle="Defensemen" />
-            <PlayerTable positionId="g" positionTitle="Goalies" />
+            <PlayerTable position="forwards" />
+            <PlayerTable position="defensemen" />
+            <PlayerTable position="goalies" />
    </div>
 </template>
 

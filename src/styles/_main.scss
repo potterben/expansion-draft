@@ -133,6 +133,10 @@ img {
 }
 
 // Tables
+.capitalize {
+    text-transform: capitalize;
+}
+
 .table-header {
     background-color: $ice-blue !important;
     color: $deep-sea-blue !important;

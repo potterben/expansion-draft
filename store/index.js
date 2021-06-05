@@ -69,7 +69,8 @@ export default new Vuex.Store({
 
         considerUFAs: false,
         applyToAllOriginalTeams: true,
-        playerData: null
+        playerData: [],
+        positionKeys: ["forwards", "defensemen", "goalies"]
 
       },
       mutations: {
@@ -124,21 +125,21 @@ export default new Vuex.Store({
             state.originalTeams[payload.index].protected = payload.protectedMap;
         },
         addToCurrTeamProtectedMap(state, payload) {
-            state.originalTeams[state.currTeamIndex].protected[payload.positionId].push(payload.id);
+            state.originalTeams[state.currTeamIndex].protected[payload.position].push(payload.id);
         },
         removeFromCurrTeamProtectedMap(state, payload) {
-            const updatedArray = removeFromArray(state.originalTeams[state.currTeamIndex].protected[payload.positionId], payload.id);
-            state.originalTeams[state.currTeamIndex].protected[payload.positionId] = updatedArray;
+            const updatedArray = removeFromArray(state.originalTeams[state.currTeamIndex].protected[payload.position], payload.id);
+            state.originalTeams[state.currTeamIndex].protected[payload.position] = updatedArray;
         },
         setOriginalTeamExposedMap(state, payload) {
             state.originalTeams[payload.index].exposed = payload.exposedMap;
         },
         addToCurrTeamExposedMap(state, payload) {
-            state.originalTeams[state.currTeamIndex].exposed[payload.positionId].push(payload.id);
+            state.originalTeams[state.currTeamIndex].exposed[payload.position].push(payload.id);
         },
         removeFromCurrTeamExposedMap(state, payload) {
-            const updatedArray = removeFromArray(state.originalTeams[state.currTeamIndex].exposed[payload.positionId], payload.id);
-            state.originalTeams[state.currTeamIndex].exposed[payload.positionId] = updatedArray;
+            const updatedArray = removeFromArray(state.originalTeams[state.currTeamIndex].exposed[payload.position], payload.id);
+            state.originalTeams[state.currTeamIndex].exposed[payload.position] = updatedArray;
         },
         addToCurrTeamDoesNotMeetProtectReqs(state, position) {
             state.originalTeams[state.currTeamIndex].doesNotMeetProtectReqs.push(position);
@@ -199,18 +200,17 @@ export default new Vuex.Store({
         },
         async loadPlayerData(context) {
             axios
-            .get('http://0.0.0.0:5000/playerdata')
+            .get('http://0.0.0.0:8000/data')
             .then(response => {
                 context.commit("setPlayerData", response.data);
-                let positionKeys = ["f", "d", "g"]
+
                 for (let i = 0; i < context.state.originalTeams.length; ++i) {
-                    let team = context.state.originalTeams[i]
-                    let teamPlayerData = context.state.playerData[team.abbreviation];
+                   let teamPlayerData = context.state.playerData[i];
                     let protectedMap = {}
-                    let exposedMap = {}
-                    positionKeys.forEach(positionKey => {
+                    let exposedMap = {}                    
+                    context.state.positionKeys.forEach(positionKey => {
                         protectedMap[positionKey] = teamPlayerData[positionKey]
-                                                    .filter(value => value.protected)
+                                                    .filter(value => value.must_protected)
                                                     .map(function(value) {return value._id} );
                         exposedMap[positionKey] = []
                     });
@@ -305,13 +305,11 @@ export default new Vuex.Store({
             }
             return String();
         },
-        getCurrTeamTableData : (state, getters) => {
-            let currTeamAbbreviation = getters.getCurrTeamAbbreviation
-            if (currTeamAbbreviation && state.playerData)
-            {
-                return state.playerData[currTeamAbbreviation]
+        getCurrTeamTableData : state => {
+            if (state.originalTeams && state.playerData) {
+                return state.playerData[state.currTeamIndex]
             }
-            return null
+            return [];
         },
         getCurrFinancialMetricText: state => {
             if (state.currFinancialMetric && state.financialMetrics)
@@ -346,13 +344,21 @@ export default new Vuex.Store({
             if (currTeamTableData)
             {
                 const protectedMap = getters.getCurrTeamProtectedMap;
-                const keys = Object.keys(currTeamTableData);
-                keys.forEach(key => {
-                    const protectedSet = new Set(protectedMap[key]);
-                    currTeamMeetsRequirementsMap[key] = currTeamTableData[key].filter(player => player.meets_req && !protectedSet.has(player._id)).length;
+                state.positionKeys.forEach(position => {
+                    const protectedSet = new Set(protectedMap[position]);
+                    currTeamMeetsRequirementsMap[position] = currTeamTableData[position].filter(player => player.meets_req && !protectedSet.has(player._id)).length;
                 });
             }
             return currTeamMeetsRequirementsMap;
+        },
+        getForwardsString: state => {
+            return state.positionKeys[0];
+        },
+        getDefensemenString: state => {
+            return state.positionKeys[1];
+        },
+        getGoaliesString: state => {
+            return state.positionKeys[2];
         }
     }
 })

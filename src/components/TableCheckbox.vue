@@ -1,5 +1,5 @@
 <template>
-    <b-form-checkbox :checked="isChecked" @change="onChange($event, positionId, id)" :disabled="isDisabled"></b-form-checkbox>
+    <b-form-checkbox :checked="isChecked" @change="onChange($event, position, id)" :disabled="isDisabled"></b-form-checkbox>
 </template>
 
 <script>
@@ -8,7 +8,7 @@ export default {
 
     props: {
         id: String,
-        positionId: String,
+        position: String,
         checkedMap: Object,
         onChange: Function,
         isTableDisabled: Function
@@ -16,7 +16,7 @@ export default {
 
     computed: {
         isChecked() {
-            return this.checkedMap[this.positionId].indexOf(this.id) > -1 ;
+            return this.checkedMap[this.position].indexOf(this.id) > -1 ;
         },
         isDisabled() {
             if (!this.isChecked && this.isTableDisabled) {

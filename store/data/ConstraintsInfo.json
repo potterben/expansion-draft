@@ -3,39 +3,39 @@
         {
             "position":"Forwards",
             "limit": 7,
-            "ids" : ["f"]
+            "ids" : ["forwards"]
         },
         {
             "position":"Defensemen",
             "limit": 3,
-            "ids" : ["d"]
+            "ids" : ["defensemen"]
         },
         {
             "position":"Skaters",
             "limit": 8,
-            "ids" : ["f", "d"]
+            "ids" : ["forwards", "defensemen"]
         },
         {
             "position":"Goalies",
             "limit": 1,
-            "ids" : ["g"]
+            "ids" : ["goalies"]
         }
     ],
     "exposureRequirements":[
         {
             "position":"Forwards",
             "limit": 2,
-            "ids" : ["f"]
+            "ids" : ["forwards"]
         },
         {
             "position":"Defensemen",
             "limit": 1,
-            "ids" : ["d"]
+            "ids" : ["defensemen"]
         },
         {
             "position":"Goalies",
             "limit": 1,
-            "ids" : ["g"]
+            "ids" : ["goalies"]
         }
     ]
 }
