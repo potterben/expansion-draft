@@ -95,7 +95,7 @@ export default {
         },
         originalTeamsOptions: function () {
             if (this.allTeams) {
-                let originalTeamsOptions = this.allTeams;
+                let originalTeamsOptions = this.allTeams.slice();
                 originalTeamsOptions.shift();
                 return originalTeamsOptions
             }
