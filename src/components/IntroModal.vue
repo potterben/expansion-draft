@@ -66,7 +66,7 @@
         <template #modal-footer>
 
             <b-container>
-                <b-button type="button" class="btn btn-info"  @click="previousPage" :disabled="firstPage">
+                <b-button type="button" class="btn btn-info"  @click="previousPage" v-if="!firstPage">
                     Back
                 </b-button>
                 <b-button type="button" class="btn btn-info float-right" v-if="!lastPage" @click="nextPage" :disabled="lastPage" >
