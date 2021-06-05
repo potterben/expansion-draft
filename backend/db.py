@@ -3,7 +3,7 @@ from typing import Dict, List
 import pandas as pd
 
 from backend.constants import EXISTING_TEAMS, PLAYER_CSV
-from backend.domain import Player, PlayerContract, PlayerMetrics, Team, TeamName
+from backend.domain import Player, Team, TeamName
 
 
 class MemoryDB:
@@ -20,12 +20,35 @@ class MemoryDB:
     def teams(self):
         return self._teams
 
-
 def seed_db() -> MemoryDB:
     players = []
     df = pd.read_csv(PLAYER_CSV, encoding="latin-1")
     for idx, row in df.T.iteritems():
-        contract = PlayerContract(
+        player = Player(
+            id=str(idx),
+            first_name=row["First Name"],
+            last_name=row["Last Name"],
+            name=row["Player"],
+            team=TeamName(row["Team"]),
+            position=row["Pos"],
+            age=row["Age"],
+            forward=row["F"],
+            defence=row["D"],
+            goalie=row["G"],
+            center=row["C"],
+            right_wing=row["RW"],
+            left_wing=row["LW"],
+            right_def=row["RD"],
+            left_def=row["LD"],
+            # games played
+            gp=row["GP"],
+            nmc=row["NMC"],
+            game_req=row["Game Req"],
+            must_protect=row["Must Protect"],
+            meets_req=row["Meets Exposure"],
+            under_ct=row["Under Contract 21/22"],
+
+            # financial related information
             cap_hit_20_21=row["CH 20-21"],
             cap_hit_21_22=row["CH 21-22"],
             cap_hit_22_23=row["CH 22-23"],
@@ -41,8 +64,8 @@ def seed_db() -> MemoryDB:
             rfa_expiry=row["RFA Expiry"],
             expiry=row["Expiry"],
             ufa=row["UFA"],
-        )
-        metrics = PlayerMetrics(
+            
+            # performance relate information
             ops=row["OPS"],
             dps=row["DPS"],
             ps=row["PS"],
@@ -59,36 +82,10 @@ def seed_db() -> MemoryDB:
             ea_rating_scaled=row["Overall_scaled"],
         )
 
-        player = Player(
-            id=str(idx),
-            first_name=row["First Name"],
-            last_name=row["Last Name"],
-            name=row["Player"],
-            team=TeamName(row["Team"]),
-            position=row["Pos"],
-            age=row["Age"],
-            contract=contract,
-            metrics=metrics,
-            forward=row["F"],
-            defence=row["D"],
-            goalie=row["G"],
-            center=row["C"],
-            right_wing=row["RW"],
-            left_wing=row["LW"],
-            right_def=row["RD"],
-            left_def=row["LD"],
-            # games played
-            gp=row["GP"],
-            nmc=row["NMC"],
-            game_req=row["Game Req"],
-            must_protect=row["Must Protect"],
-            meets_req=row["Meets Exposure"],
-            under_ct=row["Under Contract 21/22"],
-        )
         players.append(player)
 
     teams = {
-        team: Team(name=team, goalies=[], defencemen=[], forwards=[])
+        team: Team(name=team, goalies=[], defensemen=[], forwards=[])
         for team in EXISTING_TEAMS
     }
 
@@ -96,7 +93,7 @@ def seed_db() -> MemoryDB:
         if player.goalie:
             teams[player.team].goalies.append(player)
         elif player.defence:
-            teams[player.team].defencemen.append(player)
+            teams[player.team].defensemen.append(player)
         elif player.forward:
             teams[player.team].forwards.append(player)
         else:
