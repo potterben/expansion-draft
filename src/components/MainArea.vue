@@ -81,7 +81,6 @@ export default {
                 return this.currTeamIndex;
             },
             set(value) {
-                console.log(value);
                 this.setCurrTeamIndex(value);
             }
         },
