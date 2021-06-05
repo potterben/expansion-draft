@@ -270,16 +270,16 @@ export default new Vuex.Store({
         optimize(context) {
             return new Promise((resolve, reject) => {
                 const payload = {
-                    originalTeams: context.state.originalTeams,
-                    financialMetric: context.state.currFinancialMetric,
-                    performanceMetric: context.state.currPerformanceMetric,
+                    original_teams: context.state.originalTeams,
+                    financial_metric: context.state.currFinancialMetric,
+                    performance_metric: context.state.currPerformanceMetric,
                     alpha: context.state.expansionTeam.alpha
                 };
                 const headers = {
                     'Access-Control-Allow-Origin': '*'
                   }
                 axios
-                .post('http://0.0.0.0:5000/optimize/', payload, { 'headers': headers})
+                .post('http://0.0.0.0:8000/optimize/', payload, { 'headers': headers})
                 .then(response => {
                     // TODO: call mutator to update state
                     
@@ -288,6 +288,7 @@ export default new Vuex.Store({
                 }, error => {
                     // http failed, let the calling function know that action did not work out
                     reject(error);
+                    console.log(error)
                 })
             })
         }
