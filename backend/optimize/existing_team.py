@@ -69,8 +69,8 @@ def optimize_existing_protection_scenario(
             continue
 
         player_value_constr = (
-            beta * player.metrics[perf_metric]
-            - (1 - beta) * player.contract[fin_metric]
+            beta * player[perf_metric]
+            - (1 - beta) * player[fin_metric]
             + AGE_WEIGHT * (40 - player.age) * (1 - protect_var[player.id])
         )
 
@@ -98,7 +98,7 @@ def optimize_existing_protection_scenario(
     else:
         # Must protect 3 Defenders
         defenders_constraint = pulp.lpSum(
-            [protect_var[player.id] for player in team.defencemen]
+            [protect_var[player.id] for player in team.defensemen]
         )
         model += defenders_constraint == 3, "Defenders"
 
@@ -116,7 +116,7 @@ def optimize_existing_protection_scenario(
 
     # Must expose at least 1 Defender meeting the requirements
     expose_defencemen_constraint = pulp.lpSum(
-        [(1 - protect_var[player.id]) for player in team.defencemen if player.meets_req]
+        [(1 - protect_var[player.id]) for player in team.defensemen if player.meets_req]
     )
     model += expose_defencemen_constraint >= 1, "ExposeDefenders"
 
@@ -143,7 +143,7 @@ def optimize_existing_protection_scenario(
     # Must expose ufa if the user specifies
     if expose_ufa:
         ufa_constraint = pulp.lpSum(
-            protect_var[player.id] for player in team.players if player.contract.ufa
+            protect_var[player.id] for player in team.players if player.ufa
         )
         model += ufa_constraint - ufa == 0
 

@@ -65,3 +65,6 @@ class Player(BaseModel):
     @property
     def var_id(self):
         return f"player_id_{self.id}"
+
+    def __getitem__(self, item):
+        return getattr(self, item)

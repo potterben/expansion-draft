@@ -48,13 +48,13 @@ def optimize_seattle_selection_scenario(
     # Objective
     perf_obj = pulp.lpSum(
         [
-            player.metrics[perf_metric] * select_var[player.id]
+            player[perf_metric] * select_var[player.id]
             for player in exposed_players
         ]
     )
     fin_obj = pulp.lpSum(
         [
-            player.contract[fin_metric] * select_var[player.id]
+            player[fin_metric] * select_var[player.id]
             for player in exposed_players
         ]
     )
@@ -109,7 +109,7 @@ def optimize_seattle_selection_scenario(
     # minimum and maximum team cap hit
     select_caphit_constraint = pulp.lpSum(
         [
-            player.contract["cap_hit_20_21"] * select_var[player.id]
+            player["cap_hit_20_21"] * select_var[player.id]
             for player in exposed_players
         ]
     )
