@@ -24,13 +24,13 @@ class TeamDraft:
 class Team(BaseModel):
     name: TeamName
     goalies: List[Player]
-    defencemen: List[Player]
+    defensemen: List[Player]
     forwards: List[Player]
 
     @property
     def players(self):
-        return self.goalies + self.defencemen + self.forwards
+        return self.goalies + self.defensemen + self.forwards
 
     @property
     def skaters(self):
-        return self.defencemen + self.forwards
+        return self.defensemen + self.forwards

@@ -2,9 +2,15 @@ from pydantic import BaseModel
 
 from .team_name import TeamName
 
+class Player(BaseModel):
+    id: str
+    first_name: str
+    last_name: str
+    name: str
+    team: TeamName
+    position: str
+    age: int
 
-# TODO update this with new data
-class PlayerContract(BaseModel):
     cap_hit_20_21: float
     cap_hit_21_22: float
     cap_hit_22_23: float
@@ -22,12 +28,21 @@ class PlayerContract(BaseModel):
     expiry: str  # year the player contract expires
     ufa: bool
 
-    def __getitem__(self, item):
-        return getattr(self, item)
+    forward: bool
+    defence: bool
+    goalie: bool
+    center: bool
+    right_wing: bool
+    left_wing: bool
+    right_def: bool
+    left_def: bool
+    gp: float
+    nmc: bool
+    game_req: bool
+    must_protect: bool
+    meets_req: bool
+    under_ct: bool
 
-
-# TODO update this with new data
-class PlayerMetrics(BaseModel):
     # offensive PS, defensive PS, PS
     ops: float
     dps: float
@@ -46,35 +61,6 @@ class PlayerMetrics(BaseModel):
     gadps_scaled: float
     gaps_scaled: float
     ea_rating_scaled: float
-
-    def __getitem__(self, item):
-        return getattr(self, item)
-
-
-class Player(BaseModel):
-    id: str
-    first_name: str
-    last_name: str
-    name: str
-    team: TeamName
-    position: str
-    age: int
-    contract: PlayerContract
-    metrics: PlayerMetrics
-    forward: bool
-    defence: bool
-    goalie: bool
-    center: bool
-    right_wing: bool
-    left_wing: bool
-    right_def: bool
-    left_def: bool
-    gp: float
-    nmc: bool
-    game_req: bool
-    must_protect: bool
-    meets_req: bool
-    under_ct: bool
 
     @property
     def var_id(self):
