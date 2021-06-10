@@ -15,4 +15,8 @@ class TeamOptimizationParameters(BaseModel):
 
 
 class OptimizationParameters(BaseModel):
-    team_optimization_parameters: Dict[TeamName, TeamOptimizationParameters]
+    # team_optimization_parameters: Dict[TeamName, TeamOptimizationParameters]
+    original_teams: List
+    financial_metric: str  # TODO make this an enum?
+    performance_metric: str  # TODO make this an enum?
+    alpha: float

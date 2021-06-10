@@ -19,12 +19,11 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:8080"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get("/")
 async def ping():
@@ -36,9 +35,8 @@ def data():
     return MemDB.teams
 
 
-@app.get("/optimize")
-def optimize(params: Optional[OptimizationParameters] = None):
-    # TODO remove massive hack and actually pass the params.
+@app.post("/optimize")
+def optimize(params: OptimizationParameters):
     existing_team_draft, seattle_team_draft = run_draft(
         MemDB.teams, defaultdict(lambda: None)
     )
@@ -46,7 +44,6 @@ def optimize(params: Optional[OptimizationParameters] = None):
         "existing_teams": existing_team_draft,
         "seattle_team_draft": seattle_team_draft,
     }
-
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
