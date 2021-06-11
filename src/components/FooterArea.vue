@@ -142,7 +142,6 @@ export default {
             
             asyncLoading(this.optimize())
             .then(response => {
-                console.log(response);
                 if (response && response.data && response.data.message) {
                     this.$bvModal.msgBoxOk(response.data.message);
                 }
