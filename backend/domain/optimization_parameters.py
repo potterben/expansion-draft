@@ -19,7 +19,6 @@ class OptimizationParameters(BaseModel):
     alpha: float
 
     def load_from_data(self, frontendData: FrontendInterface, teamData: Dict[TeamName, Team]) -> None:
-
         # Copy over frontend metrics
         self.financial_metric = frontendData.financial_metric
         self.performance_metric = frontendData.performance_metric

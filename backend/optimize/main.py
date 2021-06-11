@@ -17,11 +17,11 @@ def run_draft(
     # Get results for the existing teams.
     log.info("Getting Existing Team Decisions")
     existing_team_exposures = [
-        get_existing_team_draft_decisions(team, params[team.name]) for team in teams
+        get_existing_team_draft_decisions(team, params.team_optimization_parameters[team.name]) for team in teams
     ]
 
     seatle_draft_decisions = get_seattle_draft_decisions(
-        existing_team_exposures, params[TeamName.SEA]
+        existing_team_exposures, params
     )
 
     return existing_team_exposures, seatle_draft_decisions
