@@ -160,7 +160,11 @@ export default {
             return "$" + value.toFixed(3) + "M";
         },
         formatPerformanceMetric(value) {
-            return value.toFixed(2);
+            if (this.currPerformanceMetric == "ea_rating") {
+                return value.toFixed(0);
+            } else {
+                return value.toFixed(2)
+            }
         },
         formatMeetsRequirements(value) {
             return value ? "Yes" : "No";
@@ -192,7 +196,7 @@ export default {
             }
         },
         isTableDisabled() {
-            switch (this.positionId) {
+            switch (this.position) {
                 case "forwards":
                 case "defensemen":
                     return this.shouldTableBeDisabled(this.position);
@@ -203,8 +207,8 @@ export default {
             }
         },
         shouldTableBeDisabled(position) {
-            // If both rules are met, then the table should be disabled
-            if (this.isSkaterRuleMet() && this.isPositionRuleMet(position)) {
+            // If either rule is met, then the table should be disabled
+            if (this.isSkaterRuleMet() || this.isPositionRuleMet(position)) {
                 return true;
             }
             // If both rules are viable, the table should be enabled
@@ -235,7 +239,7 @@ export default {
             let numSkatersProtected = numDefensemenProtected + numForwardsProtected;
             return numSkatersProtected <= 8;
         },
-        isPositionRuleViable() {
+        isPositionRuleViable() { 
             let numDefensemenProtected = this.getCurrTeamProtectedMap[this.getDefensemenString].length;
             let numForwardsProtected = this.getCurrTeamProtectedMap[this.getForwardsString].length;
             return numDefensemenProtected <= 3 && numForwardsProtected <= 7;
