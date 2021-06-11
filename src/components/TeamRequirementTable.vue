@@ -85,7 +85,7 @@ export default {
             return ids => {
                 var count = 0;
                 ids.forEach(id => {
-                    if (!this.isEmpty(this.getCurrTeamProtectedMap))
+                    if (this.getCurrTeamProtectedMap !== null)
                     {
                         count += this.getCurrTeamProtectedMap[id].length;
                     }

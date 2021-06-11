@@ -196,14 +196,19 @@ export default {
             }
         },
         isTableDisabled() {
-            switch (this.position) {
-                case "forwards":
-                case "defensemen":
-                    return this.shouldTableBeDisabled(this.position);
-                case "goalies":
-                    return this.shouldGoalieTableBeDisabled();
-                default:
-                    return false;
+            if (this.getCurrTeamProtectedMap !== null) {
+                switch (this.position) {
+                    case "forwards":
+                    case "defensemen":
+                        return this.shouldTableBeDisabled(this.position);
+                    case "goalies":
+                        return this.shouldGoalieTableBeDisabled();
+                    default:
+                        return false;
+                }
+            }
+            else {
+                return false;
             }
         },
         shouldTableBeDisabled(position) {

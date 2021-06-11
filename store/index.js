@@ -18,8 +18,8 @@ class OriginalTeam extends Team {
     constructor(name, abbreviation, index) {
         super(name, abbreviation);
         this.index = index;
-        this.protected = {};
-        this.exposed = {};
+        this.protected = null;
+        this.exposed = null;
         this.beta = 0.0;
     }    
 }
