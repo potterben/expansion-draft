@@ -205,13 +205,13 @@ export default new Vuex.Store({
                 context.commit("setPlayerData", response.data);
 
                 for (let i = 0; i < context.state.originalTeams.length; ++i) {
-                   let teamPlayerData = context.state.playerData[i];
+                    let teamPlayerData = context.state.playerData[i];
                     let protectedMap = {}
-                    let exposedMap = {}                    
+                    let exposedMap = {}
                     context.state.positionKeys.forEach(positionKey => {
                         protectedMap[positionKey] = teamPlayerData[positionKey]
-                                                    .filter(value => value.must_protected)
-                                                    .map(function(value) {return value._id} );
+                                                    .filter(value => value.nmc)
+                                                    .map(function(value) {return value.id} );
                         exposedMap[positionKey] = []
                     });
                     context.commit("setOriginalTeamProtectedMap", {"protectedMap": protectedMap, "index": i});
@@ -281,9 +281,16 @@ export default new Vuex.Store({
                 axios
                 .post('http://0.0.0.0:8000/optimize/', payload, { 'headers': headers})
                 .then(response => {
-                    // TODO: call mutator to update state
-                    
-                    // Let the calling function know that http is done. You may send some data back
+                    let results = response.data
+                    let originalTeamsResults = results["original_teams"]
+                    for (let i = 0; i < originalTeamsResults.length; ++i) {
+                        let teamResults = originalTeamsResults[i];
+                        let protectedMap = {}
+                        context.state.positionKeys.forEach(positionKey => {
+                            protectedMap[positionKey] = teamResults[positionKey].map(function(value) {return value.id} );
+                        });
+                        context.commit("setOriginalTeamProtectedMap", {"protectedMap": protectedMap, "index": i});
+                    }
                     resolve(response);
                 }, error => {
                     // http failed, let the calling function know that action did not work out
