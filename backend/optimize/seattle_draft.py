@@ -5,7 +5,7 @@ import pulp
 
 from backend.domain import (
     SeattleTeamDraft,
-    TeamDraft,
+    OriginalTeamOptimization,
     TeamName,
     TeamOptimizationParameters,
 )
@@ -17,13 +17,13 @@ log = logging.getLogger(__name__)
 
 
 def optimize_seattle_selection_scenario(
-    existing_teams_drafts: List[TeamDraft],
+    existing_teams_drafts: List[OriginalTeamOptimization],
     params: Optional[TeamOptimizationParameters] = None,
 ) -> pulp.LpProblem:
 
     """Optimizes the selection decisions for Seattle.
     :param params: Optimization parameters for Seattle
-    :param existing_teams_drafts: TeamDraft object for each existing team containing name, protections, and exposures
+    :param existing_teams_drafts: OriginalTeamOptimization object for each existing team containing name, protections, and exposures
     :return:
     """
     log.info(f"Optimizing selection decisions for Seattle")
@@ -37,7 +37,7 @@ def optimize_seattle_selection_scenario(
     exposed_players = [
         player
         for team_draft in existing_teams_drafts
-        for player in team_draft.exposed_players
+        for player in team_draft.exposed
     ]
     exposed_ids = [player.id for player in exposed_players]
 
@@ -67,7 +67,7 @@ def optimize_seattle_selection_scenario(
     # Select 1 player from each existing team
     for team in existing_teams_drafts:
         select_team_player_constraint = pulp.lpSum(
-            [select_var[player.id] for player in team.exposed_players]
+            [select_var[player.id] for player in team.exposed]
         )
         model += select_team_player_constraint == 1, "SelectPlayer_" + str(team)
 
@@ -139,18 +139,18 @@ def optimize_seattle_selection_scenario(
 
 
 def get_seattle_draft_decisions(
-    existing_teams_drafts: List[TeamDraft], params: TeamOptimizationParameters
+    existing_teams_drafts: List[OriginalTeamOptimization], params: TeamOptimizationParameters
 ) -> SeattleTeamDraft:
     """Returns seattle decisions under the given optimization parameters."""
 
     def model_results_to_seattle_draft(
-        model: pulp.LpProblem, existing_teams_drafts: List[TeamDraft]
+        model: pulp.LpProblem, existing_teams_drafts: List[OriginalTeamOptimization]
     ) -> SeattleTeamDraft:
         decision_variables = model.variablesDict()
         exposed_players = [
             player
             for team_draft in existing_teams_drafts
-            for player in team_draft.exposed_players
+            for player in team_draft.exposed
         ]
         selected_players = []
         for player in exposed_players:
@@ -161,7 +161,15 @@ def get_seattle_draft_decisions(
             ):
                 selected_players.append(player)
 
-        return SeattleTeamDraft(TeamName.SEA, selected_players)
+        seattle_results = SeattleTeamDraft(TeamName.SEA, goalies=[], defensemen=[], forwards=[])
+        for player in selected_players:
+            if player.goalie:
+                seattle_results.goalies.append(player)
+            elif player.defence:
+                seattle_results.defensemen.append(player)
+            elif player.forward:
+                seattle_results.forwards.append(player)
+        return seattle_results
 
     seattle_selection_model = optimize_seattle_selection_scenario(
         existing_teams_drafts, params

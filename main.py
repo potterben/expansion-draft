@@ -7,7 +7,7 @@ from backend.db import seed_db
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.domain import SeattleTeamDraft, Team, TeamDraft
+from backend.domain import SeattleTeamDraft, Team, OriginalTeamOptimization
 from backend.domain.frontend_interface import FrontendInterface
 from backend.domain.optimization_parameters import OptimizationParameters
 from backend.optimize.main import run_draft
@@ -42,8 +42,8 @@ def optimize(frontend_data: FrontendInterface):
         MemDB.teams, optimization_params
     )
     return {
-        "existing_teams": existing_team_draft,
-        "seattle_team_draft": seattle_team_draft,
+        "original_teams": existing_team_draft,
+        "seattle": seattle_team_draft,
     }
 
 if __name__ == "__main__":
