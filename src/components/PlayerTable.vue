@@ -92,6 +92,14 @@ export default {
                     "thClass": "table-header"
                 },
                 {
+                    "key": "nmc",
+                    "label": "NMC",
+                    "sortable": true,
+                    "formatter" : "formatBooleanValue",
+                    "tdClass": "table-row",
+                    "thClass": "table-header"
+                },
+                {
                     "key": "name",
                     "sortable": true,
                     "tdClass": "table-row",
@@ -135,7 +143,7 @@ export default {
                     "key": "meets_req",
                     "label": "Meets Exposure Requirements",
                     "sortable": true,
-                    "formatter" : "formatMeetsRequirements",
+                    "formatter" : "formatBooleanValue",
                     "tdClass": "table-row",
                     "thClass": "table-header"
                 }
@@ -166,7 +174,7 @@ export default {
                 return value.toFixed(2)
             }
         },
-        formatMeetsRequirements(value) {
+        formatBooleanValue(value) {
             return value ? "Yes" : "No";
         },
         protectedChanged(value, position, id) {
