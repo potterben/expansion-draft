@@ -5,23 +5,33 @@
                 {{ teamName }}
             </h2>
         </b-row>
-            <TeamRequirementTable v-show="!isExpansionTeam"/>
-            <PlayerTable position="forwards" />
-            <PlayerTable position="defensemen" />
-            <PlayerTable position="goalies" />
+            <template v-if="!isExpansionTeam">
+                <TeamRequirementTable/>
+                <PlayerTable position="forwards"/>
+                <PlayerTable position="defensemen"/>
+                <PlayerTable position="goalies"/>
+            </template>
+            <template v-else>
+                <ExpansionPlayerTable position="forwards"/>
+                <ExpansionPlayerTable position="defensemen"/>
+                <ExpansionPlayerTable position="goalies"/>
+            </template>
+
    </div>
 </template>
 
 <script>
 import TeamRequirementTable from './TeamRequirementTable.vue'
 import PlayerTable from './PlayerTable.vue'
+import ExpansionPlayerTable from './ExpansionPlayerTable.vue'
 
 export default {
     name: 'TeamTable',
 
     components: {
         TeamRequirementTable,
-        PlayerTable
+        PlayerTable,
+        ExpansionPlayerTable
     },
 
     props: {

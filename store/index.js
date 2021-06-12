@@ -27,9 +27,10 @@ class OriginalTeam extends Team {
 class ExpansionTeam extends Team {
     constructor(name, abbreviation) {
         super(name, abbreviation);
-        this.keep = [];
-        this.remove = [];
+        this.keep = null;
+        this.remove = null;
         this.alpha = 0.0;
+        this.selected = null;
     }    
 }
 
@@ -154,6 +155,15 @@ export default new Vuex.Store({
         removeFromCurrTeamDoesNotMeetExposeReqs(state, position) {
             const updatedArray = removeFromArray(state.originalTeams[state.currTeamIndex].doesNotMeetExposeReqs, position);
             state.originalTeams[state.currTeamIndex].doesNotMeetExposeReqs = updatedArray;
+        },
+        setExpansionTeamResultsMap(state, map) {
+            state.expansionTeam.selected = map;
+        },
+        setExpansionTeamKeepMap(state, map) {
+            state.expansionTeam.keep = map;
+        },
+        setExpansionTeamRemoveMap(state, map) {
+            state.expansionTeam.remove = map;
         }
       },
     actions: {
@@ -217,6 +227,15 @@ export default new Vuex.Store({
                     context.commit("setOriginalTeamProtectedMap", {"protectedMap": protectedMap, "index": i});
                     context.commit("setOriginalTeamExposedMap", {"exposedMap": exposedMap, "index": i});
                 }
+
+                let keepMap = {};
+                let removeMap = {};
+                context.state.positionKeys.forEach(positionKey => {
+                    keepMap[positionKey] = [];
+                    removeMap[positionKey] = [];
+                });
+                context.commit("setExpansionTeamKeepMap", keepMap);
+                context.commit("setExpansionTeamRemoveMap", removeMap);
             });
             
         },
@@ -281,16 +300,24 @@ export default new Vuex.Store({
                 axios
                 .post('http://0.0.0.0:8000/optimize/', payload, { 'headers': headers})
                 .then(response => {
-                    let results = response.data
-                    let originalTeamsResults = results["original_teams"]
+                    let results = response.data;
+                    let originalTeamsResults = results["original_teams"];
                     for (let i = 0; i < originalTeamsResults.length; ++i) {
                         let teamResults = originalTeamsResults[i];
-                        let protectedMap = {}
+                        let protectedMap = {};
                         context.state.positionKeys.forEach(positionKey => {
                             protectedMap[positionKey] = teamResults[positionKey].map(function(value) {return value.id} );
                         });
                         context.commit("setOriginalTeamProtectedMap", {"protectedMap": protectedMap, "index": i});
                     }
+                    
+                    let seattleResults = results["seattle"];
+                    let seattleSelectedPlayers = {};
+                    context.state.positionKeys.forEach(positionKey => {
+                        seattleSelectedPlayers[positionKey] = seattleResults[positionKey];
+                    });
+                    context.commit("setExpansionTeamResultsMap", seattleSelectedPlayers);
+
                     resolve(response);
                 }, error => {
                     // http failed, let the calling function know that action did not work out
@@ -358,6 +385,12 @@ export default new Vuex.Store({
                 });
             }
             return currTeamMeetsRequirementsMap;
+        },
+        getExpansionTeamSelected: state => {
+            if (state.expansionTeam && state.expansionTeam.selected) {
+                return state.expansionTeam.selected;
+            }
+            return null;
         },
         getForwardsString: state => {
             return state.positionKeys[0];
