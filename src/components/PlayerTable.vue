@@ -212,10 +212,6 @@ export default {
             }
         },
         shouldTableBeDisabled(position) {
-            // If either rule is met, then the table should be disabled
-            if (this.isSkaterRuleMet() || this.isPositionRuleMet(position)) {
-                return true;
-            }
             // If both rules are viable, the table should be enabled
             if (this.isSkaterRuleViable() && this.isPositionRuleViable(position) ) {
                 return false;
