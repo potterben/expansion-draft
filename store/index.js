@@ -381,7 +381,7 @@ export default new Vuex.Store({
                 const protectedMap = getters.getCurrTeamProtectedMap;
                 state.positionKeys.forEach(position => {
                     const protectedSet = new Set(protectedMap[position]);
-                    currTeamMeetsRequirementsMap[position] = currTeamTableData[position].filter(player => player.meets_req && !protectedSet.has(player._id)).length;
+                    currTeamMeetsRequirementsMap[position] = currTeamTableData[position].filter(player => player.meets_req && !protectedSet.has(player.id)).length;
                 });
             }
             return currTeamMeetsRequirementsMap;
