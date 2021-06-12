@@ -1,16 +1,16 @@
 from enum import Enum
 
-
+# Order is in alphabetical according to the full team name and not the abbreviation
 class TeamName(str, Enum):
     ANA = "ANA"
     ARI = "ARI"
     BOS = "BOS"
     BUF = "BUF"
-    CAR = "CAR"
-    CBJ = "CBJ"
     CGY = "CGY"
+    CAR = "CAR"
     CHI = "CHI"
     COL = "COL"
+    CBJ = "CBJ"
     DAL = "DAL"
     DET = "DET"
     EDM = "EDM"
@@ -18,8 +18,8 @@ class TeamName(str, Enum):
     LAK = "LAK"
     MIN = "MIN"
     MTL = "MTL"
-    NJD = "NJD"
     NSH = "NSH"
+    NJD = "NJD"
     NYI = "NYI"
     NYR = "NYR"
     OTT = "OTT"
