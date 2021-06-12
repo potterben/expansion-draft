@@ -11,6 +11,8 @@ class TeamOptimizationParameters(BaseModel):
     beta: float
     user_protected_players: List[Player]
     user_exposed_players: List[Player]
+    financial_metric: str
+    performance_metric: str
 
 class OptimizationParameters(BaseModel):
     team_optimization_parameters: Dict[TeamName, TeamOptimizationParameters]
@@ -26,7 +28,13 @@ class OptimizationParameters(BaseModel):
         
         # Parse protected and exposed players
         for team in frontendData.original_teams:
-            optimization_parameters = TeamOptimizationParameters(beta=team.beta, user_protected_players=[], user_exposed_players=[])
+            optimization_parameters = TeamOptimizationParameters(
+                beta=(100 - team.beta) / 100,  # TODO sync def of beta with front end
+                user_protected_players=[],
+                user_exposed_players=[],
+                financial_metric=self.financial_metric,
+                performance_metric=self.performance_metric,
+            )
             
             current_team_players = teamData[team.index].players
             team_name = teamData[team.index].name
