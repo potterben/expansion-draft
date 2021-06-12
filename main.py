@@ -7,7 +7,8 @@ from backend.db import seed_db
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.domain import SeattleTeamDraft, Team, TeamDraft
+from backend.domain import SeattleTeamDraft, Team, OriginalTeamOptimization
+from backend.domain.frontend_interface import FrontendInterface
 from backend.domain.optimization_parameters import OptimizationParameters
 from backend.optimize.main import run_draft
 
@@ -29,20 +30,20 @@ app.add_middleware(
 async def ping():
     return {"Hello World"}
 
-
 @app.get("/data", response_model=List[Team])
 def data():
     return MemDB.teams
 
-
 @app.post("/optimize")
-def optimize(params: OptimizationParameters):
+def optimize(frontend_data: FrontendInterface):
+    optimization_params = OptimizationParameters(team_optimization_parameters={}, financial_metric="", performance_metric="", alpha=0.0)
+    optimization_params.load_from_data(frontend_data, MemDB.teams)
     existing_team_draft, seattle_team_draft = run_draft(
-        MemDB.teams, defaultdict(lambda: None)
+        MemDB.teams, optimization_params
     )
     return {
-        "existing_teams": existing_team_draft,
-        "seattle_team_draft": seattle_team_draft,
+        "original_teams": existing_team_draft,
+        "seattle": seattle_team_draft,
     }
 
 if __name__ == "__main__":

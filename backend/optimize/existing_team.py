@@ -3,7 +3,7 @@ from typing import List, Optional
 
 import pulp
 
-from backend.domain import Player, Team, TeamDraft, TeamOptimizationParameters
+from backend.domain import Player, Team, OriginalTeamOptimization, TeamOptimizationParameters
 
 AGE_WEIGHT = 0.3
 M = 2000
@@ -155,24 +155,29 @@ def optimize_existing_protection_scenario(
 
 def get_existing_team_draft_decisions(
     team: Team, params: TeamOptimizationParameters
-) -> TeamDraft:
+) -> OriginalTeamOptimization:
     """Returns a the teams optimize decisions under the given optimization parameters.."""
 
-    def model_results_to_team_draft(model: pulp.LpProblem, team: Team) -> TeamDraft:
+    def model_results_to_team_draft(model: pulp.LpProblem, team: Team) -> OriginalTeamOptimization:
         decision_variables = model.variablesDict()
-        protected_players = []
-        exposed_players = []
+        protected_goalies = []
+        protected_defensemen = []
+        protected_forwards = []
+        exposed = []
         for player in team.players:
             var_id = f"player_id_{player.id}"
             # TODO figure out why some players varaibles are missing.
-            if (var_id in decision_variables) and (
-                decision_variables[var_id].varValue > 0.5
-            ):
-                protected_players.append(player)
+            if (var_id in decision_variables) and (decision_variables[var_id].varValue > 0.5):
+                if player.goalie:
+                    protected_goalies.append(player)
+                elif player.defence:
+                    protected_defensemen.append(player)
+                elif player.forward:
+                    protected_forwards.append(player)
             else:
-                exposed_players.append(player)
+                exposed.append(player)
 
-        return TeamDraft(team.name, protected_players, exposed_players)
+        return OriginalTeamOptimization(team.name, goalies=protected_goalies, defensemen=protected_defensemen, forwards=protected_forwards, exposed=exposed)
 
     protect_8_skaters_model = optimize_existing_protection_scenario(team, params, True)
     protect_3_defenders_7_forwards_model = optimize_existing_protection_scenario(

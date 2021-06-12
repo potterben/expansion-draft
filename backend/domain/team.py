@@ -10,15 +10,20 @@ from .team_name import TeamName
 @dataclass
 class SeattleTeamDraft:
     name: TeamName
-    chosen_player: List[Player]
+    goalies: List[Player]
+    defensemen: List[Player]
+    forwards: List[Player]
 
 
 @dataclass
-class TeamDraft:
+class OriginalTeamOptimization:
     name: TeamName
-    # Protected by poisition
-    protected_players: List[Player]
-    exposed_players: List[Player]
+    # Protected by position
+    goalies: List[Player]
+    defensemen: List[Player]
+    forwards: List[Player]
+
+    exposed: List[Player]
 
 
 class Team(BaseModel):
