@@ -135,7 +135,7 @@ def optimize_existing_protection_scenario(
         )
         model += ufa_constraint - ufa == 0
 
-    model.solve(pulp.PULP_CBC_CMD(msg=False))
+    model.solve(pulp.PULP_CBC_CMD(msg=True))
 
     return model
 
