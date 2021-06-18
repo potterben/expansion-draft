@@ -1,9 +1,6 @@
 <template>
     <div class = 'team-table' :id ="teamInit">
         <b-row class="py-4 col-12 justify-content-center"> 
-            <h2 v-bind:class="teamInit">
-                {{ teamName }}
-            </h2>
         </b-row>
             <template v-if="!isExpansionTeam">
                 <TeamRequirementTable/>

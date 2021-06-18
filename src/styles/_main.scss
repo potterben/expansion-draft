@@ -55,6 +55,21 @@ h1, h2, h3
 a.nav-link {
     color: $white;
 }
+
+.custom-select {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    width: auto;
+    color: $deep-sea-blue;
+    vertical-align: middle;
+    border: 1px solid $deep-sea-blue;
+}
+
+.custom-select:focus {
+    border: 1px solid $deep-sea-blue;
+    box-shadow: none!important; 
+}
+
 // Team Selector
 :root {
     --swiper-theme-color: $deep-sea-blue !important;

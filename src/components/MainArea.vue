@@ -6,26 +6,16 @@
         <b-card no-body>
             <b-tabs content-class="mt-3" align="center" pills card> 
                 <b-tab title="Original Teams" active>
-                    <b-container class="py-4">
-                        <b-row class="col-12 py-1 justify-content-center">
-                            <h2>Team Selector</h2>
+                    <b-container class="py-2 text-center">
+                        <b-row class="col-12 py-1">
+                            <b-col>
+                                <h3>Select a team</h3>
+                            </b-col>
                         </b-row>
-                        <b-row class="col-12 py-1 justify-content-center">
-                            <h5>Select a team</h5>
-                        </b-row>
-                        <b-row class="col-12 py-4 d-md-none">
-                            <b-form-select v-model="currentIndex" :options="this.originalTeamsOptions"/>
-                        </b-row>
-                        <b-row class="col-12 py-4 d-none d-md-block">
-                            <swiper ref="teamSelectionSwiper" :options="swiperOptions" @slideChange="handleSwiperIndexChanged">
-                                <template v-for="(team, index) in this.originalTeams">
-                                    <swiper-slide :key="index">
-                                        <img :src="require('../assets/nhl_logos/' + team.imageLocation)" :id="team.abbreviation" :alt="team.name" :title="team.name"/>
-                                    </swiper-slide>
-                                </template>
-                                <div class="swiper-button-prev" slot="button-prev"></div>
-                                <div class="swiper-button-next" slot="button-next"></div>
-                            </swiper>
+                        <b-row class="col-12 py-1">
+                            <b-col>
+                                <b-form-select v-model="currentIndex" :options="this.originalTeamsOptions" class="text-center"/>
+                            </b-col>
                         </b-row>
                     </b-container>
                     <b-container v-show="this.currentTeam" class="text-center py-4">
@@ -46,7 +36,7 @@
 import TeamTable from './TeamTable.vue'
 import TeamInfoJson from '../../store/data/TeamsInfo.json'
 import { mapActions, mapGetters, mapState } from 'vuex'
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+// import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 
 export default {
     name: 'MainArea',
@@ -71,8 +61,8 @@ export default {
 
     components: {
         TeamTable,
-        Swiper,
-        SwiperSlide
+        // Swiper,
+        // SwiperSlide
     },
 
     computed: {
@@ -115,6 +105,11 @@ export default {
         ...mapActions([
             'setCurrTeamIndex'
         ]),
+        handleDropdownClick(a) {
+            console.log(a);
+            var index = this.swiper.realIndex
+            this.setCurrTeamIndex(index);
+        },
         handleSwiperIndexChanged: function() {
             var index = this.swiper.realIndex
             this.setCurrTeamIndex(index);
