@@ -145,7 +145,7 @@ export default {
                     "sortable": true,
                     "formatter" : "formatBooleanValue",
                     "tdClass": "table-row",
-                    "thClass": "table-header"
+                    "thClass": "table-header text-wrap"
                 }
             ];
         },
