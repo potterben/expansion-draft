@@ -36,7 +36,6 @@
 import TeamTable from './TeamTable.vue'
 import TeamInfoJson from '../../store/data/TeamsInfo.json'
 import { mapActions, mapGetters, mapState } from 'vuex'
-// import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 
 export default {
     name: 'MainArea',
@@ -45,24 +44,11 @@ export default {
     data() {
         return {
             originalTeams: TeamInfoJson.originalTeams,
-            swiperOptions: {
-                slidesPerView: 12,
-                spaceBetween: 15,
-                slideToClickedSlide: true,
-                centeredSlides: true,
-                loop: true,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev'
-                }
-            }
         }
     },
 
     components: {
-        TeamTable,
-        // Swiper,
-        // SwiperSlide
+        TeamTable
     },
 
     computed: {
