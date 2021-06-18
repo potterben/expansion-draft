@@ -78,36 +78,36 @@ export default {
                 {
                     "key": "keep",
                     "tdClass": "table-row",
-                    "thClass": "table-header"
+                    "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "remove",
                     "tdClass": "table-row",
-                    "thClass": "table-header"
+                    "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "name",
                     "sortable": true,
                     "tdClass": "table-row",
-                    "thClass": "table-header"
+                    "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "team",
                     "sortable": true,
                     "tdClass": "table-row",
-                    "thClass": "table-header"
+                    "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "age",
                     "sortable": true,
                     "tdClass": "table-row",
-                    "thClass": "table-header"
+                    "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "position",
                     "sortable": true,
                     "tdClass": "table-row",
-                    "thClass": "table-header"
+                    "thClass": "table-header text-wrap"
                 },
                 {
                     "key": this.currFinancialMetric,
@@ -115,7 +115,7 @@ export default {
                     "sortable": true,
                     "formatter" : "formatFinancialMetric",
                     "tdClass": "table-row",
-                    "thClass": "table-header"
+                    "thClass": "table-header text-wrap"
                 },
                 {
                     "key": this.currPerformanceMetric,
@@ -123,13 +123,13 @@ export default {
                     "sortable": true,
                     "formatter" : "formatPerformanceMetric",
                     "tdClass": "table-row",
-                    "thClass": "table-header"
+                    "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "expiry",
                     "sortable": true,
                     "tdClass": "table-row",
-                    "thClass": "table-header"
+                    "thClass": "table-header text-wrap"
                 }
             ];
         },
