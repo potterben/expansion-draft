@@ -37,23 +37,20 @@
                 <b-collapse id="all-other-teams" v-model="doNotApplyToAll">
                     <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
                 </b-collapse>
-                <b-link class="toggle" v-b-toggle="'all-other-teams'">
-                    <template v-if="doNotApplyToAll">
-                        <b-icon icon="chevron-up" aria-hidden="true"></b-icon>
-                        Hide all other teams
-                    </template>
-                    <template v-else>
-                        <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
-                        Show all other teams
-                    </template>
-                </b-link>
             </b-container>
             <template #modal-footer>
-                <b-row>
-                    <b-col cols=12>
-                        <b-button variant="info" block @click="showOptimizeDialog">
-                            Optimize Results
-                        </b-button>
+                <b-row class="col-12">
+                    <b-col cols=6 align-h="center">
+                        <b-link class="toggle" v-b-toggle="'all-other-teams'">
+                            <template v-if="doNotApplyToAll">
+                                <b-icon icon="chevron-up" aria-hidden="true"></b-icon>
+                                Hide all other teams
+                            </template>
+                            <template v-else>
+                                <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
+                                Show all other teams
+                            </template>
+                        </b-link>
                     </b-col>
                 </b-row>
             </template>

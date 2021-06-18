@@ -7,8 +7,6 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../../node_modules/bootstrap-vue/src/index.scss';
 
-@import '../../node_modules/swiper/css/swiper.css';
-
 /* Background */
 nav {
     background-color: $deep-sea-blue;
@@ -56,7 +54,7 @@ a.nav-link {
     color: $white;
 }
 
-.custom-select {
+.team-selector {
     font-size: 1.5rem;
     line-height: 1.5;
     width: auto;
@@ -65,30 +63,9 @@ a.nav-link {
     border: 1px solid $deep-sea-blue;
 }
 
-.custom-select:focus {
+.team-selector:focus {
     border: 1px solid $deep-sea-blue;
     box-shadow: none!important; 
-}
-
-// Team Selector
-:root {
-    --swiper-theme-color: $deep-sea-blue !important;
-}
-
-.swiper-slide {
-    opacity: 0.1 !important;
-    &:hover {
-        opacity: 0.65 !important;
-    }
-}
-
-.swiper-container {
-    margin-left: 50px;
-    margin-right: 50px;
-    position: initial;
-}
-.swiper-slide-active {
-    opacity: 1 !important;
 }
 
 // Image related
@@ -196,9 +173,9 @@ a#advanced-options{
 }
 
 a.toggle {
-    color: $boundless-blue;
+    color:  $deep-sea-blue;
     a:hover {
-        color: $boundless-blue;
+        color:  $deep-sea-blue;
     }
 }
 

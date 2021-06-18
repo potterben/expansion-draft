@@ -14,7 +14,7 @@
                         </b-row>
                         <b-row class="col-12 py-1">
                             <b-col>
-                                <b-form-select v-model="currentIndex" :options="this.originalTeamsOptions" class="text-center"/>
+                                <b-form-select v-model="currentIndex" :options="this.originalTeamsOptions" class="team-selector text-center"/>
                             </b-col>
                         </b-row>
                     </b-container>

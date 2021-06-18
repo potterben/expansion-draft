@@ -1,7 +1,5 @@
 <template>
     <div class = 'team-table' :id ="teamInit">
-        <b-row class="py-4 col-12 justify-content-center"> 
-        </b-row>
             <template v-if="!isExpansionTeam">
                 <TeamRequirementTable/>
                 <PlayerTable position="forwards"/>
