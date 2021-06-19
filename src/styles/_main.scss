@@ -57,7 +57,7 @@ a.nav-link {
 .team-selector {
     font-size: 1.5rem;
     line-height: 1.5;
-    width: auto;
+    max-width: 50%;
     color: $deep-sea-blue;
     vertical-align: middle;
     border: 1px solid $deep-sea-blue;
@@ -188,7 +188,7 @@ a.toggle {
 #intro-modal{
     .modal-content 
     {
-        height: 650px;
+        height: 850px;
     }
 }
 

@@ -7,12 +7,12 @@
             <b-tabs content-class="mt-3" align="center" pills card justified> 
                 <b-tab title="Original Teams" active>
                     <b-container class="py-2 text-center">
-                        <b-row class="col-12 py-1">
+                        <b-row class="py-1">
                             <b-col>
                                 <h3>Select a team</h3>
                             </b-col>
                         </b-row>
-                        <b-row class="col-12 py-1">
+                        <b-row class="py-1">
                             <b-col>
                                 <b-form-select v-model="currentIndex" :options="this.originalTeamsOptions" class="team-selector text-center"/>
                             </b-col>
@@ -22,7 +22,7 @@
                         <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
                     </b-container>
                 </b-tab>
-                <b-tab title="Optimizer Results">
+                <b-tab title="Seattle Results">
                     <b-container v-show="this.expansionTeam" class="text-center py-4">
                         <TeamTable :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
                     </b-container>
