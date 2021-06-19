@@ -1,7 +1,7 @@
 <template>
     <b-container class="py-4 text-center">
         <b-row>
-            <b-col sm="6">
+            <b-col lg="6">
                 <b-row class ="py-2">
                     <b-col cols="12">
                         <h4>Protection Requirements</h4>
@@ -9,7 +9,7 @@
                 </b-row>
                 <b-row>
                     <b-col cols="12">
-                        <b-table-simple outlined class="panel panel-default panel-table">
+                        <b-table-simple fixed outlined class="panel panel-default panel-table">
                             <b-thead>
                                 <b-tr class="table-header">
                                     <b-td v-for="requirement in protectionRequirements" :key="requirement.position" >
@@ -31,7 +31,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col sm="6">
+            <b-col lg="6">
                 <b-row class ="py-2">
                     <b-col cols="12">
                         <h4>Exposure Requirements</h4>
@@ -39,7 +39,7 @@
                 </b-row>
                 <b-row >
                     <b-col cols="12">
-                        <b-table-simple outlined class="panel panel-default panel-table">
+                        <b-table-simple fixed outlined class="panel panel-default panel-table">
                             <b-thead>
                                 <b-tr class="table-header">
                                     <b-td v-for="requirement in exposureRequirements" :key="requirement.position">
