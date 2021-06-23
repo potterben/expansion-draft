@@ -12,7 +12,8 @@
         outlined
         responsive
         class="text-nowrap"
-        :class="isTableDisabled() ? 'disabled-table': ''"
+        :class="{'disabled-table': isTableDisabled()}"
+        :tbody-tr-class="setRowClass"
         >
             <template #cell(protect)="row">
                 <TableCheckbox
@@ -56,9 +57,7 @@ export default {
             'currFinancialMetric',
             'currPerformanceMetric',
             'playerData',
-            'forwardsString',
-            'defensemenString',
-            'goaliesString'
+            'expansionTeam'
         ]),
         ...mapGetters([
             'getCurrTeamTableData',
@@ -68,7 +67,7 @@ export default {
             'getCurrTeamProtectedMap',
             'getForwardsString',
             'getDefensemenString',
-            'getGoaliesString'
+            'getGoaliesString',
         ]),
         getCurrentTeamPlayerTableData() {
             let teamTableData = this.getCurrTeamTableData;
@@ -83,12 +82,10 @@ export default {
             return [
                 {
                     "key": "protect",
-                    "tdClass": "table-row",
                     "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "expose",
-                    "tdClass": "table-row",
                     "thClass": "table-header text-wrap"
                 },
                 {
@@ -96,25 +93,21 @@ export default {
                     "label": "NMC",
                     "sortable": true,
                     "formatter" : "formatBooleanValue",
-                    "tdClass": "table-row",
                     "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "name",
                     "sortable": true,
-                    "tdClass": "table-row",
                     "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "age",
                     "sortable": true,
-                    "tdClass": "table-row",
                     "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "position",
                     "sortable": true,
-                    "tdClass": "table-row",
                     "thClass": "table-header text-wrap"
                 },
                 {
@@ -122,7 +115,6 @@ export default {
                     "label": this.getCurrFinancialMetricText,
                     "sortable": true,
                     "formatter" : "formatFinancialMetric",
-                    "tdClass": "table-row",
                     "thClass": "table-header text-wrap"
                 },
                 {
@@ -130,13 +122,11 @@ export default {
                     "label":this.getCurrPerformanceMetricText,
                     "sortable": true,
                     "formatter" : "formatPerformanceMetric",
-                    "tdClass": "table-row",
                     "thClass": "table-header text-wrap"
                 },
                 {
                     "key": "expiry",
                     "sortable": true,
-                    "tdClass": "table-row",
                     "thClass": "table-header text-wrap"
                 },
                 {
@@ -144,7 +134,6 @@ export default {
                     "label": "Meets Exp. Reqs",
                     "sortable": true,
                     "formatter" : "formatBooleanValue",
-                    "tdClass": "table-row",
                     "thClass": "table-header text-wrap"
                 }
             ];
@@ -202,6 +191,17 @@ export default {
             else {
                 this.removeFromCurrTeamExposedMap(payload);
             }
+        },
+        setRowClass(item, type) {
+            if (type == 'row' && this.expansionTeam && this.expansionTeam.selected) {
+                let id = item.id;
+                let selectedPlayers = this.expansionTeam.selected;
+                const isSelected = selectedPlayers[this.position].filter(player => player.id === id).length > 0;
+                if (isSelected) {
+                    return "player-selected";
+                }
+            }
+            return [];
         },
         isTableDisabled() {
             if (this.getCurrTeamProtectedMap !== null) {

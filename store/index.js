@@ -21,7 +21,7 @@ class OriginalTeam extends Team {
         this.protected = null;
         this.exposed = null;
         this.beta = 0.0;
-    }    
+    }
 }
 
 class ExpansionTeam extends Team {

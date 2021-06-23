@@ -143,8 +143,13 @@ th, td {
     border-bottom: 1px solid #dee2e6;
 }
 
+.player-selected td {
+    background-color: $ice-blue;
+    color: $deep-sea-blue !important;
+}
+
 .disabled-table td {
-    color: #a7a7a7 !important;
+    color: $inactive-grey;
 }
 
 // Footer
@@ -161,7 +166,7 @@ th, td {
 }
 
 .btn-info:hover {
-    color: #fff;
+    color: white;
     background-color: $boundless-blue;
     border-color: $boundless-blue;
 }

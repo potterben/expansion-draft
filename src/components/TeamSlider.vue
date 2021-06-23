@@ -17,13 +17,13 @@
                 <label class="p-2" for="financial_flexiblity">
                     Financial Flexibility:
                 </label>
-                <input class="percentage" type="number" min="0" max="100" name="financial_flexiblity" id="financial_flexiblity" v-model="sliderValue">%
+                <input class="percentage" type="number" min="0" max="100" name="financial_flexiblity" id="financial_flexiblity" v-model="sliderValue"> %
             </b-col>
             <b-col>
                 <label class="p-2" for="on_ice_performance">
                     On-Ice Performance:
                 </label>
-                <input class="percentage" type="number" min="0" max="100" name="on_ice_performance" id="on_ice_performance" v-model="invertedPercentageValue">%
+                <input class="percentage" type="number" min="0" max="100" name="on_ice_performance" id="on_ice_performance" v-model="invertedPercentageValue"> %
             </b-col>
         </b-row>
     </div>
