@@ -23,8 +23,11 @@
                     </b-container>
                 </b-tab>
                 <b-tab title="Seattle Results">
-                    <b-container v-show="this.expansionTeam" class="text-center py-4">
+                    <b-container v-show="this.expansionTeam && this.expansionTeam.selected" class="text-center py-4">
                         <TeamTable :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
+                    </b-container>
+                    <b-container v-show="this.expansionTeam && !this.expansionTeam.selected" class="text-center py-4">
+                        <h3>Run the optimizer to get your results</h3>
                     </b-container>
                 </b-tab>
             </b-tabs>
