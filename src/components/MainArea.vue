@@ -4,7 +4,7 @@
             <h1>NHL Expansion Draft Optimizer</h1>
         </b-container>
         <b-card no-body>
-            <b-tabs content-class="mt-3" align="center" pills card justified> 
+            <b-tabs content-class="mt-3" align="center" pills card> 
                 <b-tab title="Original Teams" active>
                     <b-container class="py-2 text-center">
                         <b-row class="py-1">

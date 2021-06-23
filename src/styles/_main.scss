@@ -54,6 +54,7 @@ a.nav-link {
     color: $white;
 }
 
+// Team Selector 
 .team-selector {
     font-size: 1.5rem;
     line-height: 1.5;
@@ -114,14 +115,16 @@ img {
 
 // Tabs
 .nav-link[role=tab] {
-    color: $deep-sea-blue !important;
-    border: 1px solid $deep-sea-blue;
-    border-radius: 0px !important;
+    color: $inactive-grey !important;
+    background-color: $white !important;
 }
 .nav-link.active[role=tab] {
-    border: 1px solid $deep-sea-blue;
-    color: $white !important;
-    background-color: $deep-sea-blue !important;
+    color: $deep-sea-blue !important;
+    background-color: $white !important;
+    text-decoration: none;
+    border-radius: 0%;
+    border-bottom: 0.25rem solid $ice-blue;
+    padding-bottom: 0.25rem;
 }
 
 // Tables
