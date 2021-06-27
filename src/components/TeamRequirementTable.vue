@@ -17,11 +17,8 @@
                                     </b-td>
                                 </b-tr>
                             </b-thead>
-                            <b-tbody id = "requirements">
-                                <b-tr class="table-row">
-
-                                </b-tr>
-                                <b-tr class="table-row">
+                            <b-tbody>
+                                <b-tr>
                                     <b-td v-for="requirement in protectionRequirements" :key="requirement.position">
                                         {{ protectedCount(requirement.ids) }}/{{ requirement.limit }}
                                     </b-td>
