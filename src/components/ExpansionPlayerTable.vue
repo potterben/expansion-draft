@@ -18,6 +18,7 @@
                 :id="row.item.id"
                 :position="position"
                 :checkedMap="expansionTeamKeepMap"
+                :onChange="keepChanged"
                 />
             </template>
             <template #cell(remove)="row">
@@ -25,6 +26,7 @@
                 :id="row.item.id"
                 :position="position"
                 :checkedMap="expansionTeamRemoveMap"
+                :onChange="removeChanged"
                 />
             </template>
         </b-table>
@@ -134,7 +136,7 @@ export default {
         },
         expansionTeamRemoveMap() {
             if (this.expansionTeam && this.expansionTeam.remove) {
-                return this.expansionTeam.keep;                
+                return this.expansionTeam.remove;                
             }
             else {
                 return {};
@@ -144,10 +146,10 @@ export default {
 
     methods: {
         ...mapActions([
-            'addToCurrTeamProtectedMap',
-            'addToCurrTeamExposedMap',
-            'removeFromCurrTeamProtectedMap',
-            'removeFromCurrTeamExposedMap'
+            'addToExpansionTeamKeepMap',
+            'addToExpansionTeamRemoveMap',
+            'removeFromExpansionTeamKeepMap',
+            'removeFromExpansionTeamRemoveMap'
         ]),
         formatFinancialMetric(value) {
             return "$" + value.toFixed(3) + "M";
@@ -157,6 +159,32 @@ export default {
                 return value.toFixed(0);
             } else {
                 return value.toFixed(2)
+            }
+        },
+        keepChanged(value, position, id) {
+            let payload = {
+                "position": position,
+                "id": id
+            }
+            if (value) {
+                this.removeFromExpansionTeamRemoveMap(payload);
+                this.addToExpansionTeamKeepMap(payload);
+            }
+            else {
+                this.removeFromExpansionTeamKeepMap(payload);
+            }
+        },
+        removeChanged(value, position, id) {
+            let payload = {
+                "position": position,
+                "id": id
+            }
+            if (value) {
+                this.removeFromExpansionTeamKeepMap(payload);
+                this.addToExpansionTeamRemoveMap(payload);
+            }
+            else {
+                this.removeFromExpansionTeamRemoveMap(payload);
             }
         }
     }

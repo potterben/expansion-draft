@@ -142,6 +142,20 @@ export default new Vuex.Store({
             const updatedArray = removeFromArray(state.originalTeams[state.currTeamIndex].exposed[payload.position], payload.id);
             state.originalTeams[state.currTeamIndex].exposed[payload.position] = updatedArray;
         },
+        addToExpansionTeamKeepMap(state, payload) {
+            state.expansionTeam.keep[payload.position].push(payload.id);
+        },
+        removeFromExpansionTeamKeepMap(state, payload) {
+            const updatedArray = removeFromArray(state.expansionTeam.keep[payload.position], payload.id);
+            state.expansionTeam.keep[payload.position] = updatedArray;
+        },
+        addToExpansionTeamRemoveMap(state, payload) {
+            state.expansionTeam.remove[payload.position].push(payload.id);
+        },
+        removeFromExpansionTeamRemoveMap(state, payload) {
+            const updatedArray = removeFromArray(state.expansionTeam.remove[payload.position], payload.id);
+            state.expansionTeam.remove[payload.position] = updatedArray;
+        },
         addToCurrTeamDoesNotMeetProtectReqs(state, position) {
             state.originalTeams[state.currTeamIndex].doesNotMeetProtectReqs.push(position);
         },
@@ -286,13 +300,25 @@ export default new Vuex.Store({
         removeFromCurrTeamExposedMap(context, payload) {
             context.commit("removeFromCurrTeamExposedMap", payload);
         },
+        addToExpansionTeamKeepMap(context, payload) {
+            context.commit("addToExpansionTeamKeepMap", payload);
+        },
+        removeFromExpansionTeamKeepMap(context, payload) {
+            context.commit("removeFromExpansionTeamKeepMap", payload);
+        },
+        addToExpansionTeamRemoveMap(context, payload) {
+            context.commit("addToExpansionTeamRemoveMap", payload);
+        },
+        removeFromExpansionTeamRemoveMap(context, payload) {
+            context.commit("removeFromExpansionTeamRemoveMap", payload);
+        },
         optimize(context) {
             return new Promise((resolve, reject) => {
                 const payload = {
                     original_teams: context.state.originalTeams,
                     financial_metric: context.state.currFinancialMetric,
                     performance_metric: context.state.currPerformanceMetric,
-                    alpha: context.state.expansionTeam.alpha
+                    seattle: context.state.expansionTeam
                 };
                 const headers = {
                     'Access-Control-Allow-Origin': '*'
@@ -313,10 +339,14 @@ export default new Vuex.Store({
                     
                     let seattleResults = results["seattle"];
                     let seattleSelectedPlayers = {};
+                    // clear the remove map
+                    let removeMap = {};
                     context.state.positionKeys.forEach(positionKey => {
                         seattleSelectedPlayers[positionKey] = seattleResults[positionKey];
+                        removeMap[positionKey] = [];
                     });
                     context.commit("setExpansionTeamResultsMap", seattleSelectedPlayers);
+                    context.commit("setExpansionTeamRemoveMap", removeMap);
 
                     resolve(response);
                 }, error => {
