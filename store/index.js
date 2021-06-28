@@ -68,7 +68,7 @@ export default new Vuex.Store({
         currPerformanceMetric: "",
         performanceMetrics: [],
 
-        considerUFAs: false,
+        dontConsiderUFAs: true,
         applyToAllOriginalTeams: true,
         playerData: [],
         positionKeys: ["forwards", "defensemen", "goalies"]
@@ -99,8 +99,8 @@ export default new Vuex.Store({
         setPerformanceMetrics(state, performanceMetrics) {
             state.performanceMetrics = performanceMetrics;
         },
-        setConsiderUFAs(state, considerUFAs) {
-            state.considerUFAs = considerUFAs;
+        setDontConsiderUFAs(state, dontConsiderUFAs) {
+            state.dontConsiderUFAs = dontConsiderUFAs;
         },
         setCurrTeamSliderValue(state, value) {
             state.originalTeams[state.currTeamIndex].beta = value;
@@ -267,8 +267,8 @@ export default new Vuex.Store({
         setCurrPerformanceMetric(context, performanceMetric) {
             context.commit("setCurrPerformanceMetric", performanceMetric);
         },
-        setConsiderUFAs(context, considerUFAs) {
-            context.commit("setConsiderUFAs", considerUFAs);
+        setDontConsiderUFAs(context, dontConsiderUFAs) {
+            context.commit("setDontConsiderUFAs", dontConsiderUFAs);
         },
         setExpansionTeamSliderValue(context, value) {
             context.commit("setExpansionTeamSliderValue", value);
@@ -319,6 +319,7 @@ export default new Vuex.Store({
                     financial_metric: context.state.currFinancialMetric,
                     performance_metric: context.state.currPerformanceMetric,
                     seattle: context.state.expansionTeam
+                    
                 };
                 const headers = {
                     'Access-Control-Allow-Origin': '*'

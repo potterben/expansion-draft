@@ -26,7 +26,7 @@
                 </b-row>
                 <b-row>
                     <b-col class="col-6 py-2">
-                        <b-form-checkbox id ="ufa" v-model="considerUFAState">
+                        <b-form-checkbox id ="ufa" v-model="dontConsiderUFAState">
                             Don't Consider UFAs
                         </b-form-checkbox>
                     </b-col>
@@ -87,12 +87,12 @@ export default {
                 this.setCurrPerformanceMetric(value);
             }
         },
-        considerUFAState: {
+        dontConsiderUFAState: {
             get() {
-                return this.considerUFAs;
+                return this.dontConsiderUFAs;
             },
             set(value) {
-                this.setConsiderUFAs(value);
+                this.setDontConsiderUFAs(value);
             }
         },
         applyToAll: {
@@ -122,7 +122,7 @@ export default {
             'expansionTeam',
             'originalTeams',
             'currTeamIndex',
-            'considerUFAs',
+            'dontConsiderUFAs',
             'applyToAllOriginalTeams'
         ]),
         ...mapGetters([
@@ -151,7 +151,7 @@ export default {
             'optimize',
             'setCurrFinancialMetric',
             'setCurrPerformanceMetric',
-            'setConsiderUFAs',
+            'setDontConsiderUFAs',
             'setApplyToAllOriginalTeams',
         ])
     }
