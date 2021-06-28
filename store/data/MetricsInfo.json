@@ -9,40 +9,8 @@
             "text":"Cap Hit (21/22)"
         },
         {
-            "value":"cap_hit_22_23",
-            "text":"Cap Hit (22/23)"
-        },
-        {
-            "value":"cap_hit_23_24",
-            "text":"Cap Hit (23/24)"
-        },
-        {
-            "value":"cap_hit_24_25",
-            "text":"Cap Hit (24/25)"
-        },
-        {
-            "value":"cap_hit_25_26",
-            "text":"Cap Hit (25/26)"
-        },
-        {
-            "value":"cap_hit_26_27",
-            "text":"Cap Hit (26/27)"
-        },
-        {
             "value":"cap_hit_total",
-            "text":"Total Cap Hit"
-        },
-        {
-            "value":"cap_percent",
-            "text":"Cap Percentage"
-        },
-        {
-            "value":"cap_hit_21_22_scaled",
-            "text":"Cap Hit (21/22) scaled"
-        },
-        {
-            "value":"cap_hit_total_scaledd",
-            "text":"Total Cap Hit scaled"
+            "text":"Average Cap Hit"
         }
     ],
     "performanceMetrics":[
@@ -51,28 +19,12 @@
             "text":"EA Rating"
         },
         {
-            "value":"ops",
-            "text":"Offensive Point Shares"
-        },
-        {
-            "value":"dps",
-            "text":"Defensive Point Shares"
-        },
-        {
             "value":"ps",
             "text":"Point Shares"
         },
         {
-            "value":"gaops",
-            "text":"Adjusted Offensive Point Shares"
-        },
-        {
-            "value":"gadps",
-            "text":"Adjusted Defensive Point Shares"
-        },
-        {
             "value":"gaps",
-            "text":"Adjusted Point Shares"
+            "text":"Game Adj. Point Shares"
         }
    ]
 }
