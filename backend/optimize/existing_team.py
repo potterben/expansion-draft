@@ -26,25 +26,19 @@ def optimize_existing_protection_scenario(
     """
     log.info(f"Optimizing protection decisions for {team.name}")
 
-    # vs is the performance metric
-    # ws is the financial metric
-    # TODO get these from params
-    beta = 1  # User input weight between objectives.
-    perf_metric = "ea_rating"
-    fin_metric = "cap_hit_total_scaled"
-    user_protections: List[Player] = []
-    user_exposures: List[Player] = []
-    expose_ufa: bool = False
+    beta = params.beta  # User input weight between objectives.
+    perf_metric = params.performance_metric
+    fin_metric = params.financial_metric
+    user_protections = params.user_protected_players
+    user_exposures = params.user_exposed_players
+    dont_consider_ufa = True
 
-    # TODO put into team models
     player_ids = [player.id for player in team.players]
 
     model = pulp.LpProblem("nhl", pulp.LpMinimize)
 
     protect_var = pulp.LpVariable.dicts("player_id", player_ids, cat="Binary")
-    max_exposed_value = pulp.LpVariable(
-        "max_exposed_value"
-    )  # TODO figure out if this name is correct
+    max_exposed_value = pulp.LpVariable("max_exposed_value")
 
     # Objective Function
     max_exposed_forward_value = pulp.LpVariable("max_exposed_forward_value")
@@ -58,20 +52,14 @@ def optimize_existing_protection_scenario(
         + max_exposed_defence_value
         + max_exposed_goalie_value
         + 10 * max_exposed_value
-    )
+    ) + sum(protect_var[player.id] * (1 - player[perf_metric]) for player in team.players)
 
-    # TODO figure out how to rework this part of the objective figure out if needed.
-    # model += pulp.lpSum([(beta * vi - (1-beta) * wi + age_weight * (40-ai)) * (1-players[yi]) * (1-ei) + 100000 * ufa  \
-    #     for vi, wi, ai, yi,ei in zip(vs, ws, age, playerNames, userExpose)])
-    # max exposed value constraint
     for player in team.players:
-        if not player.meets_req:
-            continue
 
         player_value_constr = (
-            beta * player[perf_metric]
+                (beta * player[perf_metric]
             - (1 - beta) * player[fin_metric]
-            + AGE_WEIGHT * (40 - player.age) * (1 - protect_var[player.id])
+            + AGE_WEIGHT * (40 - player.age)) * (1 - protect_var[player.id])
         )
 
         if player.goalie:
@@ -139,16 +127,15 @@ def optimize_existing_protection_scenario(
     )
     model += user_exposure_constraint == 0
 
-    # Don't Select UFAs if the user specifies.
+    # Don't consider UFAs if the user specifies.
     # Must expose ufa if the user specifies
-    if expose_ufa:
+    if not dont_consider_ufa:
         ufa_constraint = pulp.lpSum(
             protect_var[player.id] for player in team.players if player.ufa
         )
         model += ufa_constraint - ufa == 0
 
-    # TODO turn of reporting when solving
-    model.solve(pulp.PULP_CBC_CMD(msg=0))
+    model.solve(pulp.PULP_CBC_CMD(msg=True))
 
     return model
 
@@ -181,7 +168,7 @@ def get_existing_team_draft_decisions(
 
     protect_8_skaters_model = optimize_existing_protection_scenario(team, params, True)
     protect_3_defenders_7_forwards_model = optimize_existing_protection_scenario(
-        team, params, True
+        team, params, False
     )
 
     if (protect_8_skaters_model.status != 1) and (
