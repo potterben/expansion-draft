@@ -31,7 +31,7 @@ def optimize_existing_protection_scenario(
     fin_metric = params.financial_metric
     user_protections = params.user_protected_players
     user_exposures = params.user_exposed_players
-    expose_ufa = False
+    dont_consider_ufa = True
 
     player_ids = [player.id for player in team.players]
 
@@ -127,9 +127,9 @@ def optimize_existing_protection_scenario(
     )
     model += user_exposure_constraint == 0
 
-    # Don't Select UFAs if the user specifies.
+    # Don't consider UFAs if the user specifies.
     # Must expose ufa if the user specifies
-    if expose_ufa:
+    if not dont_consider_ufa:
         ufa_constraint = pulp.lpSum(
             protect_var[player.id] for player in team.players if player.ufa
         )

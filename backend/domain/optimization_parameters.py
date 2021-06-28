@@ -18,12 +18,14 @@ class OptimizationParameters(BaseModel):
     team_optimization_parameters: Dict[TeamName, TeamOptimizationParameters]
     financial_metric: str
     performance_metric: str
+    dont_consider_ufas: bool
     seattle: Optional[SeattleFrontend] = None
 
     def load_from_data(self, frontendData: FrontendInterface, teamData: Dict[TeamName, Team]) -> None:
         # Copy over frontend metrics
         self.financial_metric = frontendData.financial_metric
         self.performance_metric = frontendData.performance_metric
+        self.dont_consider_ufas = frontendData.dont_consider_ufas
         self.seattle = frontendData.seattle
         # Scale alpha to a percentage
         self.seattle.alpha = self.seattle.alpha/100.0

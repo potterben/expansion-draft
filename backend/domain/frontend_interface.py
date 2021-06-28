@@ -18,3 +18,4 @@ class FrontendInterface(BaseModel):
     financial_metric: str
     performance_metric: str
     original_teams: List[OriginalTeamFrontend]
+    dont_consider_ufas: bool
