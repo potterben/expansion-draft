@@ -7,10 +7,10 @@ from backend.domain import (
     SeattleTeamDraft,
     OriginalTeamOptimization,
     TeamName,
-    TeamOptimizationParameters,
+    OptimizationParameters,
 )
 
-AGE_WEIGHT = 0.3
+AGE_WEIGHT = 0.06
 
 
 log = logging.getLogger(__name__)
@@ -18,7 +18,7 @@ log = logging.getLogger(__name__)
 
 def optimize_seattle_selection_scenario(
     existing_teams_drafts: List[OriginalTeamOptimization],
-    params: Optional[TeamOptimizationParameters] = None,
+    params: Optional[OptimizationParameters] = None,
 ) -> pulp.LpProblem:
 
     """Optimizes the selection decisions for Seattle.
@@ -29,9 +29,12 @@ def optimize_seattle_selection_scenario(
     log.info(f"Optimizing selection decisions for Seattle")
 
     # TODO get these from params
-    alpha = 0.5  # User input weight between objectives.
-    perf_metric = "ea_rating"
-    fin_metric = "cap_hit_total_scaled"
+    perf_metric = params.performance_metric+"_standard"
+    fin_metric = params.financial_metric+"_standard"
+    user_keep = params.seattle_parameters.players_to_keep
+    user_remove = params.seattle_parameters.players_to_remove
+    alpha = params.seattle_parameters.alpha  # User input weight between objectives.
+    expose_ufa = params.dont_consider_ufas
 
     # TODO put into team models
     exposed_players = [
@@ -59,10 +62,10 @@ def optimize_seattle_selection_scenario(
         ]
     )
     age_obj = pulp.lpSum(
-        [player.age * select_var[player.id] for player in exposed_players]
+        [(40-player.age) * select_var[player.id] for player in exposed_players]
     )
 
-    model += (1 - alpha) * perf_obj - alpha * fin_obj - AGE_WEIGHT * age_obj
+    model += (1 - alpha) * perf_obj - alpha * fin_obj + AGE_WEIGHT * age_obj
 
     # Select 1 player from each existing team
     for team in existing_teams_drafts:
@@ -132,14 +135,22 @@ def optimize_seattle_selection_scenario(
     )
     model += select_RW_constraint >= 4, "SelectRW"
 
+    # Don't Select UFAs if the user specifies.
+    # Must expose ufa if the user specifies
+    if expose_ufa:
+        ufa_constraint = pulp.lpSum(
+            select_var[player.id] for player in exposed_players if player.ufa
+        )
+        model += ufa_constraint == 0
+
     # TODO turn of reporting when solving
-    model.solve(pulp.PULP_CBC_CMD(msg=0))
+    model.solve(pulp.COIN_CMD(msg=0))
 
     return model
 
 
 def get_seattle_draft_decisions(
-    existing_teams_drafts: List[OriginalTeamOptimization], params: TeamOptimizationParameters
+    existing_teams_drafts: List[OriginalTeamOptimization], params: OptimizationParameters
 ) -> SeattleTeamDraft:
     """Returns seattle decisions under the given optimization parameters."""
 
