@@ -318,14 +318,15 @@ export default new Vuex.Store({
                     original_teams: context.state.originalTeams,
                     financial_metric: context.state.currFinancialMetric,
                     performance_metric: context.state.currPerformanceMetric,
-                    seattle: context.state.expansionTeam
-                    
+                    seattle: context.state.expansionTeam,
+                    dont_consider_ufas: context.state.dontConsiderUFAs
                 };
                 const headers = {
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Allow-Origin': '*',
+                    'content-type':'application/json'
                   }
                 axios
-                .post('http://0.0.0.0:8000/optimize/', payload, { 'headers': headers})
+                .post('http://0.0.0.0:8000/optimize/', payload, {'headers': headers})
                 .then(response => {
                     let results = response.data;
                     let originalTeamsResults = results["original_teams"];
