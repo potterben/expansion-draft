@@ -8,8 +8,13 @@ class OriginalTeamFrontend(BaseModel):
     exposed: Dict[str, List[str]]
     index: int
 
-class FrontendInterface(BaseModel):
+class SeattleFrontend(BaseModel):
     alpha: float
+    keep: Dict[str, List[str]]
+    remove: Dict[str, List[str]]
+
+class FrontendInterface(BaseModel):
+    seattle: SeattleFrontend
     financial_metric: str
     performance_metric: str
     original_teams: List[OriginalTeamFrontend]

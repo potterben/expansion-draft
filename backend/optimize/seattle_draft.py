@@ -6,8 +6,8 @@ import pulp
 from backend.domain import (
     SeattleTeamDraft,
     OriginalTeamOptimization,
-    TeamName,
-    TeamOptimizationParameters,
+    OptimizationParameters,
+    TeamName
 )
 
 AGE_WEIGHT = 0.3
@@ -18,7 +18,7 @@ log = logging.getLogger(__name__)
 
 def optimize_seattle_selection_scenario(
     existing_teams_drafts: List[OriginalTeamOptimization],
-    params: Optional[TeamOptimizationParameters] = None,
+    params: Optional[OptimizationParameters] = None,
 ) -> pulp.LpProblem:
 
     """Optimizes the selection decisions for Seattle.
@@ -28,8 +28,7 @@ def optimize_seattle_selection_scenario(
     """
     log.info(f"Optimizing selection decisions for Seattle")
 
-    # TODO get these from params
-    alpha = 0.5  # User input weight between objectives.
+    alpha = params.seattle.alpha  # User input weight between objectives.
     perf_metric = "ea_rating"
     fin_metric = "cap_hit_total_scaled"
 
@@ -139,7 +138,7 @@ def optimize_seattle_selection_scenario(
 
 
 def get_seattle_draft_decisions(
-    existing_teams_drafts: List[OriginalTeamOptimization], params: TeamOptimizationParameters
+    existing_teams_drafts: List[OriginalTeamOptimization], params: OptimizationParameters
 ) -> SeattleTeamDraft:
     """Returns seattle decisions under the given optimization parameters."""
 

@@ -1,10 +1,10 @@
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel
 
 from .player import Player
 from .team_name import TeamName
-from .frontend_interface import FrontendInterface
+from .frontend_interface import SeattleFrontend, FrontendInterface
 from .team import Team
 
 class TeamOptimizationParameters(BaseModel):
@@ -18,13 +18,15 @@ class OptimizationParameters(BaseModel):
     team_optimization_parameters: Dict[TeamName, TeamOptimizationParameters]
     financial_metric: str
     performance_metric: str
-    alpha: float
+    seattle: Optional[SeattleFrontend] = None
 
     def load_from_data(self, frontendData: FrontendInterface, teamData: Dict[TeamName, Team]) -> None:
         # Copy over frontend metrics
         self.financial_metric = frontendData.financial_metric
         self.performance_metric = frontendData.performance_metric
-        self.alpha = frontendData.alpha
+        self.seattle = frontendData.seattle
+        # Scale alpha to a percentage
+        self.seattle.alpha = self.seattle.alpha/100.0
         
         # Parse protected and exposed players
         for team in frontendData.original_teams:

@@ -36,7 +36,7 @@ def data():
 
 @app.post("/optimize")
 def optimize(frontend_data: FrontendInterface):
-    optimization_params = OptimizationParameters(team_optimization_parameters={}, financial_metric="", performance_metric="", alpha=0.0)
+    optimization_params = OptimizationParameters(team_optimization_parameters={}, financial_metric="", performance_metric="")
     optimization_params.load_from_data(frontend_data, MemDB.teams)
     existing_team_draft, seattle_team_draft = run_draft(
         MemDB.teams, optimization_params
