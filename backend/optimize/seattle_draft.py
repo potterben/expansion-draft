@@ -28,7 +28,7 @@ def optimize_seattle_selection_scenario(
     """
     log.info(f"Optimizing selection decisions for Seattle")
 
-    alpha = params.seattle.alpha  # User input weight between objectives.
+    alpha = params.seattle_parameters.alpha  # User input weight between objectives.
     perf_metric = "ea_rating"
     fin_metric = "cap_hit_total_scaled"
 
