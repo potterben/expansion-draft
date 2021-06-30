@@ -13,7 +13,16 @@ class SeattleTeamDraft:
     goalies: List[Player]
     defensemen: List[Player]
     forwards: List[Player]
+    #summary: 
 
+@dataclass
+class SeattleSummary:
+    position_name: str
+    ps: float
+    pspg: float
+    ea: float
+    cap_hit_21_22: float
+    cap_hit_total: float
 
 @dataclass
 class OriginalTeamOptimization:

@@ -5,7 +5,7 @@ import pulp
 
 from backend.domain import Player, Team, OriginalTeamOptimization, TeamOptimizationParameters
 
-AGE_WEIGHT = 0.3
+AGE_WEIGHT = 0.06
 M = 2000
 
 log = logging.getLogger(__name__)
@@ -27,11 +27,11 @@ def optimize_existing_protection_scenario(
     log.info(f"Optimizing protection decisions for {team.name}")
 
     beta = params.beta  # User input weight between objectives.
-    perf_metric = params.performance_metric
-    fin_metric = params.financial_metric
+    perf_metric = params.performance_metric+"_standard"
+    fin_metric = params.financial_metric+"_standard"
     user_protections = params.user_protected_players
     user_exposures = params.user_exposed_players
-    dont_consider_ufa = True
+    expose_ufa = params.dont_consider_ufas
 
     player_ids = [player.id for player in team.players]
 
@@ -41,35 +41,21 @@ def optimize_existing_protection_scenario(
     max_exposed_value = pulp.LpVariable("max_exposed_value")
 
     # Objective Function
-    max_exposed_forward_value = pulp.LpVariable("max_exposed_forward_value")
-    max_exposed_defence_value = pulp.LpVariable("max_exposed_defence_value")
-    max_exposed_goalie_value = pulp.LpVariable("max_exposed_goalie_value")
-    ufa = pulp.LpVariable("ufa")  # TODO figure out what this variable does.
+
+    def player_value_var(player):
+        if expose_ufa and player.ufa:
+            return 0
+        return (((1-beta) * player[perf_metric] - beta * player[fin_metric] + AGE_WEIGHT * (40 - player.age)) 
+                * (1 - protect_var[player.id]))
 
     # Add max exposed value to objective functions
     model += M * (
-        max_exposed_forward_value
-        + max_exposed_defence_value
-        + max_exposed_goalie_value
-        + 10 * max_exposed_value
-    ) + sum(protect_var[player.id] * (1 - player[perf_metric]) for player in team.players)
+        max_exposed_value
+    ) + sum( player_value_var(player) for player in team.players)
 
     for player in team.players:
 
-        player_value_constr = (
-                (beta * player[perf_metric]
-            - (1 - beta) * player[fin_metric]
-            + AGE_WEIGHT * (40 - player.age)) * (1 - protect_var[player.id])
-        )
-
-        if player.goalie:
-            model += max_exposed_goalie_value - player_value_constr >= 0
-
-        if player.defence:
-            model += max_exposed_defence_value - player_value_constr >= 0
-
-        if player.forward:
-            model += max_exposed_forward_value - player_value_constr >= 0
+        player_value_constr = player_value_var(player)
 
         model += max_exposed_value - player_value_constr >= 0
 
@@ -129,13 +115,13 @@ def optimize_existing_protection_scenario(
 
     # Don't consider UFAs if the user specifies.
     # Must expose ufa if the user specifies
-    if not dont_consider_ufa:
-        ufa_constraint = pulp.lpSum(
-            protect_var[player.id] for player in team.players if player.ufa
-        )
-        model += ufa_constraint - ufa == 0
+    # if expose_ufa:
+    #     ufa_constraint = pulp.lpSum(
+    #         protect_var[player.id] for player in team.players if player.ufa
+    #     )
+    #     model += ufa_constraint == 0
 
-    model.solve(pulp.PULP_CBC_CMD(msg=True))
+    model.solve(pulp.COIN_CMD(msg=False))
 
     return model
 

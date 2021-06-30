@@ -13,16 +13,12 @@ class Player(BaseModel):
 
     cap_hit_20_21: float
     cap_hit_21_22: float
-    cap_hit_22_23: float
-    cap_hit_23_24: float
-    cap_hit_24_25: float
-    cap_hit_25_26: float
-    cap_hit_26_27: float
     cap_hit_total: float
-    cap_percent: float
-    # scaled metrics to same scale as cap hit 21-22
-    cap_hit_21_22_scaled: float
-    cap_hit_total_scaled: float
+    # standardized metrics
+    cap_hit_20_21_standard: float
+    cap_hit_21_22_standard: float
+    cap_hit_total_standard: float
+    # other contract info
     ufa_expiry: int  # year the player is a ufa
     rfa_expiry: int  # year the player is an rfa
     expiry: str  # year the player contract expires
@@ -43,24 +39,14 @@ class Player(BaseModel):
     meets_req: bool
     under_ct: bool
 
-    # offensive PS, defensive PS, PS
-    ops: float
-    dps: float
+    # Point shares, game adjusted point shares, ea 2021 ratings
     ps: float
-    # game-adjusted metrics
-    gaops: float
-    gadps: float
     gaps: float
-    # ratings from NHL 2021
     ea_rating: float
-    # scaled metrics to same scale as cap hit 21-22
-    ops_scaled: float
-    dps_scaled: float
-    ps_scaled: float
-    gaops_scaled: float
-    gadps_scaled: float
-    gaps_scaled: float
-    ea_rating_scaled: float
+    # standardized performance information
+    ps_standard: float
+    gaps_standard: float
+    ea_rating_standard: float
 
     @property
     def var_id(self):

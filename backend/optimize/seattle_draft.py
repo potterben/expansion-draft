@@ -6,11 +6,11 @@ import pulp
 from backend.domain import (
     SeattleTeamDraft,
     OriginalTeamOptimization,
+    TeamName,
     OptimizationParameters,
-    TeamName
 )
 
-AGE_WEIGHT = 0.3
+AGE_WEIGHT = 0.06
 
 
 log = logging.getLogger(__name__)
@@ -28,11 +28,14 @@ def optimize_seattle_selection_scenario(
     """
     log.info(f"Optimizing selection decisions for Seattle")
 
+    # TODO get these from params
+    perf_metric = params.performance_metric+"_standard"
+    fin_metric = params.financial_metric+"_standard"
+    user_keep = params.seattle_parameters.players_to_keep
+    user_remove = params.seattle_parameters.players_to_remove
     alpha = params.seattle_parameters.alpha  # User input weight between objectives.
-    perf_metric = "ea_rating"
-    fin_metric = "cap_hit_total_scaled"
+    expose_ufa = params.dont_consider_ufas
 
-    # TODO put into team models
     exposed_players = [
         player
         for team_draft in existing_teams_drafts
@@ -45,23 +48,18 @@ def optimize_seattle_selection_scenario(
     select_var = pulp.LpVariable.dicts("player_id", exposed_ids, cat="Binary")
 
     # Objective
-    perf_obj = pulp.lpSum(
-        [
-            player[perf_metric] * select_var[player.id]
-            for player in exposed_players
-        ]
-    )
-    fin_obj = pulp.lpSum(
-        [
-            player[fin_metric] * select_var[player.id]
-            for player in exposed_players
-        ]
-    )
-    age_obj = pulp.lpSum(
-        [player.age * select_var[player.id] for player in exposed_players]
-    )
 
-    model += (1 - alpha) * perf_obj - alpha * fin_obj - AGE_WEIGHT * age_obj
+    def player_value_var(player):
+        if expose_ufa and player.ufa:
+            return 0
+        return (((1-alpha) * player[perf_metric] - alpha * player[fin_metric] + AGE_WEIGHT * (40 - player.age)) 
+                * (select_var[player.id]))
+
+    model += sum(player_value_var(player) for player in exposed_players)
+
+    model += pulp.lpSum([select_var[player.id] for player in user_keep]) == len(user_keep), "KeepPlayers"
+
+    model += pulp.lpSum([select_var[player.id] for player in user_remove]) == 0, "RemovePlayers"
 
     # Select 1 player from each existing team
     for team in existing_teams_drafts:
@@ -131,8 +129,16 @@ def optimize_seattle_selection_scenario(
     )
     model += select_RW_constraint >= 4, "SelectRW"
 
+    # Don't Select UFAs if the user specifies.
+    # Must expose ufa if the user specifies
+    # if expose_ufa:
+    #     ufa_constraint = pulp.lpSum(
+    #         select_var[player.id] for player in exposed_players if player.ufa
+    #     )
+    #     model += ufa_constraint == 0
+
     # TODO turn of reporting when solving
-    model.solve(pulp.PULP_CBC_CMD(msg=0))
+    model.solve(pulp.COIN_CMD(msg=0))
 
     return model
 

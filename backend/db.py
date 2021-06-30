@@ -51,35 +51,23 @@ def seed_db() -> MemoryDB:
             # financial related information
             cap_hit_20_21=row["CH 20-21"],
             cap_hit_21_22=row["CH 21-22"],
-            cap_hit_22_23=row["CH 22-23"],
-            cap_hit_23_24=row["CH 23-24"],
-            cap_hit_24_25=row["CH 24-25"],
-            cap_hit_25_26=row["CH 25-26"],
-            cap_hit_26_27=row["CH 26-27"],
             cap_hit_total=row["CH Total"],
-            cap_percent=row["Cap%"],
-            cap_hit_21_22_scaled=row["CH 21-22_scaled"],
-            cap_hit_total_scaled=row["CH Total_scaled"],
+            cap_hit_20_21_standard=row["CH 20-21_standard"],
+            cap_hit_21_22_standard=row["CH 21-22_standard"],
+            cap_hit_total_standard=row["CH Total_standard"],
             ufa_expiry=row["UFA Expiry"],
             rfa_expiry=row["RFA Expiry"],
             expiry=row["Expiry"],
             ufa=row["UFA"],
             
             # performance relate information
-            ops=row["OPS"],
-            dps=row["DPS"],
             ps=row["PS"],
-            gaops=row["GAOPS"],
-            gadps=row["GADPS"],
             gaps=row["GAPS"],
             ea_rating=row["Overall"],
-            ops_scaled=row["OPS_scaled"],
-            dps_scaled=row["DPS_scaled"],
-            ps_scaled=row["PS_scaled"],
-            gaops_scaled=row["GAOPS_scaled"],
-            gadps_scaled=row["GADPS_scaled"],
-            gaps_scaled=row["GAPS_scaled"],
-            ea_rating_scaled=row["Overall_scaled"],
+            # standardized performance information
+            ps_standard = row['PS_standard'],
+            gaps_standard = row['GAPS_standard'],
+            ea_rating_standard = row['Overall_standard'],
         )
 
         players.append(player)

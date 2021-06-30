@@ -13,6 +13,12 @@ class TeamOptimizationParameters(BaseModel):
     user_exposed_players: List[Player]
     financial_metric: str
     performance_metric: str
+    dont_consider_ufas = bool
+
+class SeattleParameters(BaseModel):
+    alpha: float
+    players_to_remove: List[Player]
+    players_to_keep: List[Player]
 
 class SeattleParameters(BaseModel):
     alpha: float
@@ -47,11 +53,12 @@ class OptimizationParameters(BaseModel):
         # Parse protected and exposed players
         for team in frontendData.original_teams:
             optimization_parameters = TeamOptimizationParameters(
-                beta=(100 - team.beta) / 100,  # TODO sync def of beta with front end
+                beta=(team.beta) / 100,  # TODO sync def of beta with front end
                 user_protected_players=[],
                 user_exposed_players=[],
                 financial_metric=self.financial_metric,
                 performance_metric=self.performance_metric,
+                dont_consider_ufas=self.dont_consider_ufas,
             )
             
             current_team_players = teamData[team.index].players
