@@ -6,8 +6,8 @@ FROM python:3.8.3-buster AS base
 
 # WORKDIR ./fastapi_backend
 
-COPY expansion-draft/pyproject.toml .
-COPY expansion-draft/poetry.lock .
+COPY pyproject.toml .
+COPY poetry.lock .
 
 ENV PYTHONPATH=${PYTHONPATH}:${PWD} 
 RUN pip3 install poetry
@@ -20,6 +20,6 @@ COPY . .
 
 EXPOSE 8000
 
-WORKDIR ../
+#WORKDIR ../
 
-CMD ["python","expansion-draft/main.py"]
+CMD ["python","main.py"]
