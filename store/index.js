@@ -353,7 +353,7 @@ export default new Vuex.Store({
                     'content-type':'application/json'
                 }
                 axios
-                .post(BASE_URL+'optimize/', payload, {'headers': headers})
+                .post(BASE_URL+'optimize', payload, {'headers': headers})
                 .then(response => {
                     
                     let results = response.data;
