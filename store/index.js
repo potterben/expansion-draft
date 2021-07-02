@@ -225,7 +225,6 @@ export default new Vuex.Store({
             context.commit("setPerformanceMetrics", performanceMetricsArray);
         },
         async loadPlayerData(context) {
-            console.log(BASE_URL)
             axios
             .get(BASE_URL+'data')
             .then(response => {
@@ -348,10 +347,11 @@ export default new Vuex.Store({
                 const headers = {
                     'Access-Control-Allow-Origin': '*',
                     'content-type':'application/json'
-                  }
+                }
                 axios
-                .post(BASE_URL+'optimize', payload, {'headers': headers})
+                .post(BASE_URL+'optimize/', payload, {'headers': headers})
                 .then(response => {
+                    
                     let results = response.data;
                     let originalTeamsResults = results["original_teams"];
                     for (let i = 0; i < originalTeamsResults.length; ++i) {
