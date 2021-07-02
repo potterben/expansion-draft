@@ -11,6 +11,7 @@
                 <PlayerTable position="goalies"/>
             </template>
             <template v-else>
+                <SummaryTable/>
                 <ExpansionPlayerTable position="forwards"/>
                 <ExpansionPlayerTable position="defensemen"/>
                 <ExpansionPlayerTable position="goalies"/>
@@ -22,6 +23,7 @@
 <script>
 import TeamRequirementTable from './TeamRequirementTable.vue'
 import PlayerTable from './PlayerTable.vue'
+import SummaryTable from './SummaryTable.vue'
 import ExpansionPlayerTable from './ExpansionPlayerTable.vue'
 import { mapActions } from 'vuex'
 
@@ -31,6 +33,7 @@ export default {
     components: {
         TeamRequirementTable,
         PlayerTable,
+        SummaryTable,
         ExpansionPlayerTable
     },
 

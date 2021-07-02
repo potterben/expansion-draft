@@ -73,6 +73,7 @@ export default new Vuex.Store({
         dontConsiderUFAs: true,
         applyToAllOriginalTeams: true,
         playerData: [],
+        expansionTeamSummary: [],
         positionKeys: ["forwards", "defensemen", "goalies"]
 
       },
@@ -180,6 +181,9 @@ export default new Vuex.Store({
         },
         setExpansionTeamRemoveMap(state, map) {
             state.expansionTeam.remove = map;
+        },
+        setExpansionTeamSummary(state, summary) {
+            state.expansionTeamSummary = summary;
         }
       },
     actions: {
@@ -374,6 +378,9 @@ export default new Vuex.Store({
                     context.commit("setExpansionTeamResultsMap", seattleSelectedPlayers);
                     context.commit("setExpansionTeamRemoveMap", removeMap);
 
+                    let summary = seattleResults["summary"];
+                    context.commit("setExpansionTeamSummary", summary);
+
                     resolve(response);
                 }, error => {
                     // http failed, let the calling function know that action did not work out
@@ -447,6 +454,14 @@ export default new Vuex.Store({
                 return state.expansionTeam.selected;
             }
             return null;
+        },
+        getSummaryTableData: state => {
+            if (state.expansionTeamSummary) {
+                return state.expansionTeamSummary;
+            }
+            else {
+                return [];
+            }
         },
         getForwardsString: state => {
             return state.positionKeys[0];
