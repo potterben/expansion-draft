@@ -137,8 +137,8 @@ def optimize_seattle_selection_scenario(
     #     )
     #     model += ufa_constraint == 0
 
-    # TODO turn of reporting when solving
-    model.solve(pulp.COIN_CMD(msg=0))
+    #model.solve(pulp.COIN_CMD(msg=0))
+    model.solve(pulp.PULP_CBC_CMD(msg=0))
 
     return model
 
