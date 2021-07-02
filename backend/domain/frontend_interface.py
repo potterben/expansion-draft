@@ -19,13 +19,3 @@ class FrontendInterface(BaseModel):
     performance_metric: str
     original_teams: List[OriginalTeamFrontend]
     dont_consider_ufas: bool
-
-class SeattleSummary(BaseModel):
-    rowname: str
-    age: float
-    ps: float
-    gaps: float
-    ea_rating: float
-    cap_hit_20_21: float
-    cap_hit_21_22: float
-    cap_hit_total: float

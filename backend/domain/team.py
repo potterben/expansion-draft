@@ -6,6 +6,16 @@ from pydantic import BaseModel
 from .player import Player
 from .team_name import TeamName
 
+@dataclass
+class SeattleSummary:
+    rowname: str
+    age: float
+    ps: float
+    gaps: float
+    ea_rating: float
+    cap_hit_20_21: float
+    cap_hit_21_22: float
+    cap_hit_total: float
 
 @dataclass
 class SeattleTeamDraft:
@@ -13,16 +23,7 @@ class SeattleTeamDraft:
     goalies: List[Player]
     defensemen: List[Player]
     forwards: List[Player]
-    #summary: 
-
-@dataclass
-class SeattleSummary:
-    position_name: str
-    ps: float
-    pspg: float
-    ea: float
-    cap_hit_21_22: float
-    cap_hit_total: float
+    summary: List[SeattleSummary]
 
 @dataclass
 class OriginalTeamOptimization:

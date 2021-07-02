@@ -4,10 +4,12 @@ from typing import List, Optional
 import pulp
 
 from backend.domain import (
+    SeattleSummary,
     SeattleTeamDraft,
     OriginalTeamOptimization,
     TeamName,
     OptimizationParameters,
+    Player
 )
 
 AGE_WEIGHT = 0.06
@@ -166,7 +168,7 @@ def get_seattle_draft_decisions(
             ):
                 selected_players.append(player)
 
-        seattle_results = SeattleTeamDraft(TeamName.SEA, goalies=[], defensemen=[], forwards=[])
+        seattle_results = SeattleTeamDraft(TeamName.SEA, goalies=[], defensemen=[], forwards=[], summary=[])
         for player in selected_players:
             if player.goalie:
                 seattle_results.goalies.append(player)
@@ -174,6 +176,25 @@ def get_seattle_draft_decisions(
                 seattle_results.defensemen.append(player)
             elif player.forward:
                 seattle_results.forwards.append(player)
+
+        def get_summary(rowname:str, players:List[Player]) -> SeattleSummary:
+            summary = SeattleSummary(rowname,age=0,ps=0,gaps=0,ea_rating=0,cap_hit_20_21=0,cap_hit_21_22=0,cap_hit_total=0)
+            summary.age             += sum(player.age for player in players) / len(players)
+            summary.ps              += sum(player.ps for player in players) / len(players)
+            summary.gaps            += sum(player.gaps for player in players) / len(players)
+            summary.ea_rating       += sum(player.ea_rating for player in players) / len(players)
+            summary.cap_hit_20_21   += sum(player.cap_hit_20_21 for player in players) / len(players)
+            summary.cap_hit_21_22   += sum(player.cap_hit_21_22 for player in players) / len(players)
+            summary.cap_hit_total   += sum(player.cap_hit_total for player in players) / len(players)
+            return summary       
+
+        forwards_summary = get_summary("Forwards",seattle_results.forwards)
+        defensemen_summary = get_summary("Defensemen",seattle_results.defensemen)
+        goalie_summary = get_summary("Goalies",seattle_results.goalies)
+        overall_summary = get_summary("Overall",selected_players)
+
+        seattle_results.summary += [forwards_summary, defensemen_summary, goalie_summary, overall_summary]
+
         return seattle_results
 
     seattle_selection_model = optimize_seattle_selection_scenario(
