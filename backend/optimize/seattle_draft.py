@@ -183,8 +183,8 @@ def get_seattle_draft_decisions(
             summary.ps              += sum(player.ps for player in players) / len(players)
             summary.gaps            += sum(player.gaps for player in players) / len(players)
             summary.ea_rating       += sum(player.ea_rating for player in players) / len(players)
-            summary.cap_hit_20_21   += sum(player.cap_hit_20_21 for player in players) / len(players)
-            summary.cap_hit_21_22   += sum(player.cap_hit_21_22 for player in players) / len(players)
+            summary.cap_hit_20_21   += sum(player.cap_hit_20_21 for player in players)
+            summary.cap_hit_21_22   += sum(player.cap_hit_21_22 for player in players)
             summary.cap_hit_total   += sum(player.cap_hit_total for player in players) / len(players)
             return summary       
 
