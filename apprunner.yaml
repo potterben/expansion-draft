@@ -8,6 +8,6 @@ build:
     - poetry install --no-dev
     - yum install -y coin-or-Cbc
 run:
-  command: python app.py
+  command: python main.py
   network:
     port: 8000
