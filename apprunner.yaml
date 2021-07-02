@@ -6,8 +6,7 @@ build:
     - pip install poetry
     - poetry config virtualenvs.create false
     - poetry install --no-dev
-    - apt-get update
-    - yes | apt-get install coinor-cbc
+    - yum install -y coin-or-Cbc
 run:
   command: python app.py
   network:
