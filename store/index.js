@@ -228,19 +228,7 @@ export default new Vuex.Store({
             .then(response => {
                 context.commit("setPlayerData", response.data);
 
-                for (let i = 0; i < context.state.originalTeams.length; ++i) {
-                    let teamPlayerData = context.state.playerData[i];
-                    let protectedMap = {}
-                    let exposedMap = {}
-                    context.state.positionKeys.forEach(positionKey => {
-                        protectedMap[positionKey] = teamPlayerData[positionKey]
-                                                    .filter(value => value.nmc)
-                                                    .map(function(value) {return value.id} );
-                        exposedMap[positionKey] = []
-                    });
-                    context.commit("setOriginalTeamProtectedMap", {"protectedMap": protectedMap, "index": i});
-                    context.commit("setOriginalTeamExposedMap", {"exposedMap": exposedMap, "index": i});
-                }
+                context.dispatch("resetAllTeamCheckboxes");
 
                 let keepMap = {};
                 let removeMap = {};
@@ -311,6 +299,39 @@ export default new Vuex.Store({
         },
         removeFromExpansionTeamRemoveMap(context, payload) {
             context.commit("removeFromExpansionTeamRemoveMap", payload);
+        },
+        resetCurrTeamCheckboxes(context) {
+            if (context.state.currTeamIndex != -1 && context.state.originalTeams) {
+                let index = context.state.currTeamIndex;
+                let teamPlayerData = context.state.playerData[index];
+                let protectedMap = {}
+                let exposedMap = {}
+                context.state.positionKeys.forEach(positionKey => {
+                    protectedMap[positionKey] = teamPlayerData[positionKey]
+                                                .filter(value => value.nmc)
+                                                .map(function(value) {return value.id} );
+                    exposedMap[positionKey] = []
+                });
+                context.commit("setOriginalTeamProtectedMap", {"protectedMap": protectedMap, "index": index});
+                context.commit("setOriginalTeamExposedMap", {"exposedMap": exposedMap, "index": index});
+            }
+        },
+        resetAllTeamCheckboxes(context) {
+            if (context.state.originalTeams) {
+                for (let i = 0; i < context.state.originalTeams.length; ++i) {
+                    let teamPlayerData = context.state.playerData[i];
+                    let protectedMap = {}
+                    let exposedMap = {}
+                    context.state.positionKeys.forEach(positionKey => {
+                        protectedMap[positionKey] = teamPlayerData[positionKey]
+                                                    .filter(value => value.nmc)
+                                                    .map(function(value) {return value.id} );
+                        exposedMap[positionKey] = []
+                    });
+                    context.commit("setOriginalTeamProtectedMap", {"protectedMap": protectedMap, "index": i});
+                    context.commit("setOriginalTeamExposedMap", {"exposedMap": exposedMap, "index": i});
+                }
+            }
         },
         optimize(context) {
             return new Promise((resolve, reject) => {
