@@ -4,6 +4,8 @@ import axios from 'axios'
 import TeamInfoJson from './data/TeamsInfo.json'
 import MetricsInfoJson from './data/MetricsInfo.json'
 
+const BASE_URL = process.env.VUE_APP_BASEURL
+
 Vue.use(Vuex)
 
 // TODO: separate into separate files
@@ -223,8 +225,9 @@ export default new Vuex.Store({
             context.commit("setPerformanceMetrics", performanceMetricsArray);
         },
         async loadPlayerData(context) {
+            console.log(BASE_URL)
             axios
-            .get('http://0.0.0.0:8000/data')
+            .get(BASE_URL+'data')
             .then(response => {
                 context.commit("setPlayerData", response.data);
 
@@ -347,7 +350,7 @@ export default new Vuex.Store({
                     'content-type':'application/json'
                   }
                 axios
-                .post('http://0.0.0.0:8000/optimize/', payload, {'headers': headers})
+                .post(BASE_URL+'optimize', payload, {'headers': headers})
                 .then(response => {
                     let results = response.data;
                     let originalTeamsResults = results["original_teams"];
