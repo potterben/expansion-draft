@@ -20,11 +20,6 @@ class SeattleParameters(BaseModel):
     players_to_remove: List[Player]
     players_to_keep: List[Player]
 
-class SeattleParameters(BaseModel):
-    alpha: float
-    players_to_remove: List[Player]
-    players_to_keep: List[Player]
-
 class OptimizationParameters(BaseModel):
     team_optimization_parameters: Dict[TeamName, TeamOptimizationParameters]
     financial_metric: str

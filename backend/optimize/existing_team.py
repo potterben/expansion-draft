@@ -121,8 +121,8 @@ def optimize_existing_protection_scenario(
     #     )
     #     model += ufa_constraint == 0
 
-    #model.solve(pulp.COIN_CMD(msg=False))
-    model.solve(pulp.PULP_CBC_CMD(msg=0))
+    model.solve(pulp.COIN_CMD(msg=False))
+    #model.solve(pulp.PULP_CBC_CMD(msg=0))
 
     return model
 
