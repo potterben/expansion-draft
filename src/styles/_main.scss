@@ -192,10 +192,20 @@ a.toggle {
     display: none;
 }
 
-#intro-modal{
-    .modal-content 
-    {
-        height: 850px;
+@media screen and (min-height: 801px) {
+    #intro-modal{
+        .modal-content 
+        {
+            height: 800px;
+        }
+    }
+}
+@media screen and (max-height: 800px) {
+    #intro-modal{
+        .modal-content 
+        {
+            height: auto;
+        }
     }
 }
 

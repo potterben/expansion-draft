@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal no-close-on-backdrop size="lg" ref="intro-modal" id="intro-modal">
+        <b-modal scrollable no-close-on-backdrop size="lg" ref="intro-modal" id="intro-modal">
             <b-container v-if="currentPage==0">
                 <b-container class="py-4">
                     <h1>Welcome to the NHL Expansion Draft Optimizer!</h1>
