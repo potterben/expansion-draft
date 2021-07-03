@@ -137,15 +137,7 @@ export default {
             this.$bvModal.hide("intro-modal");
             this.$bvModal.hide("advanced-options");
             
-            asyncLoading(this.optimize())
-            .then(response => {
-                if (response && response.data && response.data.message) {
-                    this.$bvModal.msgBoxOk(response.data.message);
-                }
-                }, error => {
-                // TODO: show errors properly
-                console.log(error);
-            });
+            asyncLoading(this.optimize());
         },
         ...mapActions([
             'optimize',

@@ -58,6 +58,7 @@ const removeFromArray = (array, value) => {
 export default new Vuex.Store({
     state: {
         currTeamIndex: 0,
+        currTabIndex: 0,
         originalTeams: [],
 
         expansionTeam: null,
@@ -80,6 +81,9 @@ export default new Vuex.Store({
       mutations: {
         setCurrTeamIndex(state, index) {
             state.currTeamIndex = index;
+        },
+        setCurrTabIndex(state, index) {
+            state.currTabIndex = index;
         },
         setOriginalTeams(state, originalTeams) {
             state.originalTeams = originalTeams;
@@ -255,6 +259,9 @@ export default new Vuex.Store({
         setCurrTeamIndex(context, index) {
             context.commit("setCurrTeamIndex", index);
         },
+        setCurrTabIndex(context, index) {
+            context.commit("setCurrTabIndex", index);
+        },
         setCurrFinancialMetric(context, financialMetric) {
             context.commit("setCurrFinancialMetric", financialMetric);
         },
@@ -380,13 +387,13 @@ export default new Vuex.Store({
 
                     let summary = seattleResults["summary"];
                     context.commit("setExpansionTeamSummary", summary);
-
+                    
+                    context.commit("setCurrTabIndex", 1);
                     resolve(response);
                 }, error => {
                     // http failed, let the calling function know that action did not work out
                     reject(error);
-                    console.log(error)
-                })
+               })
             })
         }
     },

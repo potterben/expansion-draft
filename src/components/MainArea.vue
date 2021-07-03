@@ -4,8 +4,8 @@
             <h1>NHL Expansion Draft Optimizer</h1>
         </b-container>
         <b-card no-body>
-            <b-tabs content-class="mt-3" align="center" pills card> 
-                <b-tab title="Existing Teams" active>
+            <b-tabs v-model="tabIndex" content-class="mt-3" align="center" pills card> 
+                <b-tab title="Existing Teams">
                     <b-container class="py-2 text-center">
                         <b-row class="py-1">
                             <b-col>
@@ -37,18 +37,10 @@
 
 <script>
 import TeamTable from './TeamTable.vue'
-import TeamInfoJson from '../../store/data/TeamsInfo.json'
 import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
     name: 'MainArea',
-
-    // Need to the originalTeams object in local scope so WebPack can get the static image files at compile time
-    data() {
-        return {
-            originalTeams: TeamInfoJson.originalTeams,
-        }
-    },
 
     components: {
         TeamTable
@@ -61,6 +53,14 @@ export default {
             },
             set(value) {
                 this.setCurrTeamIndex(value);
+            }
+        },
+        tabIndex: {
+            get() {
+                return this.currTabIndex;
+            },
+            set(value) {
+                this.setCurrTabIndex(value);
             }
         },
         swiper () {
@@ -82,20 +82,23 @@ export default {
         },
         ...mapState([
             "currTeamIndex",
-            'allTeams',
-            "expansionTeam"
+            "currTabIndex",
+            "allTeams",
+            "expansionTeam",
+            "originalTeams"
         ]),
         ...mapGetters([
-            "getCurrTeamName"
+            "getCurrTeamName",
+            
         ])
     },
 
     methods: {
         ...mapActions([
-            'setCurrTeamIndex'
+            'setCurrTeamIndex',
+            'setCurrTabIndex'
         ]),
-        handleDropdownClick(a) {
-            console.log(a);
+        handleDropdownClick() {
             var index = this.swiper.realIndex
             this.setCurrTeamIndex(index);
         },
