@@ -5,13 +5,14 @@
                 <h1>Welcome to the NHL Expansion Draft Optimizer!</h1>
             </b-container>
             <b-container class="py-4">
-                <p>In this tutorial, you will be running our optimizer on your favourite NHL team for the upcoming NHL Expansion Draft. We will be focusing on one team for the tutorial, but the optimizer lets you modify options, manually protect and/or expose players for every team in the league.</p>
+                <p>This tool optimizes the protections made by existing teams and the selections made by the Seattle Kraken for the 2021 NHL Expansion Draft. The optimization is based on performance and finanical metrics that you will choose, and you can even weight which metric you think is more important. For existing teams, the tool protects players to minimize the value of exposed players based on your chosen metrics. For Seattle, the tool selects the players that maximizes your chosen metrics. Note that this is not a predictor, so protections and selections may vary as you change your metrics and weighting of those metrics.</p>
+                <p>In this tutorial, you will be running our optimizer on your favourite NHL team for the 2021 NHL Expansion Draft. We will be focusing on one team for the tutorial, but the optimizer lets you modify the same metrics, and you can also manually protect and/or expose players for every team in the league.</p>
                 <p>Please see our <b-link :to="'faq'" :target="'_blank'">FAQ</b-link > if you have any more questions.</p>
             </b-container>
         </b-container>
         <b-container v-if="currentPage==1">
             <b-container class="py-4">
-                <h3>Which team do you want to act as?</h3>
+                <h3>Choose your favourite team and see how your choices affect your team</h3>
             </b-container>
             <b-container class="py-4">
                 <b-form-select v-model="chosenTeamIndex" :options="this.allTeams"></b-form-select>
@@ -19,19 +20,16 @@
         </b-container>
         <b-container v-if="currentPage==2">
             <b-container class="py-4">
-                <h3>Choose your performance metric</h3>
-            </b-container>
-            <b-container class="py-3">
-                <p>This determines the metric the optimizer will use to rate your players.</p>
+                <h3>Choose the performance metric the optimizer will use</h3>
             </b-container>
             <b-container class="py-3">
                 <b-form-select v-model="performanceMetric" :options="this.performanceMetrics"></b-form-select>
             </b-container>
-            <b-container class="py-4">
-                <h3>Choose your finanical flexibility metric</h3>
-            </b-container>
             <b-container class="py-3">
-                <p>This determines the metric the optimizer will use to determine financial flexibility for your team.</p>
+                <p>{{ getCurrPerformanceMetricDescription }} </p>
+            </b-container>
+            <b-container class="py-4">
+                <h3>Choose the finanical flexibility metric the optimizer will use</h3>
             </b-container>
             <b-container class="py-3">
                 <b-form-select v-model="financialMetric" :options="this.financialMetrics"></b-form-select>
@@ -49,40 +47,9 @@
                 <TeamSlider :teamName="getChosenTeamName" :isExpansionTeam="true" v-if="isExpansionTeamChosen" />
                 <TeamSlider :teamName="getChosenTeamName" :teamIndex="chosenTeamIndex" v-else/>
             </b-container>
-        </b-container>
-        <b-container v-if="currentPage==4">
             <b-row class="py-2">
                 <b-col>
-                    <h3>Summary</h3>
-                </b-col>
-            </b-row>
-            <b-row class="py-2">
-                <b-col>
-                    <b-table-simple fixed outlined class="py-4 panel panel-default panel-table text-center">
-                        <b-tbody>
-                            <b-tr>
-                                <b-th class="table-header">Team Name</b-th>
-                                <b-td>{{ getChosenTeamName }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                                <b-th class="table-header">Performance Metric</b-th>
-                                <b-td>{{ getCurrPerformanceMetricText }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                                <b-th class="table-header">Finanical Metric</b-th>
-                                <b-td>{{ getCurrFinancialMetricText }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                                <b-th class="table-header">Preferred Metric</b-th>
-                                <b-td>{{ getPreferredMetricText }}</b-td>
-                            </b-tr>
-                        </b-tbody>
-                    </b-table-simple>
-                </b-col>
-            </b-row>
-            <b-row class="py-2">
-                <b-col>
-                    <p>If you are happy with your options, press Optimize and wait for your results.</p>
+                    <p>If you are happy with your options, press "Optimize" and wait for your results.</p>
                 </b-col>
             </b-row>
             <b-row class="py-2">
@@ -121,8 +88,7 @@ export default {
         return {
             doNotShowIntroModal: "unchecked",
             currentPage: 0,
-            // todo: make this more data driven?
-            totalPages: 5,
+            totalPages: 4,
             chosenTeamIndex: 0
         }
     },
@@ -201,7 +167,9 @@ export default {
         ]),
         ...mapGetters([
             'getCurrFinancialMetricText',
-            'getCurrPerformanceMetricText'
+            'getCurrFinancialMetricDescription',
+            'getCurrPerformanceMetricText',
+            'getCurrPerformanceMetricDescription'
         ])
     },
 
@@ -235,7 +203,9 @@ export default {
             });
         },
         ...mapActions([
-            'optimize'
+            'optimize',
+            'setCurrPerformanceMetric',
+            'setCurrFinancialMetric'
         ])
     }
 }
