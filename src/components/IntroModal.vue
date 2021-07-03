@@ -214,7 +214,8 @@ export default {
                     this.$bvModal.show("results-modal");
                 }
             }, error => {
-                console.log(error);
+                let options = {"okVariant":"info", "noCloseOnBackdrop": true, "hideHeader": false, "hideHeaderClose": false};
+                this.$bvModal.msgBoxOk(error.response.data.detail, options);
             });
         },
         ...mapActions([

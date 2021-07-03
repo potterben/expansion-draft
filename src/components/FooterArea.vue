@@ -137,7 +137,12 @@ export default {
             this.$bvModal.hide("intro-modal");
             this.$bvModal.hide("advanced-options");
             
-            asyncLoading(this.optimize());
+            asyncLoading(this.optimize())
+            .then(response => {response},
+             error => {
+                let options = {"okVariant":"info", "noCloseOnBackdrop": true, "hideHeader": false, "hideHeaderClose": false};
+                this.$bvModal.msgBoxOk(error.response.data.detail, options);
+            });
         },
         ...mapActions([
             'optimize',
