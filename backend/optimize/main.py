@@ -19,20 +19,26 @@ def run_draft(
     log.info("Getting Existing Team Decisions")
     
     existing_team_exposures = []
+    protection_model_success = True
     for team in teams:
-        try:
-            existing_team_exposures.append(
-                get_existing_team_draft_decisions(team, params.team_optimization_parameters[team.name]))
-        except:
-            raise HTTPException(status_code=500, 
-                detail=f"The model for {team.name} is infeasible. Make sure your protections do not conflict with exposure requirements.")
+        team_draft_decisions = get_existing_team_draft_decisions(team, params.team_optimization_parameters[team.name])
+        if team_draft_decisions == None:
+            protection_model_success = False
+            try:
+                raise HTTPException(status_code=500, 
+                 detail=f"The model for {team.name} is infeasible. Make sure your protections do not conflict with exposure requirements.")
+            except:
+                raise
+        else:
+            existing_team_exposures.append(team_draft_decisions)    
     
-    try:
-        seatle_draft_decisions = get_seattle_draft_decisions(
-            existing_team_exposures, params
-        )
-    except:
-        raise HTTPException(status_code=500,
-            detail="The Seattle model is infeasible. Make sure you do not keep a player for Seattle that you also protect for their existing team.")
+    if protection_model_success:
+        try:
+            seatle_draft_decisions = get_seattle_draft_decisions(
+                existing_team_exposures, params
+            )
+        except:
+            raise HTTPException(status_code=500,
+                detail="The Seattle model is infeasible. Make sure you do not keep a player for Seattle that you also protect for their existing team.")
 
     return existing_team_exposures, seatle_draft_decisions
