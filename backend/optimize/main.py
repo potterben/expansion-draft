@@ -1,5 +1,6 @@
 import logging
 from typing import List, Tuple
+from fastapi import HTTPException
 
 from backend.domain import Team, TeamName
 from backend.domain.optimization_parameters import OptimizationParameters
@@ -16,12 +17,22 @@ def run_draft(
     """Optimize the decisions for all teams."""
     # Get results for the existing teams.
     log.info("Getting Existing Team Decisions")
-    existing_team_exposures = [
-        get_existing_team_draft_decisions(team, params.team_optimization_parameters[team.name]) for team in teams
-    ]
-
-    seatle_draft_decisions = get_seattle_draft_decisions(
-        existing_team_exposures, params
-    )
+    
+    existing_team_exposures = []
+    for team in teams:
+        try:
+            existing_team_exposures.append(
+                get_existing_team_draft_decisions(team, params.team_optimization_parameters[team.name]))
+        except:
+            raise HTTPException(status_code=500, 
+                detail=f"The model for {team.name} is infeasible. Make sure your protections do not conflict with exposure requirements.")
+    
+    try:
+        seatle_draft_decisions = get_seattle_draft_decisions(
+            existing_team_exposures, params
+        )
+    except:
+        raise HTTPException(status_code=500,
+            detail="The Seattle model is infeasible. Make sure you do not keep a player for Seattle that you also protect for their existing team.")
 
     return existing_team_exposures, seatle_draft_decisions
