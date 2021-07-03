@@ -8,12 +8,12 @@
                 <b-tab title="Existing Teams">
                     <b-container class="py-2 text-center">
                         <b-row class="py-1">
-                            <b-col>
+                            <b-col cols=12>
                                 <h3>Select a team</h3>
                             </b-col>
                         </b-row>
                         <b-row class="py-1">
-                            <b-col>
+                            <b-col cols=12>
                                 <b-form-select v-model="currentIndex" :options="this.originalTeamsOptions" class="team-selector text-center"/>
                             </b-col>
                         </b-row>
