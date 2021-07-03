@@ -30,7 +30,7 @@
                     <p>{{ getCurrPerformanceMetricDescription }} </p>
                 </b-container>
                 <b-container class="py-4">
-                    <h3>Choose the finanical flexibility metric the optimizer will use</h3>
+                    <h3>Choose the financial flexibility metric the optimizer will use</h3>
                 </b-container>
                 <b-container class="py-3">
                     <b-form-select v-model="financialMetric" :options="this.financialMetrics"></b-form-select>
