@@ -5,7 +5,7 @@
         </b-container>
         <b-card no-body>
             <b-tabs content-class="mt-3" align="center" pills card> 
-                <b-tab title="Original Teams" active>
+                <b-tab title="Existing Teams" active>
                     <b-container class="py-2 text-center">
                         <b-row class="py-1">
                             <b-col>
@@ -22,12 +22,12 @@
                         <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
                     </b-container>
                 </b-tab>
-                <b-tab title="Seattle Results">
+                <b-tab title="Seattle Kraken">
                     <b-container v-show="this.expansionTeam && this.expansionTeam.selected" class="text-center py-4">
                         <TeamTable :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
                     </b-container>
                     <b-container v-show="this.expansionTeam && !this.expansionTeam.selected" class="text-center py-4">
-                        <h3>Run the optimizer to get the results</h3>
+                        <h3>Run the optimizer to get results.</h3>
                     </b-container>
                 </b-tab>
             </b-tabs>
