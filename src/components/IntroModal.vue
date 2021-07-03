@@ -6,7 +6,7 @@
             </b-container>
             <b-container class="py-4">
                 <p>In this tutorial, you will be running our optimizer on your favourite NHL team for the upcoming NHL Expansion Draft. We will be focusing on one team for the tutorial, but the optimizer lets you modify options, manually protect and/or expose players for every team in the league.</p>
-                <p>Please see our <b-link :to="'faq'">FAQ</b-link > if you have any more questions.</p>
+                <p>Please see our <b-link :to="'faq'" :target="'_blank'">FAQ</b-link > if you have any more questions.</p>
             </b-container>
         </b-container>
         <b-container v-if="currentPage==1">
