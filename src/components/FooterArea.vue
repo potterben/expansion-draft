@@ -27,7 +27,7 @@
                 <b-row>
                     <b-col class="col-6 py-2">
                         <b-form-checkbox id ="ufa" v-model="dontConsiderUFAState">
-                            Don't Consider UFAs
+                            Try to avoid UFAs
                         </b-form-checkbox>
                     </b-col>
                     <b-col class="col-6"/>
