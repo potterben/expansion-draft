@@ -27,7 +27,7 @@
                 <b-row>
                     <b-col class="col-6 py-2">
                         <b-form-checkbox id ="ufa" v-model="dontConsiderUFAState">
-                            Try to avoid UFAs <b-icon icon="question-circle" v-b-tooltip.hover title="Checking this option means the optimizer will try to avoid protecting/selecting UFAs as they are not under contract for the upcoming season."></b-icon>
+                            Try to avoid UFAs <b-icon icon="question-circle" v-b-tooltip.hover title="Checking this option means the optimizer will try to avoid protecting/selecting UFAs as they are not under contract for the upcoming season." />
                         </b-form-checkbox>
                     </b-col>
                     <b-col class="col-6"/>
