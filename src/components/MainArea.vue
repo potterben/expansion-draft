@@ -19,11 +19,15 @@
                         </b-row>
                     </b-container>
                     <b-container v-show="this.currentTeam" class="text-center py-4">
-                        <TeamTable v-for="team in currentTeam" :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
+                        <template v-for="team in currentTeam">
+                            <b-img :src="require('../assets/nhl_logos/' + team.imageLocation)" :key="'img'+team.abbreviation" :alt="team.name" :title="team.name" class="team-logo"/>
+                            <TeamTable :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
+                        </template>
                     </b-container>
                 </b-tab>
                 <b-tab title="Seattle Kraken">
                     <b-container v-show="this.expansionTeam && this.expansionTeam.selected" class="text-center py-4">
+                        <b-img :src="require('../assets/nhl_logos/' + this.expansionTeam.imageLocation)" :alt="this.expansionTeam.name" :title="this.expansionTeam.name" class="seattle-logo"/>
                         <TeamTable :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
                     </b-container>
                     <b-container v-show="this.expansionTeam && !this.expansionTeam.selected" class="text-center py-4">

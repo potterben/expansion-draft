@@ -1,6 +1,6 @@
 <template>
     <div class="m-4 p-2" id="parameter-center">
-        <b-row class="justify-content-center pt-5">
+        <b-row class="justify-content-center">
             <b-col>
                 <h4>
                     {{ teamName }}
@@ -9,7 +9,7 @@
         </b-row>
         <b-row class="justify-content-center py-3">
             <b-col cols=6>
-                <vue-slider class="" v-model="sliderValue" :lazy="true" :tooltip="'none'" :disabled="disableSlider ? true: false" />
+                <vue-slider class="" v-model="sliderValue" :lazy="true" :tooltip="'none'" />
             </b-col>
             </b-row>
         <b-row class="justify-content-center py-3">
@@ -56,10 +56,6 @@ export default {
     },
 
     computed: {
-        disableSlider: function() {
-            let isOriginalTeamSlider = !this.isExpansionTeam && this.teamIndex != -1;
-            return isOriginalTeamSlider && this.applyToAllOriginalTeams;
-        },
         invertedPercentageValue: {
             get() {
                 return 100-this.sliderValue;

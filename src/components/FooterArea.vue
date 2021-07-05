@@ -32,10 +32,14 @@
                     </b-col>
                     <b-col class="col-6"/>
                 </b-row>
+                <b-img :src="require('../assets/nhl_logos/' + expansionTeam.imageLocation)" :alt="expansionTeam.name" :title="expansionTeam.name" class="small-seattle-logo"/>
                 <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
-                <TeamSlider :teamName="'All Original Teams'" v-show="applyToAll"/>
+                <TeamSlider :teamName="'All Existing Teams'" v-show="applyToAll"/>
                 <b-collapse id="all-other-teams" v-model="doNotApplyToAll">
-                    <TeamSlider v-for="team in allOtherTeams" :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
+                    <template v-for="team in allOtherTeams">
+                        <b-img :src="require('../assets/nhl_logos/' + team.imageLocation)" :key="'img'+team.abbreviation" :alt="team.name" :title="team.name" class="small-team-logo"/>
+                        <TeamSlider :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
+                    </template>
                 </b-collapse>
             </b-container>
             <template #modal-footer>
@@ -44,11 +48,11 @@
                         <b-link class="toggle" v-b-toggle="'all-other-teams'">
                             <template v-if="doNotApplyToAll">
                                 <b-icon icon="chevron-up" aria-hidden="true"></b-icon>
-                                Hide all other teams
+                                Hide all existing teams
                             </template>
                             <template v-else>
                                 <b-icon icon="chevron-down" aria-hidden="true"></b-icon>
-                                Show all other teams
+                                Show all existing teams
                             </template>
                         </b-link>
                     </b-col>

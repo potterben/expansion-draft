@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal scrollable no-close-on-backdrop size="lg" ref="intro-modal" id="intro-modal">
+        <b-modal v-if="this.originalTeams && this.expansionTeam" scrollable no-close-on-backdrop size="lg" ref="intro-modal" id="intro-modal">
             <b-container v-if="currentPage==0">
                 <b-container class="py-4">
                     <h1>Welcome to the NHL Expansion Draft Optimizer!</h1>
@@ -45,8 +45,10 @@
                     <p>Consider your team's current state and what makes the most sense for your future. If your team is a contender, then you would likely value performance more. If your team is rebuilding, you would likely value financial flexibility.</p>
                 </b-container>
                 <b-container class="text-center">
-                    <TeamSlider :teamName="getChosenTeamName" :isExpansionTeam="true" v-if="isExpansionTeamChosen" />
-                    <TeamSlider :teamName="getChosenTeamName" :teamIndex="chosenTeamIndex" v-else/>
+                    <template v-for="team in chosenTeam">
+                        <b-img :src="require('../assets/nhl_logos/' + team.imageLocation)" :key="'img'+team.abbreviation" :alt="team.name" :title="team.name" class="small-team-logo"/>
+                        <TeamSlider :key="team.name" :teamName="team.name" :teamIndex="team.index" :isExpansionTeam="isExpansionTeamChosen()"/>
+                    </template>
                 </b-container>
                 <b-row class="py-2">
                     <b-col>
@@ -151,6 +153,15 @@ export default {
         },
         getChosenTeamName: function() {
             return this.allTeams.find(team => team.value === this.chosenTeamIndex).text;
+        },
+        chosenTeam: function () {
+            if (!this.isExpansionTeamChosen() && this.originalTeams) {
+                return [this.originalTeams[this.chosenTeamIndex]];
+            }
+            if (this.isExpansionTeamChosen() && this.expansionTeam) {
+                return [this.expansionTeam];
+            }
+            return [];
         },
         getPreferredMetricText() {
             let percentage = 0;

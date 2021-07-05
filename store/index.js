@@ -10,15 +10,16 @@ Vue.use(Vuex)
 
 // TODO: separate into separate files
 class Team {
-    constructor(name, abbreviation) {
+    constructor(name, abbreviation, imageLocation) {
       this.name = name;
       this.abbreviation = abbreviation;
+      this.imageLocation = imageLocation
     }
   }
  
 class OriginalTeam extends Team {
-    constructor(name, abbreviation, index) {
-        super(name, abbreviation);
+    constructor(name, abbreviation, imageLocation, index) {
+        super(name, abbreviation, imageLocation, index);
         this.index = index;
         this.protected = null;
         this.exposed = null;
@@ -27,8 +28,8 @@ class OriginalTeam extends Team {
 }
 
 class ExpansionTeam extends Team {
-    constructor(name, abbreviation) {
-        super(name, abbreviation);
+    constructor(name, abbreviation, imageLocation) {
+        super(name, abbreviation, imageLocation);
         this.keep = null;
         this.remove = null;
         this.alpha = 0.0;
@@ -197,13 +198,13 @@ export default new Vuex.Store({
             let originalTeamsArray = []
             
             for (let i =0; i < originalTeams.length; i++) {
-                originalTeamsArray.push(new OriginalTeam(originalTeams[i].name,originalTeams[i].abbreviation, i));
+                originalTeamsArray.push(new OriginalTeam(originalTeams[i].name, originalTeams[i].abbreviation, originalTeams[i].imageLocation, i));
                 allTeamsArray.push(new ComboBoxOption(originalTeams[i].name, i));
             }
             context.commit("setOriginalTeams", originalTeamsArray);
 
             let expansionTeam = TeamInfoJson.expansionTeam;
-            let expansionTeamObject = new ExpansionTeam(expansionTeam[0].name, expansionTeam[0].abbreviation);
+            let expansionTeamObject = new ExpansionTeam(expansionTeam[0].name, expansionTeam[0].abbreviation, expansionTeam[0].imageLocation);
             allTeamsArray.unshift(new ComboBoxOption(expansionTeamObject.name, originalTeams.length));
 
             context.commit("setExpansionTeam", expansionTeamObject);
