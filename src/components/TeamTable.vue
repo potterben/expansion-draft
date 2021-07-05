@@ -6,6 +6,7 @@
                     <b-button @click="resetCurrTeamCheckboxes">Reset {{ teamName }}</b-button>
                     <b-button @click="resetAllTeamCheckboxes">Reset all teams</b-button>
                 </b-button-group>
+                <SelectedPlayerTable :teamInit="teamInit"/>
                 <PlayerTable position="forwards"/>
                 <PlayerTable position="defensemen"/>
                 <PlayerTable position="goalies"/>
@@ -23,6 +24,7 @@
 <script>
 import TeamRequirementTable from './TeamRequirementTable.vue'
 import PlayerTable from './PlayerTable.vue'
+import SelectedPlayerTable from './SelectedPlayerTable.vue'
 import SummaryTable from './SummaryTable.vue'
 import ExpansionPlayerTable from './ExpansionPlayerTable.vue'
 import { mapActions } from 'vuex'
@@ -34,7 +36,8 @@ export default {
         TeamRequirementTable,
         PlayerTable,
         SummaryTable,
-        ExpansionPlayerTable
+        ExpansionPlayerTable,
+        SelectedPlayerTable
     },
 
     props: {
