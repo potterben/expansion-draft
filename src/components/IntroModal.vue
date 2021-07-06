@@ -150,7 +150,7 @@
                 <b-row>
                     <b-col cols=12>
                         <p>These results based on your choice of performance and finanical metrics, and your weighing of each metric.</p>
-                        <p>If you are unsatisfied with the results, try manually modify some protections or change your chosen metrics in Advanced Options.</p>
+                        <p>If you are unsatisfied with the results, try manually modifying some protections or changing your chosen metrics in Advanced Options.</p>
                     </b-col>
                 </b-row>
             </b-container>
