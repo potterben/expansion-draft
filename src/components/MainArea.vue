@@ -31,7 +31,7 @@
                         <TeamTable :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
                     </b-container>
                     <b-container v-show="this.expansionTeam && !this.expansionTeam.selected" class="text-center py-4">
-                        <h3>Run the optimizer to get results.</h3>
+                        <h3>Run the optimizer to get results</h3>
                     </b-container>
                 </b-tab>
             </b-tabs>
