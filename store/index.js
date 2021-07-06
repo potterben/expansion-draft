@@ -76,6 +76,8 @@ export default new Vuex.Store({
         applyToAllOriginalTeams: true,
         playerData: [],
         expansionTeamSummary: [],
+        figureData: null,
+
         positionKeys: ["forwards", "defensemen", "goalies"]
 
       },
@@ -189,6 +191,9 @@ export default new Vuex.Store({
         },
         setExpansionTeamSummary(state, summary) {
             state.expansionTeamSummary = summary;
+        },
+        setFigureData(state, figureData) {
+            state.figureData = figureData;
         }
       },
     actions: {
@@ -389,7 +394,11 @@ export default new Vuex.Store({
                     let summary = seattleResults["summary"];
                     context.commit("setExpansionTeamSummary", summary);
                     
+                    let figureData = seattleResults["figure"];
+                    context.commit("setFigureData", figureData);
+
                     context.commit("setCurrTabIndex", 1);
+
                     resolve(response);
                 }, error => {
                     // http failed, let the calling function know that action did not work out

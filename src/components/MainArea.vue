@@ -21,14 +21,13 @@
                     <b-container v-show="this.currentTeam" class="text-center py-4">
                         <template v-for="team in currentTeam">
                             <b-img :src="require('../assets/nhl_logos/' + team.imageLocation)" :key="'img'+team.abbreviation" :alt="team.name" :title="team.name" class="team-logo"/>
-                            <TeamTable :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation" />
+                            <OriginalTeam :key="team.abbreviation" :teamName="team.name" :teamInit="team.abbreviation"/>
                         </template>
                     </b-container>
                 </b-tab>
                 <b-tab title="Seattle Kraken">
                     <b-container v-show="this.expansionTeam && this.expansionTeam.selected" class="text-center py-4">
-                        <b-img :src="require('../assets/nhl_logos/' + this.expansionTeam.imageLocation)" :alt="this.expansionTeam.name" :title="this.expansionTeam.name" class="seattle-logo"/>
-                        <TeamTable :teamName="expansionTeam.name" :teamInit="expansionTeam.abbreviation" :isExpansionTeam="true" />
+                        <ExpansionTeam/>
                     </b-container>
                     <b-container v-show="this.expansionTeam && !this.expansionTeam.selected" class="text-center py-4">
                         <h3>Run the optimizer to get results</h3>
@@ -40,14 +39,16 @@
 </template>
 
 <script>
-import TeamTable from './TeamTable.vue'
+import OriginalTeam from './OriginalTeam.vue'
+import ExpansionTeam from './ExpansionTeam.vue'
 import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
     name: 'MainArea',
 
     components: {
-        TeamTable
+        OriginalTeam,
+        ExpansionTeam
     },
 
     computed: {
@@ -89,10 +90,15 @@ export default {
             "currTabIndex",
             "allTeams",
             "expansionTeam",
-            "originalTeams"
+            "originalTeams",
+            "figureData",
+            "currFinancialMetric",
+            "currPerformanceMetric"
         ]),
         ...mapGetters([
             "getCurrTeamName",
+            "getCurrFinancialMetricText",
+            "getCurrPerformanceMetricText"
             
         ])
     },
