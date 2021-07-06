@@ -100,7 +100,7 @@
                 </b-container>
             </b-container>
             <b-container v-if="currentPage==4">
-                <b-container class="py-2">
+                <b-container class="py-1">
                     <h3>Do you prefer player performance or financial flexibility?</h3>
                 </b-container>
                 <b-container>
@@ -113,12 +113,12 @@
                         <TeamSlider :key="team.name" :teamName="team.name" :teamIndex="team.index" :isExpansionTeam="isExpansionTeamChosen()"/>
                     </template>
                 </b-container>
-                <b-row class="py-2">
+                <b-row>
                     <b-col>
                         <p>If you are happy with your options, press "Optimize" and wait for your results.</p>
                     </b-col>
                 </b-row>
-                <b-row class="py-2">
+                <b-row>
                     <b-col>
                         <b-form-checkbox v-model="doNotShowIntroModal" value="checked" unchecked-value="unchecked">
                             Do not show this tutorial for any future visits.
