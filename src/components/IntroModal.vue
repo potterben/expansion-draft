@@ -3,23 +3,86 @@
         <b-modal v-if="this.originalTeams && this.expansionTeam" scrollable no-close-on-backdrop size="lg" ref="intro-modal" id="intro-modal">
             <b-container v-if="currentPage==0">
                 <b-container class="py-4">
-                    <h1>Welcome to the NHL Expansion Draft Optimizer!</h1>
+                    <h1>NHL Expansion Draft Optimizer</h1>
                 </b-container>
-                <b-container class="py-4">
-                    <p>This tool optimizes the protections made by existing teams and the selections made by the Seattle Kraken for the 2021 NHL Expansion Draft. The optimization is based on performance and finanical metrics that you will choose, and you can even weight which metric you think is more important. For existing teams, the tool protects players to minimize the value of exposed players based on your chosen metrics. For Seattle, the tool selects the players that maximizes your chosen metrics. Note that this is not a predictor, so protections and selections may vary as you change your metrics and weighting of those metrics.</p>
-                    <p>In this tutorial, you will be running our optimizer on your favourite NHL team for the 2021 NHL Expansion Draft. We will be focusing on one team for the tutorial, but the optimizer lets you modify the same metrics, and you can also manually protect and/or expose players for every team in the league.</p>
-                    <p>Please see our <b-link :to="'faq'" :target="'_blank'">FAQ</b-link > if you have any more questions.</p>
+                <b-container class="py-2">
+                    <b-row class="py-2">
+                        <b-col class="text-center">
+                            <b-img :src="require('../assets/expansion_draft_logo.png')" :alt="'NHL Expansion Draft Logo'" :title="'NHL Expansion Draft Logo'" class="expansion-draft-logo"/>
+                        </b-col>
+                    </b-row>
+                    <b-row class="py-2">
+                        <b-col>
+                            <h3>What is happening?</h3>
+                        </b-col>
+                    </b-row>
+                    <b-row class="py-2">
+                        <b-col>
+                            <p>Seattle is joining the NHL as the newest expansion team for the 2021-2022 season. As part of the expansion, they get to draft one player from each team. Each team can protect a certain number of players to prevent them from being drafted by Seattle.</p>
+                        </b-col>
+                    </b-row>
+                    <b-row class="py-2">
+                        <b-col>
+                            <h3>What is this site?</h3>
+                        </b-col>
+                    </b-row>
+                    <b-row >
+                        <b-col>
+                            <p>It allows fans to play ‘Armchair GM’ and simulate the optimal drafting and protection decisions made by Seattle and the other teams.</p>
+                        </b-col>
+                    </b-row>
                 </b-container>
             </b-container>
             <b-container v-if="currentPage==1">
                 <b-container class="py-4">
-                    <h3>Choose your favourite team and see how your choices affect your team</h3>
+                    <h1>NHL Expansion Draft Optimizer</h1>
                 </b-container>
-                <b-container class="py-4">
-                    <b-form-select v-model="chosenTeamIndex" :options="this.allTeams"></b-form-select>
+                <b-container class="py-2">
+                    <b-row class="py-2">
+                        <b-col>
+                            <h3>How does this site work?</h3>
+                        </b-col>
+                    </b-row>
+                    <b-row class="py-2">
+                        <b-col>
+                            <p>You can choose objectives for current teams and Seattle in terms of whether they should try to get the best on-ice performance or financial flexibility. We then run an optimizer to maximize each team's objectives.</p>
+                        </b-col>
+                    </b-row>
+                    <b-row class="py-2">
+                        <b-col>
+                            <h3>How do I use this site?</h3>
+                        </b-col>
+                    </b-row>
+                    <b-row class="py-2">
+                        <b-col>
+                            <p>To start, we will walk you through an optimization of the draft.</p>
+                            <p>First choose your team to optimize. Then choose from a number of player performance and financial flexibility metrics. You can even weigh the importance of each metric based on what you think your team should optimize. Our optimizer will then simulate what each team should do to maximize these objectives.</p>
+                            <p>Afterwards, you can modify the simulated decisions by changing team objectives or manually protecting and exposing players. Try re-simulating the outcomes under different objectives to get the best outcomes.</p>
+                        </b-col>
+                    </b-row>
                 </b-container>
             </b-container>
-            <b-container v-if="currentPage==2">
+            <b-container class="text-center" v-if="currentPage==2">
+                <b-row class="py-4">
+                    <b-col>
+                        <h3>Choose your favourite team and see how your choices affect your team</h3>
+                    </b-col>
+                </b-row>
+                <b-row class="py-4">
+                    <b-col cols=12>
+                        <b-form-select v-model="chosenTeamIndex" :options="this.allTeams"></b-form-select>
+                    </b-col>
+                </b-row>
+                <b-row class="py-4">
+                    <b-col cols=12 >
+                        <template v-for="team in chosenTeam">
+                            <b-img :src="require('../assets/nhl_logos/' + team.imageLocation)" :key="'img'+team.abbreviation" :alt="team.name" :title="team.name" class="team-logo"/>
+                        </template>
+                    </b-col>
+                </b-row>
+
+            </b-container>
+            <b-container v-if="currentPage==3">
                 <b-container class="py-4">
                     <h3>Choose the performance metric the optimizer will use</h3>
                 </b-container>
@@ -36,7 +99,7 @@
                     <b-form-select v-model="financialMetric" :options="this.financialMetrics"></b-form-select>
                 </b-container>
             </b-container>
-            <b-container v-if="currentPage==3">
+            <b-container v-if="currentPage==4">
                 <b-container class="py-2">
                     <h3>Do you prefer player performance or financial flexibility?</h3>
                 </b-container>
@@ -107,7 +170,7 @@ export default {
         return {
             doNotShowIntroModal: "unchecked",
             currentPage: 0,
-            totalPages: 4,
+            totalPages: 5,
             chosenTeamIndex: 0
         }
     },
