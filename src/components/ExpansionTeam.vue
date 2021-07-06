@@ -1,11 +1,11 @@
 <template>
     <b-container>
-        <SummaryTable/>
         <template v-if="this.figureData">
-            <Figure :metricName="'Age'" :metric="'age'"/>
+            <Figure :metricName="'Average Age'" :metric="'age'"/>
             <Figure :metricName="getCurrPerformanceMetricText" :metric="currPerformanceMetric"/>
             <Figure :metricName="getCurrFinancialMetricText" :metric="currFinancialMetric" :isFinancial="true"/>
         </template>
+        <SummaryTable/>
         <ExpansionPlayerTable position="forwards"/>
         <ExpansionPlayerTable position="defensemen"/>
         <ExpansionPlayerTable position="goalies"/>
