@@ -1,11 +1,6 @@
 # Dockerfile
 FROM python:3.8.3-buster AS base
 
-# for Amplify 
-# https://docs.amplify.aws/cli/usage/containers#deploy-a-single-container
-
-# WORKDIR ./fastapi_backend
-
 COPY pyproject.toml .
 COPY poetry.lock .
 
@@ -19,7 +14,5 @@ RUN yes | apt-get install coinor-cbc
 COPY . .
 
 EXPOSE 8000
-
-#WORKDIR ../
 
 CMD ["python","main.py"]
