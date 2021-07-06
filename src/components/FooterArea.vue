@@ -25,12 +25,18 @@
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col class="col-6 py-2">
+                    <b-col class="col-12 py-2">
                         <b-form-checkbox id ="ufa" v-model="dontConsiderUFAState">
                             Try to avoid UFAs <b-icon icon="question-circle" v-b-tooltip.hover title="Checking this option means the optimizer will try to avoid protecting/selecting UFAs as they are not under contract for the upcoming season." />
                         </b-form-checkbox>
                     </b-col>
-                    <b-col class="col-6"/>
+                </b-row>
+                <b-row>
+                    <b-col class="col-12 py-2">
+                        <b-form-checkbox id ="age" v-model="adjustForAgeState">
+                            Adjust for age <b-icon icon="question-circle" v-b-tooltip.hover title="Checking this option means the optimizer will try to protect/select younger players over older players." />
+                        </b-form-checkbox>
+                    </b-col>
                 </b-row>
                 <b-img :src="require('../assets/nhl_logos/' + expansionTeam.imageLocation)" :alt="expansionTeam.name" :title="expansionTeam.name" class="small-seattle-logo"/>
                 <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
@@ -100,6 +106,14 @@ export default {
             },
             set(value) {
                 this.setDontConsiderUFAs(value);
+            }
+        },
+        adjustForAgeState: {
+            get() {
+                return this.adjustForAge;
+            },
+            set(value) {
+                this.setAdjustForAge(value);
             }
         },
         applyToAll: {

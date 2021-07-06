@@ -73,6 +73,7 @@ export default new Vuex.Store({
         performanceMetrics: [],
 
         dontConsiderUFAs: true,
+        adjustForAge: true,
         applyToAllOriginalTeams: true,
         playerData: [],
         expansionTeamSummary: [],
@@ -111,6 +112,9 @@ export default new Vuex.Store({
         },
         setDontConsiderUFAs(state, dontConsiderUFAs) {
             state.dontConsiderUFAs = dontConsiderUFAs;
+        },
+        setAdjustForAge(state, adjustForAge) {
+            state.adjustForAge = adjustForAge;
         },
         setCurrTeamSliderValue(state, value) {
             state.originalTeams[state.currTeamIndex].beta = value;
@@ -277,6 +281,9 @@ export default new Vuex.Store({
         setDontConsiderUFAs(context, dontConsiderUFAs) {
             context.commit("setDontConsiderUFAs", dontConsiderUFAs);
         },
+        setAdjustForAge(context, adjustForAge) {
+            context.commit("setAdjustForAge", adjustForAge);
+        },
         setExpansionTeamSliderValue(context, value) {
             context.commit("setExpansionTeamSliderValue", value);
         },
@@ -359,7 +366,8 @@ export default new Vuex.Store({
                     financial_metric: context.state.currFinancialMetric,
                     performance_metric: context.state.currPerformanceMetric,
                     seattle: context.state.expansionTeam,
-                    dont_consider_ufas: context.state.dontConsiderUFAs
+                    dont_consider_ufas: context.state.dontConsiderUFAs,
+                    adjust_for_age: context.state.adjustForAge
                 };
                 const headers = {
                     'Access-Control-Allow-Origin': '*',
