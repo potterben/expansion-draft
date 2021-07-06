@@ -2,7 +2,7 @@ import logging
 from typing import List, Tuple
 from fastapi import HTTPException
 
-from backend.domain import Team, TeamName
+from backend.domain import Team, FigureData
 from backend.domain.optimization_parameters import OptimizationParameters
 from backend.domain.team import SeattleTeamDraft, OriginalTeamOptimization
 from backend.optimize.existing_team import get_existing_team_draft_decisions
@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 
 def run_draft(
-    teams: List[Team], params: OptimizationParameters
+    teams: List[Team], figuredata: FigureData, params: OptimizationParameters
 ) -> Tuple[List[OriginalTeamOptimization], SeattleTeamDraft]:
     """Optimize the decisions for all teams."""
     # Get results for the existing teams.
@@ -35,7 +35,7 @@ def run_draft(
     if protection_model_success:
         try:
             seatle_draft_decisions = get_seattle_draft_decisions(
-                existing_team_exposures, params
+                existing_team_exposures, figuredata, params
             )
         except:
             raise HTTPException(status_code=500,

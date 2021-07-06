@@ -2,15 +2,16 @@ from typing import Dict, List
 
 import pandas as pd
 
-from backend.constants import EXISTING_TEAMS, PLAYER_CSV
-from backend.domain import Player, Team, TeamName
+from backend.constants import EXISTING_TEAMS, PLAYER_CSV, SUMMARY_CSV
+from backend.domain import Player, Team, TeamName, FigureData
 
 
 class MemoryDB:
-    def __init__(self, players: List[Player], teams: Dict[TeamName, Team]):
+    def __init__(self, players: List[Player], teams: Dict[TeamName, Team], figuredata: FigureData):
         self._players: List[Player] = players
         self._teams = [t for t in teams.values()]
         self._teams_dict: teams
+        self._figuredata = figuredata
 
     @property
     def players(self):
@@ -19,6 +20,10 @@ class MemoryDB:
     @property
     def teams(self):
         return self._teams
+
+    @property
+    def figuredata(self):
+        return self._figuredata
 
 def seed_db() -> MemoryDB:
     players = []
@@ -51,10 +56,10 @@ def seed_db() -> MemoryDB:
             # financial related information
             cap_hit_20_21=row["CH 20-21"],
             cap_hit_21_22=row["CH 21-22"],
-            cap_hit_total=row["CH Total"],
+            cap_hit_avg=row["CH Avg"],
             cap_hit_20_21_standard=row["CH 20-21_standard"],
             cap_hit_21_22_standard=row["CH 21-22_standard"],
-            cap_hit_total_standard=row["CH Total_standard"],
+            cap_hit_avg_standard=row["CH Avg_standard"],
             ufa_expiry=row["UFA Expiry"],
             rfa_expiry=row["RFA Expiry"],
             expiry=row["Expiry"],
@@ -87,4 +92,17 @@ def seed_db() -> MemoryDB:
         else:
             raise ValueError(f"{player} does not have a valid position!")
 
-    return MemoryDB(players, teams)
+    
+    df = pd.read_csv(SUMMARY_CSV, encoding="latin-1")
+    figuredata = FigureData(
+        teamname=df["Team"].tolist(),
+        age=df["Age"].tolist(),
+        ps=df["PS"].tolist(),
+        gaps=df["GAPS"].tolist(),
+        ea_rating=df["Overall"].tolist(),
+        cap_hit_20_21=df["CH 20-21"].tolist(),
+        cap_hit_21_22=df["CH 21-22"].tolist(),
+        cap_hit_avg=df["CH Avg"].tolist()
+    )
+
+    return MemoryDB(players, teams, figuredata)

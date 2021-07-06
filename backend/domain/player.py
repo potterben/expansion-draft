@@ -13,11 +13,11 @@ class Player(BaseModel):
 
     cap_hit_20_21: float
     cap_hit_21_22: float
-    cap_hit_total: float
+    cap_hit_avg: float
     # standardized metrics
     cap_hit_20_21_standard: float
     cap_hit_21_22_standard: float
-    cap_hit_total_standard: float
+    cap_hit_avg_standard: float
     # other contract info
     ufa_expiry: int  # year the player is a ufa
     rfa_expiry: int  # year the player is an rfa

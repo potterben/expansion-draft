@@ -39,7 +39,7 @@ def optimize(frontend_data: FrontendInterface):
     optimization_params = OptimizationParameters(team_optimization_parameters={}, financial_metric="", performance_metric="", dont_consider_ufas=True)
     optimization_params.load_from_data(frontend_data, MemDB.teams)
     existing_team_draft, seattle_team_draft = run_draft(
-        MemDB.teams, optimization_params
+        MemDB.teams, MemDB.figuredata, optimization_params
     )
     return {
         "original_teams": existing_team_draft,

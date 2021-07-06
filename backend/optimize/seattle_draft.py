@@ -4,12 +4,13 @@ from typing import List, Optional
 import pulp
 
 from backend.domain import (
-    SeattleSummary,
+    TeamSummary,
     SeattleTeamDraft,
     OriginalTeamOptimization,
     TeamName,
     OptimizationParameters,
-    Player
+    Player,
+    FigureData
 )
 
 AGE_WEIGHT = 0.06
@@ -113,7 +114,7 @@ def optimize_seattle_selection_scenario(
         ]
     )
     model += select_caphit_constraint >= 48.9, "SelectMinCapHit"  # 60 percent of cap
-    model += select_caphit_constraint <= 81.5, "SelectMaxCapHit"  # 100 percent of cpa
+    model += select_caphit_constraint <= 81.5, "SelectMaxCapHit"  # 100 percent of cap
 
     # select at least 4 C, 4 LW, 4 RW
     select_C_constraint = pulp.lpSum(
@@ -146,7 +147,7 @@ def optimize_seattle_selection_scenario(
 
 
 def get_seattle_draft_decisions(
-    existing_teams_drafts: List[OriginalTeamOptimization], params: OptimizationParameters
+    existing_teams_drafts: List[OriginalTeamOptimization], figuredata: FigureData, params: OptimizationParameters
 ) -> SeattleTeamDraft:
     """Returns seattle decisions under the given optimization parameters."""
 
@@ -168,7 +169,7 @@ def get_seattle_draft_decisions(
             ):
                 selected_players.append(player)
 
-        seattle_results = SeattleTeamDraft(TeamName.SEA, goalies=[], defensemen=[], forwards=[], summary=[])
+        seattle_results = SeattleTeamDraft(TeamName.SEA, goalies=[], defensemen=[], forwards=[], summary=[], figure=FigureData([],[],[],[],[],[],[],[]))
         for player in selected_players:
             if player.goalie:
                 seattle_results.goalies.append(player)
@@ -177,15 +178,15 @@ def get_seattle_draft_decisions(
             elif player.forward:
                 seattle_results.forwards.append(player)
 
-        def get_summary(rowname:str, players:List[Player]) -> SeattleSummary:
-            summary = SeattleSummary(rowname,age=0,ps=0,gaps=0,ea_rating=0,cap_hit_20_21=0,cap_hit_21_22=0,cap_hit_total=0)
-            summary.age             += sum(player.age for player in players) / len(players)
-            summary.ps              += sum(player.ps for player in players) / len(players)
-            summary.gaps            += sum(player.gaps for player in players) / len(players)
-            summary.ea_rating       += sum(player.ea_rating for player in players) / len(players)
+        def get_summary(rowname:str, players:List[Player]) -> TeamSummary:
+            summary = TeamSummary(rowname,age=0,ps=0,gaps=0,ea_rating=0,cap_hit_20_21=0,cap_hit_21_22=0,cap_hit_avg=0)
+            summary.age             += sum(player.age for player in players) / sum((player.age != 0) for player in players)
+            summary.ps              += sum(player.ps for player in players)
+            summary.gaps            += sum(player.gaps for player in players)
+            summary.ea_rating       += sum(player.ea_rating for player in players) / sum((player.ea_rating != 0) for player in players)
             summary.cap_hit_20_21   += sum(player.cap_hit_20_21 for player in players)
             summary.cap_hit_21_22   += sum(player.cap_hit_21_22 for player in players)
-            summary.cap_hit_total   += sum(player.cap_hit_total for player in players) / len(players)
+            summary.cap_hit_avg   += sum(player.cap_hit_avg for player in players)
             return summary       
 
         forwards_summary = get_summary("Forwards",seattle_results.forwards)
@@ -194,6 +195,15 @@ def get_seattle_draft_decisions(
         overall_summary = get_summary("Overall",selected_players)
 
         seattle_results.summary += [forwards_summary, defensemen_summary, goalie_summary, overall_summary]
+
+        seattle_results.figure.teamname = figuredata.teamname + ["SEA"]
+        seattle_results.figure.age = figuredata.age + [overall_summary.age]
+        seattle_results.figure.ps = figuredata.ps + [overall_summary.ps]
+        seattle_results.figure.gaps = figuredata.gaps + [overall_summary.gaps]
+        seattle_results.figure.ea_rating = figuredata.ea_rating + [overall_summary.ea_rating]
+        seattle_results.figure.cap_hit_20_21 = figuredata.cap_hit_20_21 + [overall_summary.cap_hit_20_21]
+        seattle_results.figure.cap_hit_21_22 = figuredata.cap_hit_21_22 + [overall_summary.cap_hit_21_22]
+        seattle_results.figure.cap_hit_avg = figuredata.cap_hit_avg + [overall_summary.cap_hit_avg]
 
         return seattle_results
 

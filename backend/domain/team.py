@@ -7,7 +7,7 @@ from .player import Player
 from .team_name import TeamName
 
 @dataclass
-class SeattleSummary:
+class TeamSummary:
     rowname: str
     age: float
     ps: float
@@ -15,7 +15,18 @@ class SeattleSummary:
     ea_rating: float
     cap_hit_20_21: float
     cap_hit_21_22: float
-    cap_hit_total: float
+    cap_hit_avg: float
+
+@dataclass
+class FigureData:
+    teamname: List[str]
+    age: List[float]
+    ps: List[float]
+    gaps: List[float]
+    ea_rating: List[float]
+    cap_hit_20_21: List[float]
+    cap_hit_21_22: List[float]
+    cap_hit_avg: List[float]  
 
 @dataclass
 class SeattleTeamDraft:
@@ -23,7 +34,8 @@ class SeattleTeamDraft:
     goalies: List[Player]
     defensemen: List[Player]
     forwards: List[Player]
-    summary: List[SeattleSummary]
+    summary: List[TeamSummary]
+    figure: FigureData
 
 @dataclass
 class OriginalTeamOptimization:
