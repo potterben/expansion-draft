@@ -34,7 +34,7 @@
                 <b-row>
                     <b-col class="col-12 py-2">
                         <b-form-checkbox id ="age" v-model="adjustForAgeState">
-                            Prefer younger players <b-icon icon="question-circle" v-b-tooltip.hover title="Checking this option means the optimizer will try to protect/select younger players over older players." />
+                            Adjust for player age <b-icon icon="question-circle" v-b-tooltip.hover title="Checking this option means the optimizer will try to protect/select younger players over older players." />
                         </b-form-checkbox>
                     </b-col>
                 </b-row>
