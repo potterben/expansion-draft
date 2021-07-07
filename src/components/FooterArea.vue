@@ -85,7 +85,7 @@ export default {
     
     data: function() {
         return {
-            metricChanged: false
+            optionChanged: false
         }
     },
 
@@ -160,7 +160,7 @@ export default {
 
     methods: {
         onMetricChanged() {
-            this.metricChanged = true;
+            this.optionChanged = true;
         },
         hideModals() {
             this.$bvModal.hide("intro-modal");
@@ -176,12 +176,12 @@ export default {
             });
         },
         onAdvancedOptionsHidden() {
-            if (this.metricChanged) {
+            if (this.optionChanged) {
                 this.showResetModal();
             }
         },
         showResetModal(run_optimizer) {
-            this.$bvModal.msgBoxConfirm('You have changed your metrics. Do you have want to reset all your checkboxes?', {
+            this.$bvModal.msgBoxConfirm('You have changed your options. Do you have want to reset all your checkboxes?', {
                 buttonSize: 'sm',
                 okVariant: 'info',
                 title: 'Reset checkboxes',
@@ -200,11 +200,11 @@ export default {
                     this.runOptimizer();
                 }
             })
-            this.metricChanged = false;
+            this.optionChanged = false;
 
         },
         onOptimizeInAdvancedSettings() {
-            if (this.metricChanged) {
+            if (this.optionChanged) {
                 this.showResetModal(true);
             }
             else {
