@@ -100,7 +100,7 @@
     </b-row>
     <b-row >
       <b-col cols=12>
-        <p>The NHL Expansion Draft Optimizer's models are based on optimization models developed in a research paper that is in preparation by the authors below.</p>
+        <p>The NHL Expansion Draft Optimizer's models are based on optimization models developed in <b-link href="https://doi.org/10.1515/jqas-2018-0024" :target="'_blank'">a research paper</b-link> written by the authors below.</p>
       </b-col>
     </b-row>
     <b-row class="text-center">
