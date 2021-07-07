@@ -444,7 +444,7 @@ export default new Vuex.Store({
         getCurrPerformanceMetricText: state => {
             if (state.currPerformanceMetric && state.performanceMetrics)
             {
-                return state.performanceMetrics.find(metric => metric.value == state.currPerformanceMetric).text
+                return state.performanceMetrics.find(metric => metric.value == state.currPerformanceMetric).text;
             }
             return String();
         },
@@ -459,6 +459,20 @@ export default new Vuex.Store({
             if (state.currPerformanceMetric && state.performanceMetrics)
             {
                 return state.performanceMetrics.find(metric => metric.value == state.currPerformanceMetric).description
+            }
+            return String();
+        },
+        getCurrFinancialMetricFigureText: state => {
+            if (state.currFinancialMetric && state.financialMetrics)
+            {
+                return state.financialMetrics.find(metric => metric.value == state.currFinancialMetric).figure;
+            }
+            return String();
+        },
+        getCurrPerformanceMetricFigureText: state => {
+            if (state.currPerformanceMetric && state.performanceMetrics)
+            {
+                return state.performanceMetrics.find(metric => metric.value == state.currPerformanceMetric).figure;
             }
             return String();
         },

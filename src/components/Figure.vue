@@ -1,5 +1,6 @@
 <template>
   <b-container class ="py-4">
+      <h3>{{ metricName }}</h3>
       <bar-chart v-if="dataCollection" :chart-data="dataCollection" :options="options"></bar-chart>
   </b-container>
 </template>
@@ -18,14 +19,6 @@ export default {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                title: {
-                    display: true,
-                    text: this.metricName,
-                    fontSize: 25,
-                    fontColor: "#001628",
-                    fontStyle: "normal",
-                    fontFamily: "sans-serif"
-                },
                 legend: {
                     display: false
                 },
@@ -42,6 +35,10 @@ export default {
         metric: String,
         metricName: String,
         isFinancial: {
+            type: Boolean,
+            default: false
+        },
+        isPerformance: {
             type: Boolean,
             default: false
         }
@@ -61,13 +58,16 @@ export default {
     watch: {
         getFigureData() {
             this.fillData();
+        },
+        metric() {
+            this.fillData();
         }
     },
 
     methods: {
         fillData () {
             if (this.figureData) {
-                // Make this into smaller functions
+                // TODO: Make this into smaller functions
                 var labels = this.figureData.teamname;
                 var data = this.figureData[this.metric];
                 var arrayOfObj = labels.map(function(d, i) {
@@ -78,7 +78,7 @@ export default {
                 });
 
                 var sortedArrayOfObj = arrayOfObj.sort(function(a, b){
-                    return b.data-a.data;
+                    return b.data - a.data;
                 });
                 var newArrayLabel = [];
                 var newArrayData = [];
@@ -112,7 +112,6 @@ export default {
                 if (this.isFinancial) {
                     label += "$" + tooltipItem.yLabel.toFixed(3) + "M";
                 } else {
-                    console.log(data)
                     label += tooltipItem.yLabel.toFixed(2);
                 }
             } 

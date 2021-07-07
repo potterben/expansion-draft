@@ -2,8 +2,8 @@
     <b-container>
         <template v-if="this.figureData">
             <Figure :metricName="'Average Age'" :metric="'age'"/>
-            <Figure :metricName="getCurrPerformanceMetricText" :metric="currPerformanceMetric"/>
-            <Figure :metricName="getCurrFinancialMetricText" :metric="currFinancialMetric" :isFinancial="true"/>
+            <Figure :metricName="getCurrPerformanceMetricFigureText" :metric="currPerformanceMetric"/>
+            <Figure :metricName="getCurrFinancialMetricFigureText" :metric="currFinancialMetric" :isFinancial="true"/>
         </template>
         <SummaryTable/>
         <ExpansionPlayerTable position="forwards"/>
@@ -34,8 +34,8 @@ export default {
             "currPerformanceMetric"
         ]),
         ...mapGetters([
-            "getCurrFinancialMetricText",
-            "getCurrPerformanceMetricText"
+            "getCurrFinancialMetricFigureText",
+            "getCurrPerformanceMetricFigureText"
             
         ])
     }
