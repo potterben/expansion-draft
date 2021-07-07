@@ -179,7 +179,6 @@ export default {
             if (this.metricChanged) {
                 this.showResetModal();
             }
-            this.metricChanged = false;
         },
         showResetModal(run_optimizer) {
             this.$bvModal.msgBoxConfirm('You have changed your metrics. Do you have want to reset all your checkboxes?', {
@@ -201,6 +200,8 @@ export default {
                     this.runOptimizer();
                 }
             })
+            this.metricChanged = false;
+
         },
         onOptimizeInAdvancedSettings() {
             if (this.metricChanged) {
@@ -209,7 +210,6 @@ export default {
             else {
                 this.runOptimizer();
             }
-            this.metricChanged = false;
         },
         ...mapActions([
             'optimize',
