@@ -13,7 +13,7 @@ class TeamOptimizationParameters(BaseModel):
     user_exposed_players: List[Player]
     financial_metric: str
     performance_metric: str
-    dont_consider_ufas = bool
+    dont_consider_ufas: bool
     adjust_for_age: bool
 
 class SeattleParameters(BaseModel):

@@ -31,7 +31,7 @@ def optimize_existing_protection_scenario(
     fin_metric = params.financial_metric+"_standard"
     user_protections = params.user_protected_players
     user_exposures = params.user_exposed_players
-    protect_ufa = not params.dont_consider_ufas
+    expose_ufa = params.dont_consider_ufas
     adjust_for_age = params.adjust_for_age
 
     if adjust_for_age:
@@ -49,7 +49,7 @@ def optimize_existing_protection_scenario(
     # Objective Function
 
     def player_value_var(player):
-        if protect_ufa and player.ufa:
+        if expose_ufa and player.ufa:
             return 0
         return (((1-beta) * player[perf_metric] - beta * player[fin_metric] + age_weight * (40 - player.age)) 
                 * (1 - protect_var[player.id]))
@@ -160,9 +160,7 @@ def get_existing_team_draft_decisions(
         return OriginalTeamOptimization(team.name, goalies=protected_goalies, defensemen=protected_defensemen, forwards=protected_forwards, exposed=exposed)
 
     protect_8_skaters_model = optimize_existing_protection_scenario(team, params, True)
-    protect_3_defenders_7_forwards_model = optimize_existing_protection_scenario(
-        team, params, False
-    )
+    protect_3_defenders_7_forwards_model = optimize_existing_protection_scenario(team, params, False)
 
     if (protect_8_skaters_model.status != 1) and (
         protect_3_defenders_7_forwards_model.status != 1
