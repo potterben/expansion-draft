@@ -1,12 +1,12 @@
 <template>
     <footer class="footer py-4 fixed-bottom">
         <b-row class="col-12 py-1" align-h="center">
-            <b-button variant="info" id='optimize' @click="showOptimizeDialog">Optimize Results</b-button>
+            <b-button variant="info" id='optimize' @click="runOptimizer">Optimize Results</b-button>
         </b-row>
         <b-row class="col-12 text-center py-1" align-h="center">
             <b-link v-b-modal.advanced-options id="advanced-options">Advanced Options</b-link>
         </b-row>
-        <b-modal scrollable size="lg" id="advanced-options" title="Advanced Options">
+        <b-modal scrollable size="lg" id="advanced-options" title="Advanced Options" @hide="onAdvancedOptionsHidden">
             <b-container class="text-center py-4">
                 <b-row>
                     <b-col class="col-6 py-2">
@@ -18,10 +18,10 @@
                 </b-row>
                 <b-row>
                     <b-col class="col-6 py-2">
-                        <b-form-select v-model="financialMetric" :options="this.financialMetrics"></b-form-select>
+                        <b-form-select v-model="financialMetric" :options="this.financialMetrics" @change="onMetricChanged"></b-form-select>
                     </b-col>
                     <b-col class="col-6 py-2">
-                        <b-form-select v-model="performanceMetric" :options="this.performanceMetrics"></b-form-select>
+                        <b-form-select v-model="performanceMetric" :options="this.performanceMetrics" @change="onMetricChanged"></b-form-select>
                     </b-col>
                 </b-row>
                 <b-row>
@@ -63,7 +63,7 @@
                         </b-link>
                     </b-col>
                     <b-col cols="2">
-                        <b-button variant="info" id='optimize' @click="showOptimizeDialog">Optimize</b-button>
+                        <b-button variant="info" id='optimize' @click="onOptimizeInAdvancedSettings">Optimize</b-button>
                     </b-col>
                 </b-row>
             </template>
@@ -81,6 +81,12 @@ export default {
 
     components: {
         TeamSlider
+    },
+    
+    data: function() {
+        return {
+            metricChanged: false
+        }
     },
 
     computed: {
@@ -153,12 +159,15 @@ export default {
     },
 
     methods: {
-        showOptimizeDialog() { 
-            // TODO: make this function shared with intromodal
-            // Hide all modals
+        onMetricChanged() {
+            this.metricChanged = true;
+        },
+        hideModals() {
             this.$bvModal.hide("intro-modal");
             this.$bvModal.hide("advanced-options");
-            
+        },
+        runOptimizer() { 
+            this.hideModals();
             asyncLoading(this.optimize())
             .then(response => {response},
              error => {
@@ -166,12 +175,50 @@ export default {
                 this.$bvModal.msgBoxOk(error.response.data.detail, options);
             });
         },
+        onAdvancedOptionsHidden() {
+            if (this.metricChanged) {
+                this.showResetModal();
+            }
+            this.metricChanged = false;
+        },
+        showResetModal(run_optimizer) {
+            this.$bvModal.msgBoxConfirm('You have changed your metrics. Do you have want to reset all your checkboxes?', {
+                buttonSize: 'sm',
+                okVariant: 'info',
+                title: 'Reset checkboxes',
+                okTitle: 'Reset',
+                cancelTitle: 'Do Not Reset',
+                footerClass: 'p-2',
+                noCloseOnBackdrop: true,
+                centered: true
+            }).then(value => {
+                if (value) {
+                    this.resetAllTeamCheckboxes();
+                }
+            }).catch({
+            }).finally(() =>{
+                if (run_optimizer) {
+                    this.runOptimizer();
+                }
+            })
+        },
+        onOptimizeInAdvancedSettings() {
+            if (this.metricChanged) {
+                this.showResetModal(true);
+            }
+            else {
+                this.runOptimizer();
+            }
+            this.metricChanged = false;
+        },
         ...mapActions([
             'optimize',
             'setCurrFinancialMetric',
             'setCurrPerformanceMetric',
             'setDontConsiderUFAs',
             'setApplyToAllOriginalTeams',
+            'resetAllTeamCheckboxes',
+            'setAdjustForAge'
         ])
     }
 }
