@@ -150,7 +150,27 @@
                 <b-row>
                     <b-col cols=12>
                         <p>These results based on your choice of performance and finanical metrics, and your weighing of each metric.</p>
-                        <p>If you are unsatisfied with the results, try manually modifying some protections or changing your chosen metrics in Advanced Options.</p>
+                        <p>If you are unsatisfied with the results, try changing your chosen metrics in Advanced Options.</p>
+                    </b-col>
+                </b-row>
+                <b-row class="text-center">
+                    <b-col cols=12>
+                        <b-img :src="require('../assets/screenshots/advanced_options.png')"/>
+                    </b-col>
+                </b-row>
+                <b-row class="pt-4">
+                    <b-col cols=12>
+                        <p>You can also try manually modifying some protections and/or selections to fine tune your results.</p>
+                    </b-col>
+                </b-row>
+                <b-row class="py-2 text-center">
+                    <b-col cols=12>
+                        <b-img :src="require('../assets/screenshots/protect_expose.png')"/>
+                    </b-col>
+                </b-row>
+                <b-row class="py-2 text-center">
+                    <b-col cols=12>
+                        <b-img :src="require('../assets/screenshots/keep_remove.png')"/>
                     </b-col>
                 </b-row>
             </b-container>
