@@ -13,7 +13,7 @@ from backend.domain import (
     FigureData
 )
 
-AGE_WEIGHT = 0.06
+AGE_WEIGHT_DEFAULT = 0.06
 
 
 log = logging.getLogger(__name__)
@@ -38,6 +38,12 @@ def optimize_seattle_selection_scenario(
     user_remove = params.seattle_parameters.players_to_remove
     alpha = params.seattle_parameters.alpha  # User input weight between objectives.
     expose_ufa = params.dont_consider_ufas
+    adjust_for_age = params.adjust_for_age
+
+    if adjust_for_age:
+        age_weight = AGE_WEIGHT_DEFAULT
+    else:
+        age_weight = 0
 
     exposed_players = [
         player
@@ -55,7 +61,7 @@ def optimize_seattle_selection_scenario(
     def player_value_var(player):
         if expose_ufa and player.ufa:
             return 0
-        return (((1-alpha) * player[perf_metric] - alpha * player[fin_metric] + AGE_WEIGHT * (40 - player.age)) 
+        return (((1-alpha) * player[perf_metric] - alpha * player[fin_metric] + age_weight * (40 - player.age)) 
                 * (select_var[player.id]))
 
     model += sum(player_value_var(player) for player in exposed_players)

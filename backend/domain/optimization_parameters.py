@@ -14,6 +14,7 @@ class TeamOptimizationParameters(BaseModel):
     financial_metric: str
     performance_metric: str
     dont_consider_ufas = bool
+    adjust_for_age: bool
 
 class SeattleParameters(BaseModel):
     alpha: float
@@ -25,6 +26,7 @@ class OptimizationParameters(BaseModel):
     financial_metric: str
     performance_metric: str
     dont_consider_ufas: bool
+    adjust_for_age: bool
     seattle_parameters: Optional[SeattleParameters] = None
 
     def load_from_data(self, frontendData: FrontendInterface, teamData: Dict[TeamName, Team]) -> None:
@@ -32,6 +34,7 @@ class OptimizationParameters(BaseModel):
         self.financial_metric = frontendData.financial_metric
         self.performance_metric = frontendData.performance_metric
         self.dont_consider_ufas = frontendData.dont_consider_ufas
+        self.adjust_for_age = frontendData.adjust_for_age
 
         # Make a keep and remove set so we can find the players to keep and remove when iterating over all the players
         keep_set = set()
@@ -54,6 +57,7 @@ class OptimizationParameters(BaseModel):
                 financial_metric=self.financial_metric,
                 performance_metric=self.performance_metric,
                 dont_consider_ufas=self.dont_consider_ufas,
+                adjust_for_age=self.adjust_for_age
             )
             
             current_team_players = teamData[team.index].players

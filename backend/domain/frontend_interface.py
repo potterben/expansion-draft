@@ -19,3 +19,4 @@ class FrontendInterface(BaseModel):
     performance_metric: str
     original_teams: List[OriginalTeamFrontend]
     dont_consider_ufas: bool
+    adjust_for_age: bool
