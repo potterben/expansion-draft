@@ -4,7 +4,7 @@
             <b-col lg="6">
                 <b-row class ="py-2">
                     <b-col cols="12">
-                        <h4>Protection Requirements <b-link class="custom-tooltip" v-b-tooltip.hover title="Each team can protect either 7 forwards/3 defensemen/1 goalie, or 8 skaters (forwards and defensemen)/1 goalie. If you manually protect players and meet these requirements, the tables will be greyed out so you cannot protect additional players.">
+                        <h4>Protection Requirements <b-link class="custom-tooltip" v-b-tooltip.hover title="Each team can protect either 7 forwards and 3 defensemen and 1 goalie, or 8 skaters (forwards and defensemen) and 1 goalie. If you manually protect players and meet these requirements, the tables will be greyed out so you cannot protect additional players.">
                                   <b-icon icon="question-circle" aria-label="Help"/></b-link>
                         </h4> 
                     </b-col>

@@ -86,7 +86,7 @@
                     <h3>Choose the player performance metric</h3>
                 </b-container>
                 <b-container class="py-2">
-                    <p><u><strong>Performance Metrics:</strong></u>metrics measure how good a player is on-ice.</p>
+                    <p><u><strong>Performance Metrics:</strong></u> These metrics measure how good a player is on-ice.</p>
                 </b-container>
                 <b-container class="py-4">
                     <b-form-select v-model="performanceMetric" :options="this.performanceMetrics"></b-form-select>
