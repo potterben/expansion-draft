@@ -36,7 +36,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4>Yusuf Shalaby</h4>
+            <h4><b-link href="https://www.linkedin.com/in/yusufshalaby/" :target="'_blank'">Yusuf Shalaby</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
@@ -136,7 +136,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4>Yusuf Shalaby</h4>
+            <h4><b-link href="https://www.linkedin.com/in/yusufshalaby/" :target="'_blank'">Yusuf Shalaby</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
