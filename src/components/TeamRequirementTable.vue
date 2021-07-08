@@ -4,7 +4,9 @@
             <b-col lg="6">
                 <b-row class ="py-2">
                     <b-col cols="12">
-                        <h4 v-b-tooltip.hover title="Each team can protect either 7 forwards/3 defensemen/1 goalie, or 8 skaters (forwards and defensemen)/1 goalie. If you manually protect players and meet these requirements, the tables will be greyed out so you cannot protect additional players." >Protection Requirements <b-icon icon="question-circle"/></h4> 
+                        <h4>Protection Requirements <b-link class="custom-tooltip" v-b-tooltip.hover title="Each team can protect either 7 forwards/3 defensemen/1 goalie, or 8 skaters (forwards and defensemen)/1 goalie. If you manually protect players and meet these requirements, the tables will be greyed out so you cannot protect additional players.">
+                                  <b-icon icon="question-circle" aria-label="Help"/></b-link>
+                        </h4> 
                     </b-col>
                 </b-row>
                 <b-row>
@@ -31,7 +33,9 @@
             <b-col lg="6">
                 <b-row class ="py-2">
                     <b-col cols="12">
-                        <h4 v-b-tooltip.hover title="Each team must expose a minimum number of players for each postions. For more information, please see the FAQ." >Exposure Requirements <b-icon icon="question-circle"/></h4>
+                        <h4>Exposure Requirements <b-link class="custom-tooltip" v-b-tooltip.hover title="Each team must expose a minimum number of players for each postions. For more information, please see the FAQ.">
+                        <b-icon icon="question-circle" aria-label="Help"/></b-link>
+                        </h4>
                     </b-col>
                 </b-row>
                 <b-row >
