@@ -51,9 +51,8 @@
                 </b-collapse>
             </b-container>
             <template #modal-footer>
-                <b-row class="col-12" align-h="between">
-                    <b-col cols="6">
-                        <b-link class="toggle" v-b-toggle="'all-other-teams'">
+                <b-container>
+                    <b-link class="toggle float-left" v-b-toggle="'all-other-teams'">
                             <template v-if="doNotApplyToAll">
                                 <b-icon icon="chevron-up" aria-hidden="true"></b-icon>
                                 Hide all existing teams
@@ -63,11 +62,8 @@
                                 Show all existing teams
                             </template>
                         </b-link>
-                    </b-col>
-                    <b-col cols="2">
-                        <b-button variant="info" id='optimize' @click="onOptimizeInAdvancedSettings">Optimize</b-button>
-                    </b-col>
-                </b-row>
+                        <b-button class="float-right" variant="info" id='optimize' @click="onOptimizeInAdvancedSettings">Optimize</b-button>
+                </b-container>
             </template>
         </b-modal>
     </footer>
