@@ -53,7 +53,7 @@
                                 <p>If this is your first time using the site, just click “Optimize Results” found in the bottom toolbar of the page and see what happens.</p>
                                 <b-row class="py-4 text-center">
                                     <b-col>
-                                    <b-img :src="require('../assets/screenshots/optimize.png')"/>
+                                    <b-img :src="require('../assets/screenshots/optimize.png')" class="screenshot"/>
                                     </b-col>
                                 </b-row>
                                 <p>Using performance metrics, cap hit, and age, our model uses linear programming to optimize each team’s protection decisions and Seattle’s selection decisions. This may sound simple but it’s pretty impressive considering there are more possible draft combinations than atoms in the universe!</p>
@@ -90,13 +90,13 @@
                                 <p>To access these settings, click the “Advanced Options” button found in the bottom toolbar and a pop-up will appear.</p>
                                 <b-row class="text-center py-4">
                                     <b-col cols=12>
-                                        <b-img :src="require('../assets/screenshots/advanced_options.png')"/>
+                                        <b-img :src="require('../assets/screenshots/advanced_options.png')" class="screenshot"/>
                                     </b-col>
                                 </b-row>
                                 <p>The first settings that appear will be drop-down menus in which you can select metrics for both on-ice performance and financial flexibility. There is also an option to consider UFAs, but please note the rules of the expansion draft.</p>
                                 <b-row class="text-center py-4">
                                     <b-col cols=12>
-                                        <b-img :src="require('../assets/screenshots/metrics.png')"/>
+                                        <b-img :src="require('../assets/screenshots/metrics.png')" class="screenshot"/>
                                     </b-col>
                                 </b-row>
                                 <p>Cap hit information was obtained from <b-link href="https://www.capfriendly.com/" :target="'_blank'">CapFriendly</b-link>. EA NHL 2021 ratings were obtained from <b-link href="https://old.reddit.com/r/EA_NHL/comments/jcchyh/oc_jfreshs_nhl_21_custom_player_ratings/" :target="'_blank'">this Reddit post</b-link>. Point shares data was obtained from <b-link href="https://www.hockey-reference.com/leagues/NHL_2021_skaters-misc.html" :target="'_blank'">Hockey Reference</b-link>.</p>
@@ -114,13 +114,13 @@
                                 <p>To access these settings, click the “Advanced Options” button found in the bottom toolbar and a pop-up will appear.</p>
                                 <b-row class="text-center py-4">
                                     <b-col cols=12>
-                                        <b-img :src="require('../assets/screenshots/advanced_options.png')"/>
+                                        <b-img :src="require('../assets/screenshots/advanced_options.png')" class="screenshot"/>
                                     </b-col>
                                 </b-row>
                                 <p>Below the metric selection drop-down menus, you will see two sliders: one from the perspective of Seattle and one from the perspective of all the existing teams. You can either adjust the slider directly or input the percentages in the boxes. If you only want to change some of the existing teams, click the “Show all other teams” button on the bottom-left to reveal individual sliders for each team.</p>
                                 <b-row class="text-center py-4">
                                     <b-col cols=12>
-                                        <b-img :src="require('../assets/screenshots/slider.png')"/>
+                                        <b-img :src="require('../assets/screenshots/slider.png')" class="screenshot"/>
                                     </b-col>
                                 </b-row>
                             </b-card-text>
@@ -137,12 +137,12 @@
                                 <p>If you are still unsatisfied with the results after changing the other settings, you can manually make protection / exposure / selection decisions akin to other expansion draft tools. Simply checkmark the “Protect” or “Expose” boxes for the existing teams and checkmark the “Keep” or “Remove” boxes for Seattle to either keep or remove the drafted player and then click “Optimize Results” to re-run the optimization.</p>
                                 <b-row class="py-2 text-center">
                                     <b-col cols=12>
-                                        <b-img :src="require('../assets/screenshots/protect_expose.png')"/>
+                                        <b-img :src="require('../assets/screenshots/protect_expose.png')" class="screenshot"/>
                                     </b-col>
                                 </b-row>
                                 <b-row class="py-2 text-center">
                                     <b-col cols=12>
-                                        <b-img :src="require('../assets/screenshots/keep_remove.png')"/>
+                                        <b-img :src="require('../assets/screenshots/keep_remove.png')" class="screenshot"/>
                                     </b-col>
                                 </b-row>
                             </b-card-text>
@@ -160,13 +160,13 @@
                                 <p>In the following screenshot, Calgary violates the expansion draft rules so the optimizer cannot find a valid solution.</p>
                                 <b-row class="py-4 text-center">
                                     <b-col cols=12>
-                                        <b-img :src="require('../assets/screenshots/cgy_infeasible.png')"/>
+                                        <b-img :src="require('../assets/screenshots/cgy_infeasible.png')" class="screenshot"/>
                                     </b-col>
                                 </b-row>
                                 <p>In the following screenshot, a player is both protected and manually kept by Seattle which so the optimizer cannot find a valid solution.</p>
                                 <b-row class="py-4 text-center">
                                     <b-col cols=12>
-                                        <b-img :src="require('../assets/screenshots/seattle_infeasible.png')"/>
+                                        <b-img :src="require('../assets/screenshots/seattle_infeasible.png')" class="screenshot"/>
                                     </b-col>
                                 </b-row>
                             </b-card-text>
@@ -189,9 +189,3 @@
         </template>
     </b-container>
 </template>
-
-<style lang="scss" scoped>
-img {
-    border: 1px #001628 solid;
-}
-</style>

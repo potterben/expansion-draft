@@ -177,7 +177,7 @@
                 </b-row>
                 <b-row class="text-center">
                     <b-col cols=12>
-                        <b-img :src="require('../assets/screenshots/advanced_options.png')"/>
+                        <b-img :src="require('../assets/screenshots/advanced_options.png')" class="screenshot"/>
                     </b-col>
                 </b-row>
                 <b-row class="pt-4">
@@ -187,12 +187,12 @@
                 </b-row>
                 <b-row class="py-2 text-center">
                     <b-col cols=12>
-                        <b-img :src="require('../assets/screenshots/protect_expose.png')"/>
+                        <b-img :src="require('../assets/screenshots/protect_expose.png')" class="screenshot"/>
                     </b-col>
                 </b-row>
                 <b-row class="py-2 text-center">
                     <b-col cols=12>
-                        <b-img :src="require('../assets/screenshots/keep_remove.png')"/>
+                        <b-img :src="require('../assets/screenshots/keep_remove.png')" class="screenshot"/>
                     </b-col>
                 </b-row>
             </b-container>
