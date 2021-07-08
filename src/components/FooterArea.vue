@@ -27,14 +27,15 @@
                 <b-row>
                     <b-col class="col-12 py-2">
                         <b-form-checkbox id ="ufa" v-model="dontConsiderUFAState">
-                            Try to avoid UFAs <b-icon icon="question-circle" v-b-tooltip.hover title="Checking this option means the optimizer will try to avoid protecting/selecting UFAs as they are not under contract for the upcoming season." />
+                            <p v-b-tooltip.hover title="Checking this option means the optimizer will try to avoid protecting/selecting UFAs as they are not under contract for the upcoming season." >
+                            Try to avoid UFAs <b-icon icon="question-circle"/></p>
                         </b-form-checkbox>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col class="col-12 py-2">
                         <b-form-checkbox id ="age" v-model="adjustForAgeState">
-                            Adjust for player age <b-icon icon="question-circle" v-b-tooltip.hover title="Checking this option means the optimizer will try to protect/select younger players over older players." />
+                             <p v-b-tooltip.hover title="Checking this option means the optimizer will try to protect/select younger players over older players.">Adjust for player age <b-icon icon="question-circle"/></p>
                         </b-form-checkbox>
                     </b-col>
                 </b-row>
