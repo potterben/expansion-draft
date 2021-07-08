@@ -65,7 +65,7 @@
             <b-container class="text-center" v-if="currentPage==2">
                 <b-row class="py-4">
                     <b-col>
-                        <h3>Choose your favourite team and see how your choices affect your team</h3>
+                        <h3>Choose your favourite team</h3>
                     </b-col>
                 </b-row>
                 <b-row class="py-4">
@@ -80,26 +80,48 @@
                         </template>
                     </b-col>
                 </b-row>
-
             </b-container>
             <b-container v-if="currentPage==3">
                 <b-container class="py-4">
-                    <h3>Choose the performance metric the optimizer will use</h3>
+                    <h3>Choose the player performance metric</h3>
                 </b-container>
-                <b-container class="py-3">
-                    <b-form-select v-model="performanceMetric" :options="this.performanceMetrics"></b-form-select>
-                </b-container>
-                <b-container class="py-3">
-                    <p>{{ getCurrPerformanceMetricDescription }} </p>
+                <b-container class="py-2">
+                    <p><strong>Performance Metrics:</strong> These metrics measure how good a player is on-ice.</p>
                 </b-container>
                 <b-container class="py-4">
-                    <h3>Choose the financial flexibility metric the optimizer will use</h3>
+                    <b-form-select v-model="performanceMetric" :options="this.performanceMetrics"></b-form-select>
                 </b-container>
-                <b-container class="py-3">
-                    <b-form-select v-model="financialMetric" :options="this.financialMetrics"></b-form-select>
+                <b-container class="pt-4">
+                    <p><strong>EA Rating:</strong> Player ratings created by EA for NHL ‘21 based on skills and physical attributes. We use a modified version of NHL ‘21 player ratings from this Reddit post.</p>
+                </b-container>
+                <b-container class="py-2">
+                    <p><strong>Point Shares:</strong> Estimate of how many points a player contributes to his team over the 2020-2021 season. One point share is equivalent to one point added in the season.</p>
+                </b-container>
+                <b-container class="py-2">
+                    <p><strong>Game Adjusted Point Shares:</strong> Point shares extrapolated for the 2020-2021 season to account for players who miss games (e.g., due to injury).</p>
                 </b-container>
             </b-container>
             <b-container v-if="currentPage==4">
+                <b-container class="py-4">
+                    <h3>Choose the financial flexibility metric</h3>
+                </b-container>
+                <b-container class="py-2">
+                    <p><strong>Financial Metrics:</strong> Teams are limited on how much they can spend on their players. These metrics measure how much a player affects their team’s budget.</p>
+                </b-container>
+                <b-container class="py-4">
+                    <b-form-select v-model="financialMetric" :options="this.financialMetrics"></b-form-select>
+                </b-container>
+                <b-container class="pt-4">
+                    <p><strong>Cap Hit (20/21):</strong> A player's impact on their team’s limit for the 2020-2021 season, calculated as the average annual salary of their contract excluding any performance bonuses.</p>
+                </b-container>
+                <b-container class="py-2">
+                    <p><strong>Cap Hit (21/22):</strong>  A player's impact on their team’s limit for the 2021-2022 season, calculated as the average annual salary of their contract excluding any performance bonuses.</p>
+                </b-container>
+                <b-container class="py-2">
+                    <p><strong>Average Annual Value:</strong> The average annual salary including any performance bonuses over a player's current contract.</p>
+                </b-container>
+            </b-container>
+            <b-container v-if="currentPage==5">
                 <b-container class="py-1">
                     <h3>Do you prefer player performance or financial flexibility?</h3>
                 </b-container>
@@ -190,7 +212,7 @@ export default {
         return {
             doNotShowIntroModal: "unchecked",
             currentPage: 0,
-            totalPages: 5,
+            totalPages: 6,
             chosenTeamIndex: 0
         }
     },

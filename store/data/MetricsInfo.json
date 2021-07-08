@@ -3,19 +3,16 @@
         {
             "value":"cap_hit_20_21",
             "text":"Cap Hit (20/21)",
-            "description":"Cap Hit for 20-21 Season",
             "figure": "Cumulative Cap Hit (20/21)"
         },
         {
             "value":"cap_hit_21_22",
             "text":"Cap Hit (21/22)",
-            "description":"Cap Hit for 21-22 Season",
             "figure": "Cumulative Cap Hit (21/22)"
         },
         {
             "value":"cap_hit_total",
             "text":"Average Annual Value",
-            "description":"Average annual value of a player's contract",
             "figure": "Cumulative Average Annual Value"
         }
     ],
@@ -23,19 +20,16 @@
         {
             "value":"ea_rating",
             "text":"EA Rating",
-            "description":"Modified overall rating in NHL 21",
             "figure": "Average EA Rating"
         },
         {
             "value":"ps",
             "text":"Point Shares",
-            "description":"Number of points 'created' by a given player",
             "figure": "Cumulative Point Shares"
         },
         {
             "value":"gaps",
             "text":"Game Adj. Point Shares",
-            "description":"Number of points 'created' by a given player, adjusted for games played",
             "figure": "Cumulative Game Adj. Point Shares"
         }
    ]

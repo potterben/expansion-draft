@@ -448,20 +448,6 @@ export default new Vuex.Store({
             }
             return String();
         },
-        getCurrFinancialMetricDescription: state => {
-            if (state.currFinancialMetric && state.financialMetrics)
-            {
-                return state.financialMetrics.find(metric => metric.value == state.currFinancialMetric).description;
-            }
-            return String();
-        },
-        getCurrPerformanceMetricDescription: state => {
-            if (state.currPerformanceMetric && state.performanceMetrics)
-            {
-                return state.performanceMetrics.find(metric => metric.value == state.currPerformanceMetric).description
-            }
-            return String();
-        },
         getCurrFinancialMetricFigureText: state => {
             if (state.currFinancialMetric && state.financialMetrics)
             {
