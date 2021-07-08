@@ -18,15 +18,15 @@
                 </b-row>
                 <b-row>
                     <b-col class="col-6 py-2">
-                        <b-form-select v-model="financialMetric" :options="this.financialMetrics" @change="onMetricChanged"></b-form-select>
+                        <b-form-select v-model="financialMetric" :options="this.financialMetrics" @change="onOptionChanged"></b-form-select>
                     </b-col>
                     <b-col class="col-6 py-2">
-                        <b-form-select v-model="performanceMetric" :options="this.performanceMetrics" @change="onMetricChanged"></b-form-select>
+                        <b-form-select v-model="performanceMetric" :options="this.performanceMetrics" @change="onOptionChanged"></b-form-select>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col class="col-12 py-2">
-                        <b-form-checkbox id ="ufa" v-model="dontConsiderUFAState">
+                        <b-form-checkbox id ="ufa" v-model="dontConsiderUFAState" @change="onOptionChanged">
                             <p> Try to avoid UFAs <b-link class="custom-tooltip" v-b-tooltip.hover title="Checking this option means the optimizer will try to avoid protecting/selecting UFAs as they are not under contract for the upcoming season.">
                             <b-icon icon="question-circle" aria-label="Help"/></b-link></p>
                         </b-form-checkbox>
@@ -34,19 +34,19 @@
                 </b-row>
                 <b-row>
                     <b-col class="col-12 py-2">
-                        <b-form-checkbox id ="age" v-model="adjustForAgeState">
+                        <b-form-checkbox id ="age" v-model="adjustForAgeState" @change="onOptionChanged">
                              <p>Adjust for player age <b-link class="custom-tooltip" v-b-tooltip.hover title="Checking this option means the optimizer will try to protect/select younger players over older players.">
                             <b-icon icon="question-circle" aria-label="Help"/></b-link></p>
                         </b-form-checkbox>
                     </b-col>
                 </b-row>
                 <b-img :src="require('../assets/nhl_logos/' + expansionTeam.imageLocation)" :alt="expansionTeam.name" :title="expansionTeam.name" class="pt-4 small-seattle-logo"/>
-                <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" />
-                <TeamSlider :teamName="'All Existing Teams'" v-show="applyToAll"/>
+                <TeamSlider :teamName="expansionTeam.name" :isExpansionTeam="true" v-if="expansionTeam" :onChange="onOptionChanged"/>
+                <TeamSlider :teamName="'All Existing Teams'" v-show="applyToAll" :onChange="onOptionChanged"/>
                 <b-collapse id="all-other-teams" v-model="doNotApplyToAll">
                     <template v-for="team in allOtherTeams">
                         <b-img :src="require('../assets/nhl_logos/' + team.imageLocation)" :key="'img'+team.abbreviation" :alt="team.name" :title="team.name" class="small-team-logo"/>
-                        <TeamSlider :key="team.name" :teamName="team.name" :teamIndex="team.index"/>
+                        <TeamSlider :key="team.name" :teamName="team.name" :teamIndex="team.index" :onChange="onOptionChanged"/>
                     </template>
                 </b-collapse>
             </b-container>
@@ -157,7 +157,7 @@ export default {
     },
 
     methods: {
-        onMetricChanged() {
+        onOptionChanged() {
             this.optionChanged = true;
         },
         hideModals() {

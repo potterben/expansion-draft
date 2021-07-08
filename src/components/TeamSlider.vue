@@ -9,7 +9,7 @@
         </b-row>
         <b-row class="justify-content-center py-3">
             <b-col cols=6>
-                <vue-slider class="" v-model="sliderValue" :lazy="true" :tooltip="'none'" />
+                <vue-slider class="" v-model="sliderValue" :lazy="true" :tooltip="'none'" @change="handleChange"/>
             </b-col>
             </b-row>
         <b-row class="justify-content-center py-3">
@@ -52,7 +52,8 @@ export default {
         teamIndex: {
             type: Number,
             default: -1
-        }
+        },
+        onChange: Function
     },
 
     computed: {
@@ -109,6 +110,11 @@ export default {
     },
 
     methods: {
+        handleChange() {
+            if (typeof this.onChange === 'function'){
+                this.onChange(this);
+            }
+        },
         ...mapActions([
             'setExpansionTeamSliderValue',
             'setAllOriginalTeamsSliderValue',
