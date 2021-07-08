@@ -99,7 +99,7 @@
                                         <b-img :src="require('../assets/screenshots/metrics.png')"/>
                                     </b-col>
                                 </b-row>
-                                <p>Cap hit information was obtained from <b-link href="https://www.capfriendly.com/" :target="'_blank'">CapFriendly</b-link>. EA NHL 2021 ratings were obtained from <b-link href="https://www.reddit.com/r/EA_NHL/comments/jcchyh/oc_jfreshs_nhl_21_custom_player_ratings/" :target="'_blank'">this Reddit post</b-link>. Point shares data was obtained from <b-link href="https://www.hockey-reference.com/leagues/NHL_2021_skaters-misc.html" :target="'_blank'">Hockey Reference</b-link>.</p>
+                                <p>Cap hit information was obtained from <b-link href="https://www.capfriendly.com/" :target="'_blank'">CapFriendly</b-link>. EA NHL 2021 ratings were obtained from <b-link href="https://old.reddit.com/r/EA_NHL/comments/jcchyh/oc_jfreshs_nhl_21_custom_player_ratings/" :target="'_blank'">this Reddit post</b-link>. Point shares data was obtained from <b-link href="https://www.hockey-reference.com/leagues/NHL_2021_skaters-misc.html" :target="'_blank'">Hockey Reference</b-link>.</p>
                                 </b-card-text>
                         </b-card-body>
                     </b-collapse>
