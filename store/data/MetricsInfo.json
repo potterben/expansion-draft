@@ -11,7 +11,7 @@
             "figure": "Cumulative Cap Hit (21/22)"
         },
         {
-            "value":"cap_hit_total",
+            "value":"cap_hit_avg",
             "text":"Average Annual Value",
             "figure": "Cumulative Average Annual Value"
         }
