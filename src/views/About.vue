@@ -62,7 +62,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4>Benjamin Potter</h4>
+            <h4><b-link href="https://www.linkedin.com/in/benjamin-potter-b9540a196/" :target="'_blank'">Benjamin Potter</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
