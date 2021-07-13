@@ -172,6 +172,7 @@ export default {
                 let options = {"okVariant":"info", "noCloseOnBackdrop": true, "hideHeader": false, "hideHeaderClose": false};
                 this.$bvModal.msgBoxOk(error.response.data.detail, options);
             });
+            window.scrollTo(0,0);
         },
         onAdvancedOptionsHidden() {
             if (this.optionChanged) {

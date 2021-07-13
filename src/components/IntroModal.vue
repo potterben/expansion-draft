@@ -327,6 +327,7 @@ export default {
             asyncLoading(this.optimize())
             .then(response => {
                 if (response && response.data) {
+                    window.scrollTo(0,0);
                     this.$bvModal.show("results-modal");
                 }
             }, error => {

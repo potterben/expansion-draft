@@ -195,6 +195,7 @@ export default {
         teamLinkClicked(teamInit) {
             this.setCurrentTeamFromInit(teamInit);
             this.setCurrTabIndex(0);
+            window.scrollTo(0,0);
         }
     }
 }
