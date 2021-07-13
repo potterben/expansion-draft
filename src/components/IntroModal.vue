@@ -92,7 +92,7 @@
                     <b-form-select v-model="performanceMetric" :options="this.performanceMetrics"></b-form-select>
                 </b-container>
                 <b-container class="pt-4">
-                    <p><u><strong>EA Rating:</strong></u> Player ratings created by EA for NHL ‘21 based on skills and physical attributes. We use a modified version of NHL ‘21 player ratings from <b-link href="https://old.reddit.com/r/EA_NHL/comments/jcchyh/oc_jfreshs_nhl_21_custom_player_ratings/" :target="'_blank'">this Reddit post</b-link>.</p>
+                    <p><u><strong>EA Rating:</strong></u> Player ratings created by EA for NHL ‘21 based on skills and physical attributes. We use a modified version of NHL ‘21 player ratings from <b-link class="link" href="https://old.reddit.com/r/EA_NHL/comments/jcchyh/oc_jfreshs_nhl_21_custom_player_ratings/" :target="'_blank'">this Reddit post</b-link>.</p>
                 </b-container>
                 <b-container class="py-2">
                     <p><u><strong>Point Shares:</strong></u> Estimate of how many points a player contributes to his team over the 2020-2021 season. One point share is equivalent to one point added in the season.</p>

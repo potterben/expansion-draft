@@ -30,7 +30,7 @@
                 />
             </template>
             <template #cell(team)="row">
-                <b-link class="team-link" @click="teamLinkClicked(row.item.team)">{{row.item.team}}</b-link>
+                <b-link class="link" @click="teamLinkClicked(row.item.team)">{{row.item.team}}</b-link>
             </template>
         </b-table>
     </b-container>

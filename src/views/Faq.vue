@@ -26,7 +26,7 @@
                     <b-collapse id="accordion-7">
                         <b-card-body>
                             <b-card-text>
-                                For more information about how the expansion draft works, please visit <b-link href="https://www.capfriendly.com/expansion-draft-faq" :target="'_blank'">CapFriendly's quick explainer</b-link>.
+                                For more information about how the expansion draft works, please visit <b-link class="link" href="https://www.capfriendly.com/expansion-draft-faq" :target="'_blank'">CapFriendly's quick explainer</b-link>.
                                 </b-card-text>
                         </b-card-body>
                     </b-collapse>
@@ -99,7 +99,7 @@
                                         <b-img :src="require('../assets/screenshots/metrics.png')" class="screenshot"/>
                                     </b-col>
                                 </b-row>
-                                <p>Cap hit information was obtained from <b-link href="https://www.capfriendly.com/" :target="'_blank'">CapFriendly</b-link>. EA NHL 2021 ratings were obtained from <b-link href="https://old.reddit.com/r/EA_NHL/comments/jcchyh/oc_jfreshs_nhl_21_custom_player_ratings/" :target="'_blank'">this Reddit post</b-link>. Point shares data was obtained from <b-link href="https://www.hockey-reference.com/leagues/NHL_2021_skaters-misc.html" :target="'_blank'">Hockey Reference</b-link>.</p>
+                                <p>Cap hit information was obtained from <b-link class="link" href="https://www.capfriendly.com/" :target="'_blank'">CapFriendly</b-link>. EA NHL 2021 ratings were obtained from <b-link class="link" href="https://old.reddit.com/r/EA_NHL/comments/jcchyh/oc_jfreshs_nhl_21_custom_player_ratings/" :target="'_blank'">this Reddit post</b-link>. Point shares data was obtained from <b-link class="link" href="https://www.hockey-reference.com/leagues/NHL_2021_skaters-misc.html" :target="'_blank'">Hockey Reference</b-link>.</p>
                                 </b-card-text>
                         </b-card-body>
                     </b-collapse>
@@ -180,7 +180,7 @@
                     <b-collapse id="accordion-9">
                         <b-card-body>
                             <b-card-text>
-                                This site is based on a research paper entitled “A mathematical optimization framework for expansion draft decision making and analysis” and is an application of integer programming. The paper can be found <b-link href="https://doi.org/10.1515/jqas-2018-0024" :target="'_blank'">here</b-link>.
+                                This site is based on a research paper entitled “A mathematical optimization framework for expansion draft decision making and analysis” and is an application of integer programming. The paper can be found <b-link class="link" href="https://doi.org/10.1515/jqas-2018-0024" :target="'_blank'">here</b-link>.
                             </b-card-text>
                         </b-card-body>
                     </b-collapse>

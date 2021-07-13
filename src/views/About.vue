@@ -7,7 +7,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <p class="text-left">The NHL Expansion Draft Optimizer was conceived, designed, and developed by a team of engineers specializing in Operations Research from the University of Toronto. We welcome your feedback and comments. Email us at <b-link href="mailto:nhlexpansiondraft@gmail.com" id = "normal" target="_top">nhlexpansiondraft@gmail.com</b-link> or send us a tweet at <b-link href="https://twitter.com/nhlexpansionopt" target="_blank">@NHLExpansionOpt</b-link></p>
+        <p class="text-left">The NHL Expansion Draft Optimizer was conceived, designed, and developed by a team of engineers specializing in Operations Research from the University of Toronto. We welcome your feedback and comments. Email us at <b-link class="link" href="mailto:nhlexpansiondraft@gmail.com" id = "normal" target="_top">nhlexpansiondraft@gmail.com</b-link> or send us a tweet at <b-link class="link" href="https://twitter.com/nhlexpansionopt" target="_blank">@NHLExpansionOpt</b-link></p>
       </b-col>
     </b-row>
     <b-row class="section-break">
@@ -24,7 +24,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4><b-link href="https://www.linkedin.com/in/michael-shin-b69463a0/" :target="'_blank'">Michael Shin</b-link></h4>
+            <h4><b-link class="link" href="https://www.linkedin.com/in/michael-shin-b69463a0/" :target="'_blank'">Michael Shin</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
@@ -36,7 +36,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4><b-link href="https://www.linkedin.com/in/yusufshalaby/" :target="'_blank'">Yusuf Shalaby</b-link></h4>
+            <h4><b-link class="link" href="https://www.linkedin.com/in/yusufshalaby/" :target="'_blank'">Yusuf Shalaby</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
@@ -48,7 +48,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4><b-link href="mailto:albert.loa@mail.utoronto.ca" :target="'_blank'">Albert Loa</b-link></h4>
+            <h4><b-link class="link" href="mailto:albert.loa@mail.utoronto.ca" :target="'_blank'">Albert Loa</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
@@ -62,7 +62,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4><b-link href="https://www.linkedin.com/in/benjamin-potter-b9540a196/" :target="'_blank'">Ben Potter</b-link></h4>
+            <h4><b-link class="link" href="https://www.linkedin.com/in/benjamin-potter-b9540a196/" :target="'_blank'">Ben Potter</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
@@ -74,7 +74,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4><b-link href="https://chan.mie.utoronto.ca/" :target="'_blank'">Timothy Chan</b-link></h4>
+            <h4><b-link class="link" href="https://chan.mie.utoronto.ca/" :target="'_blank'">Timothy Chan</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
@@ -86,7 +86,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4><b-link href="https://rafidrm.github.io/" :target="'_blank'">Rafid Mahmood</b-link></h4>
+            <h4><b-link class="link" href="https://rafidrm.github.io/" :target="'_blank'">Rafid Mahmood</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
@@ -100,7 +100,7 @@
     </b-row>
     <b-row >
       <b-col cols=12>
-        <p>The NHL Expansion Draft Optimizer's models are based on optimization models developed in <b-link href="https://doi.org/10.1515/jqas-2018-0024" :target="'_blank'">a research paper</b-link> written by the authors below.</p>
+        <p>The NHL Expansion Draft Optimizer's models are based on optimization models developed in <b-link class="link" href="https://doi.org/10.1515/jqas-2018-0024" :target="'_blank'">a research paper</b-link> written by the authors below.</p>
       </b-col>
     </b-row>
     <b-row class="text-center">
@@ -112,7 +112,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4><b-link href="https://kylebooth.org/" :target="'_blank'">Kyle Booth</b-link></h4>
+            <h4><b-link class="link" href="https://kylebooth.org/" :target="'_blank'">Kyle Booth</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
@@ -124,7 +124,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4><b-link href="https://chan.mie.utoronto.ca/" :target="'_blank'">Timothy Chan</b-link></h4>
+            <h4><b-link class="link" href="https://chan.mie.utoronto.ca/" :target="'_blank'">Timothy Chan</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
@@ -136,7 +136,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <h4><b-link href="https://www.linkedin.com/in/yusufshalaby/" :target="'_blank'">Yusuf Shalaby</b-link></h4>
+            <h4><b-link class="link" href="https://www.linkedin.com/in/yusufshalaby/" :target="'_blank'">Yusuf Shalaby</b-link></h4>
           </b-col>
         </b-row>
       </b-col>
