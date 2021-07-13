@@ -189,8 +189,12 @@ th, td {
     border-color: $boundless-blue;
 }
 
-a#advanced-options{
+a.internal-link{
     color: $ice-blue
+}
+
+a.team-link{
+    color: $boundless-blue
 }
 
 a.custom-tooltip {

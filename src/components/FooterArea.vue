@@ -4,7 +4,7 @@
             <b-button variant="info" id='optimize' @click="runOptimizer">Optimize Results</b-button>
         </b-row>
         <b-row class="col-12 text-center py-1" align-h="center">
-            <b-link v-b-modal.advanced-options id="advanced-options">Advanced Options</b-link>
+            <b-link v-b-modal.advanced-options class="internal-link">Advanced Options</b-link>
         </b-row>
         <b-modal scrollable size="lg" id="advanced-options" title="Advanced Options" @hide="onAdvancedOptionsHidden">
             <b-container class="text-center py-4">

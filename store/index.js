@@ -269,6 +269,15 @@ export default new Vuex.Store({
         setCurrTeamIndex(context, index) {
             context.commit("setCurrTeamIndex", index);
         },
+        setCurrentTeamFromInit(context, init) {
+            if (context.state.originalTeams) {
+                const matchesInit = (team) => team.abbreviation == init;
+                let index = context.state.originalTeams.findIndex(matchesInit);
+                if (index > -1) {
+                    context.commit("setCurrTeamIndex", index);
+                }
+            }
+        },
         setCurrTabIndex(context, index) {
             context.commit("setCurrTabIndex", index);
         },

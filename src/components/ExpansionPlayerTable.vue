@@ -29,6 +29,9 @@
                 :onChange="removeChanged"
                 />
             </template>
+            <template #cell(team)="row">
+                <b-link class="team-link" @click="teamLinkClicked(row.item.team)">{{row.item.team}}</b-link>
+            </template>
         </b-table>
     </b-container>
 </template>
@@ -149,7 +152,9 @@ export default {
             'addToExpansionTeamKeepMap',
             'addToExpansionTeamRemoveMap',
             'removeFromExpansionTeamKeepMap',
-            'removeFromExpansionTeamRemoveMap'
+            'removeFromExpansionTeamRemoveMap',
+            'setCurrTabIndex',
+            'setCurrentTeamFromInit'
         ]),
         formatFinancialMetric(value) {
             return "$" + value.toFixed(3) + "M";
@@ -186,6 +191,10 @@ export default {
             else {
                 this.removeFromExpansionTeamRemoveMap(payload);
             }
+        },
+        teamLinkClicked(teamInit) {
+            this.setCurrentTeamFromInit(teamInit);
+            this.setCurrTabIndex(0);
         }
     }
 }
