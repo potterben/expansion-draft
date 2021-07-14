@@ -14,7 +14,7 @@
                     <b-collapse id="accordion-0">
                         <b-card-body>
                             <b-card-text>
-                                The Seattle Kraken is joining the NHL as an expansion franchise for the 2021-2022 season. As a new team, Seattle can draft one player from each team. Each existing team can protect a certain number of players to prevent them from being drafted by Seattle.
+                                The Seattle Kraken are joining the NHL as an expansion franchise for the 2021-2022 season. As a new team, Seattle can draft one player from each team. Each existing team can protect a certain number of players to prevent them from being drafted by Seattle.
                             </b-card-text>
                         </b-card-body>
                     </b-collapse>
