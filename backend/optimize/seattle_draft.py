@@ -14,7 +14,9 @@ from backend.domain import (
 )
 
 AGE_WEIGHT_DEFAULT = 0.06
-
+M = 2000
+MIN_CAP_HIT = 48.9  # 60% of cap
+MAX_CAP_HIT = 81.5  # 100% of cap
 
 log = logging.getLogger(__name__)
 
@@ -33,7 +35,7 @@ def optimize_seattle_selection_scenario(
 
     # TODO get these from params
     perf_metric = params.performance_metric+"_standard"
-    fin_metric = params.financial_metric+"_standard"
+    fin_metric = params.financial_metric
     user_keep = params.seattle_parameters.players_to_keep
     user_remove = params.seattle_parameters.players_to_remove
     alpha = params.seattle_parameters.alpha  # User input weight between objectives.
@@ -55,16 +57,25 @@ def optimize_seattle_selection_scenario(
     model = pulp.LpProblem("nhl", pulp.LpMaximize)
 
     select_var = pulp.LpVariable.dicts("player_id", exposed_ids, cat="Binary")
+    perf_obj = pulp.LpVariable("sum_of_player_performance")
+    fin_obj = pulp.LpVariable("absolute_deviation_from_cap_slider_settings")
 
     # Objective
+
+    model += perf_obj - M*fin_obj
 
     def player_value_var(player):
         if expose_ufa and player.ufa:
             return 0
-        return (((1-alpha) * player[perf_metric] - alpha * player[fin_metric] + age_weight * (40 - player.age)) 
+        return ((player[perf_metric] + age_weight * (40 - player.age)) 
                 * (select_var[player.id]))
 
-    model += sum(player_value_var(player) for player in exposed_players)
+    model += perf_obj <= pulp.lpSum([player_value_var(player) for player in exposed_players])
+
+    fin_metric_sum = pulp.lpSum([player[fin_metric] * select_var[player.id] for player in exposed_players])
+    target_cap_hit = MAX_CAP_HIT * (1-alpha) + MIN_CAP_HIT * alpha
+    model += fin_obj >= fin_metric_sum - target_cap_hit, "FinObjAbs1"
+    model += fin_obj >= 0
 
     model += pulp.lpSum([select_var[player.id] for player in user_keep]) == len(user_keep), "KeepPlayers"
 
@@ -119,8 +130,8 @@ def optimize_seattle_selection_scenario(
             for player in exposed_players
         ]
     )
-    model += select_caphit_constraint >= 48.9, "SelectMinCapHit"  # 60 percent of cap
-    model += select_caphit_constraint <= 81.5, "SelectMaxCapHit"  # 100 percent of cap
+    model += select_caphit_constraint >= MIN_CAP_HIT, "SelectMinCapHit"  # 60 percent of cap
+    model += select_caphit_constraint <= MAX_CAP_HIT, "SelectMaxCapHit"  # 100 percent of cap
 
     # select at least 4 C, 4 LW, 4 RW
     select_C_constraint = pulp.lpSum(
