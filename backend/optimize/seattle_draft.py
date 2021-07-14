@@ -13,7 +13,7 @@ from backend.domain import (
     FigureData
 )
 
-AGE_WEIGHT_DEFAULT = 0.06
+AGE_WEIGHT_DEFAULT = 0.05
 M = 2000
 MIN_CAP_HIT = 48.9  # 60% of cap
 MAX_CAP_HIT = 81.5  # 100% of cap

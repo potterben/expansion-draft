@@ -5,7 +5,7 @@ import pulp
 
 from backend.domain import Player, Team, OriginalTeamOptimization, TeamOptimizationParameters
 
-AGE_WEIGHT_DEFAULT = 0.06
+AGE_WEIGHT_DEFAULT = 0.05
 M = 2000
 
 log = logging.getLogger(__name__)
