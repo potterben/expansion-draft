@@ -49,12 +49,16 @@ def optimize_existing_protection_scenario(
     # Objective Function
 
     def player_value_var_primary(player):
+        if player.must_protect == "Waived":
+            return 0
         if expose_ufa and player.ufa:
             return 0
         return ((player[perf_metric] + age_weight * (40 - player.age)) 
                 * (1 - protect_var[player.id]))
 
     def player_value_var_secondary(player):
+        if player.must_protect == "Waived":
+            return 0
         if expose_ufa and player.ufa:
             return 0
         return (((1-beta) * player[perf_metric] - beta * player[fin_metric] + age_weight * (40 - player.age)) 
