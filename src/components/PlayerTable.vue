@@ -89,10 +89,9 @@ export default {
                     "thClass": "table-header text-wrap"
                 },
                 {
-                    "key": "nmc",
+                    "key": "must_protect",
                     "label": "NMC",
                     "sortable": true,
-                    "formatter" : "formatBooleanValue",
                     "thClass": "table-header text-wrap"
                 },
                 {
