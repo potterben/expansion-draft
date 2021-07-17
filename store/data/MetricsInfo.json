@@ -18,11 +18,6 @@
     ],
     "performanceMetrics":[
         {
-            "value":"ea_rating",
-            "text":"EA Rating",
-            "figure": "Average EA Rating"
-        },
-        {
             "value":"ps",
             "text":"Point Shares",
             "figure": "Cumulative Point Shares"
@@ -31,6 +26,11 @@
             "value":"gaps",
             "text":"Game Adj. Point Shares",
             "figure": "Cumulative Game Adj. Point Shares"
+        },
+        {
+            "value":"ea_rating",
+            "text":"EA Rating",
+            "figure": "Average EA Rating"
         }
    ]
 }
