@@ -195,17 +195,23 @@ def get_seattle_draft_decisions(
             elif player.forward:
                 seattle_results.forwards.append(player)
 
+        def get_mean_stat(metric, players:List[Player]) -> float:
+            denom = sum((player[metric] != 0) for player in players)
+            if denom == 0:
+                return 0
+            return sum(player[metric] for player in players)/denom
+
         def get_summary(rowname:str, players:List[Player]) -> TeamSummary:
             summary = TeamSummary(rowname,age=0,ps=0,gaps=0,ea_rating=0,cap_hit_20_21=0,cap_hit_21_22=0,cap_hit_avg=0)
-            summary.age             += sum(player.age for player in players) / sum((player.age != 0) for player in players)
+            summary.age             += get_mean_stat("age", players)
             summary.ps              += sum(player.ps for player in players)
             summary.gaps            += sum(player.gaps for player in players)
-            summary.ea_rating       += sum(player.ea_rating for player in players) / sum((player.ea_rating != 0) for player in players)
+            summary.ea_rating       += get_mean_stat("ea_rating",players)
             summary.cap_hit_20_21   += sum(player.cap_hit_20_21 for player in players)
             summary.cap_hit_21_22   += sum(player.cap_hit_21_22 for player in players)
             summary.cap_hit_avg   += sum(player.cap_hit_avg for player in players)
-            return summary       
-
+            return summary
+        
         forwards_summary = get_summary("Forwards",seattle_results.forwards)
         defensemen_summary = get_summary("Defensemen",seattle_results.defensemen)
         goalie_summary = get_summary("Goalies",seattle_results.goalies)
