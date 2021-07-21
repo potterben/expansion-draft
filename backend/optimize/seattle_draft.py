@@ -157,8 +157,8 @@ def optimize_seattle_selection_scenario(
     #     )
     #     model += ufa_constraint == 0
 
-    #model.solve(pulp.COIN_CMD(msg=0))
-    model.solve(pulp.PULP_CBC_CMD(msg=0))
+    #model.solve(pulp.COIN_CMD(msg=0,timeLimit=10))
+    model.solve(pulp.PULP_CBC_CMD(msg=0,timeLimit=10))
 
     return model
 
