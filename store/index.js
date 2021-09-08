@@ -8,7 +8,6 @@ const BASE_URL = process.env.VUE_APP_BASEURL
 
 Vue.use(Vuex)
 
-// TODO: separate into separate files
 class Team {
     constructor(name, abbreviation, imageLocation) {
       this.name = name;
