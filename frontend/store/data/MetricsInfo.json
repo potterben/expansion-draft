@@ -1,0 +1,36 @@
+{
+    "financialMetrics":[
+        {
+            "value":"cap_hit_20_21",
+            "text":"Cap Hit (20/21)",
+            "figure": "Cumulative Cap Hit (20/21)"
+        },
+        {
+            "value":"cap_hit_21_22",
+            "text":"Cap Hit (21/22)",
+            "figure": "Cumulative Cap Hit (21/22)"
+        },
+        {
+            "value":"cap_hit_avg",
+            "text":"Average Annual Value",
+            "figure": "Cumulative Average Annual Value"
+        }
+    ],
+    "performanceMetrics":[
+        {
+            "value":"ps",
+            "text":"Point Shares",
+            "figure": "Cumulative Point Shares"
+        },
+        {
+            "value":"gaps",
+            "text":"Game Adj. Point Shares",
+            "figure": "Cumulative Game Adj. Point Shares"
+        },
+        {
+            "value":"ea_rating",
+            "text":"EA Rating",
+            "figure": "Average EA Rating"
+        }
+   ]
+}

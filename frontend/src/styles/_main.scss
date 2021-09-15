@@ -1,0 +1,256 @@
+
+@import '_variables.scss';
+
+@import "../../node_modules/@fontsource/open-sans/index.css";
+
+// Import Bootstrap and BootstrapVue SCSS files (order is important)
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../../node_modules/bootstrap-vue/src/index.scss';
+
+/* Background */
+nav {
+    background-color: $deep-sea-blue;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: $white;
+    margin-bottom: $spacer*10;
+}
+
+.main-area {
+    color: $deep-sea-blue;
+}
+
+.card {
+    background-color: $white;
+    border: none;
+}
+
+.card-header {
+    border:none;
+    background-color: $white;
+}
+
+.flex {
+    display: flex;
+}
+
+.footer {
+    padding: $spacer*2 0 $spacer*2 0;
+    background-color: $deep-sea-blue;
+}
+
+/* Foreground */
+h1, h2, h3
+{
+    text-align: center;
+    color: $deep-sea-blue;
+}
+
+/* Details */
+// Navbar 
+a.nav-link {
+    color: $white;
+}
+
+// Team Selector 
+.team-selector {
+    font-size: 1.25rem;
+    max-width: 50%;
+    color: $deep-sea-blue;
+    vertical-align: middle;
+    border: 1px solid $deep-sea-blue;
+}
+
+.team-selector:focus {
+    border: 1px solid $deep-sea-blue;
+    box-shadow: none!important; 
+}
+
+// Image related
+.expansion-draft-logo {
+    height: auto;
+    max-width: 45%;
+}
+.team-logo {
+    height: auto;
+    max-width: 17.5%;
+}
+
+.small-team-logo {
+    height: auto;
+    max-width: 12.5%;
+}
+
+.seattle-logo {
+    height: auto;
+    max-width: 12.5%;
+}
+
+.small-seattle-logo {
+    height: auto;
+    max-width: 7.5%;
+}
+
+.screenshot {
+    border: 1px solid $deep-sea-blue;
+}
+
+// Slider
+.vue-slider-dot-handle {
+    border: 2px solid $ice-blue !important;
+}
+
+.vue-slider:hover 
+.vue-slider-dot-handle  {
+        border: 2px solid $boundless-blue !important;
+}
+.vue-slider-dot-handle-disabled {
+    cursor: not-allowed;
+    border-color: #ddd !important;
+}
+
+.vue-slider-process {
+    background-color: $ice-blue !important;
+}
+
+.vue-slider:hover .vue-slider-process {
+    background-color: $boundless-blue !important;
+}
+
+.vue-slider-disabled .vue-slider-process{
+    background-color: #a7a7a7 !important;
+}
+
+.vue-slider-rail {
+    background-color: #d4d4d4 !important;
+}
+
+.vue-slider-rail:hover {
+    background-color: #bbbbbb !important;
+}
+
+// Tabs
+.nav-link[role=tab] {
+    color: $inactive-grey !important;
+    background-color: $white !important;
+}
+.nav-link.active[role=tab] {
+    color: $deep-sea-blue !important;
+    background-color: $white !important;
+    text-decoration: none;
+    border-radius: 0%;
+    border-bottom: 0.25rem solid $ice-blue;
+    padding-bottom: 0.25rem;
+}
+
+// Tables
+.capitalize {
+    text-transform: capitalize;
+}
+
+.table-header {
+    background-color: $ice-blue !important;
+    color: $deep-sea-blue !important;
+}
+
+// Note: this solves the issue of a white line at the top of the table 
+th, td {
+    border-top: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.player-selected td {
+    background-color: $deep-sea-blue;
+    color: $ice-blue !important;
+}
+
+.disabled-table td {
+    color: $inactive-grey;
+}
+
+// Footer
+.btn-info {
+    color: $deep-sea-blue;
+    background-color: $ice-blue;
+    border-color: $ice-blue;
+}
+
+.btn-info:disabled {
+    color: $deep-sea-blue;
+    background-color: $ice-blue;
+    border-color: $ice-blue;
+}
+
+.btn-info:hover {
+    color: white;
+    background-color: $boundless-blue;
+    border-color: $boundless-blue;
+}
+
+a.internal-link{
+    color: $ice-blue
+}
+
+a.link{
+    color: $boundless-blue
+}
+
+a.custom-tooltip {
+    color: $deep-sea-blue !important
+}
+
+// Advanced Settings modal
+.percentage {
+    width: 4rem;
+}
+
+a.toggle {
+    color:  $deep-sea-blue;
+    a:hover {
+        color:  $deep-sea-blue;
+    }
+}
+
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+    display: none;
+}
+
+@media screen and (min-height: 801px) {
+    #intro-modal{
+        .modal-content 
+        {
+            height: 800px;
+        }
+    }
+}
+@media screen and (max-height: 800px) {
+    #intro-modal{
+        .modal-content 
+        {
+            height: 100%;
+        }
+    }
+}
+
+// Loading Screen
+.loading-screen {
+    z-index: 2000 !important;
+}
+.loading-circle {
+    width: 75px !important;;
+    height: 75px !important;;
+    border: 4px solid transparent !important;
+    border-left-color: $deep-sea-blue !important;
+    animation-duration: 0.75s !important;
+    margin: 0 auto;
+  }
+
+  .loading-text {
+    color: $deep-sea-blue!important;
+    font-size: 2rem !important;
+    text-align: justify!important;
+  }

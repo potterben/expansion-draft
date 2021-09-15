@@ -1,0 +1,13 @@
+$deep-sea-blue: #001628;
+$ice-blue: #99D9D9;
+$yellow: #FFC24C;
+$boundless-blue: #68A2B9;
+$shadow-blue: #355464;
+$red-alert: #E9072B;
+$inactive-grey: #c4c4c4;
+$checkbox-grey: #696969;
+
+$input-focus-border-color: lighten($checkbox-grey, 25%) !default;
+$input-focus-box-shadow: 0 0 0 .2rem rgba($checkbox-grey, .25) !default;
+$custom-control-indicator-checked-bg: $checkbox-grey!default;
+$custom-control-indicator-active-bg: lighten($checkbox-grey, 35%) !default;
