@@ -5,7 +5,7 @@ import pulp
 
 from backend.domain import Player, Team, OriginalTeamOptimization, TeamOptimizationParameters
 
-AGE_WEIGHT_DEFAULT = 0.06
+AGE_WEIGHT_DEFAULT = 0.05
 M = 2000
 
 log = logging.getLogger(__name__)
@@ -48,20 +48,28 @@ def optimize_existing_protection_scenario(
 
     # Objective Function
 
-    def player_value_var(player):
+    def player_value_var_primary(player):
+        if player.must_protect == "Waived":
+            return 0
+        if expose_ufa and player.ufa:
+            return 0
+        return ((player[perf_metric] + age_weight * (40 - player.age)) 
+                * (1 - protect_var[player.id]))
+
+    def player_value_var_secondary(player):
+        if player.must_protect == "Waived":
+            return 0
         if expose_ufa and player.ufa:
             return 0
         return (((1-beta) * player[perf_metric] - beta * player[fin_metric] + age_weight * (40 - player.age)) 
                 * (1 - protect_var[player.id]))
 
     # Add max exposed value to objective functions
-    model += M * (
-        max_exposed_value
-    ) + sum( player_value_var(player) for player in team.players)
+    model += M * max_exposed_value + sum( player_value_var_secondary(player) for player in team.players)
 
     for player in team.players:
 
-        player_value_constr = player_value_var(player)
+        player_value_constr = player_value_var_primary(player)
 
         model += max_exposed_value - player_value_constr >= 0
 

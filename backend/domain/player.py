@@ -35,7 +35,7 @@ class Player(BaseModel):
     gp: float
     nmc: bool
     game_req: bool
-    must_protect: bool
+    must_protect: str
     meets_req: bool
     under_ct: bool
 

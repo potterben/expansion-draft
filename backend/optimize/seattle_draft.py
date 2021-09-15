@@ -13,8 +13,10 @@ from backend.domain import (
     FigureData
 )
 
-AGE_WEIGHT_DEFAULT = 0.06
-
+AGE_WEIGHT_DEFAULT = 0.05
+M = 2000
+MIN_CAP_HIT = 48.9  # 60% of cap
+MAX_CAP_HIT = 81.5  # 100% of cap
 
 log = logging.getLogger(__name__)
 
@@ -33,7 +35,7 @@ def optimize_seattle_selection_scenario(
 
     # TODO get these from params
     perf_metric = params.performance_metric+"_standard"
-    fin_metric = params.financial_metric+"_standard"
+    fin_metric = params.financial_metric
     user_keep = params.seattle_parameters.players_to_keep
     user_remove = params.seattle_parameters.players_to_remove
     alpha = params.seattle_parameters.alpha  # User input weight between objectives.
@@ -55,16 +57,25 @@ def optimize_seattle_selection_scenario(
     model = pulp.LpProblem("nhl", pulp.LpMaximize)
 
     select_var = pulp.LpVariable.dicts("player_id", exposed_ids, cat="Binary")
+    perf_obj = pulp.LpVariable("sum_of_player_performance")
+    fin_obj = pulp.LpVariable("absolute_deviation_from_cap_slider_settings")
 
     # Objective
+
+    model += perf_obj - M*fin_obj
 
     def player_value_var(player):
         if expose_ufa and player.ufa:
             return 0
-        return (((1-alpha) * player[perf_metric] - alpha * player[fin_metric] + age_weight * (40 - player.age)) 
+        return ((player[perf_metric] + age_weight * (40 - player.age)) 
                 * (select_var[player.id]))
 
-    model += sum(player_value_var(player) for player in exposed_players)
+    model += perf_obj <= pulp.lpSum([player_value_var(player) for player in exposed_players])
+
+    fin_metric_sum = pulp.lpSum([player[fin_metric] * select_var[player.id] for player in exposed_players])
+    target_cap_hit = MAX_CAP_HIT * (1-alpha) + MIN_CAP_HIT * alpha
+    model += fin_obj >= fin_metric_sum - target_cap_hit, "FinObjAbs1"
+    model += fin_obj >= 0
 
     model += pulp.lpSum([select_var[player.id] for player in user_keep]) == len(user_keep), "KeepPlayers"
 
@@ -119,8 +130,8 @@ def optimize_seattle_selection_scenario(
             for player in exposed_players
         ]
     )
-    model += select_caphit_constraint >= 48.9, "SelectMinCapHit"  # 60 percent of cap
-    model += select_caphit_constraint <= 81.5, "SelectMaxCapHit"  # 100 percent of cap
+    model += select_caphit_constraint >= MIN_CAP_HIT, "SelectMinCapHit"  # 60 percent of cap
+    model += select_caphit_constraint <= MAX_CAP_HIT, "SelectMaxCapHit"  # 100 percent of cap
 
     # select at least 4 C, 4 LW, 4 RW
     select_C_constraint = pulp.lpSum(
@@ -146,8 +157,8 @@ def optimize_seattle_selection_scenario(
     #     )
     #     model += ufa_constraint == 0
 
-    #model.solve(pulp.COIN_CMD(msg=0))
-    model.solve(pulp.PULP_CBC_CMD(msg=0))
+    #model.solve(pulp.COIN_CMD(msg=0,timeLimit=10))
+    model.solve(pulp.PULP_CBC_CMD(msg=0,timeLimit=10))
 
     return model
 
@@ -184,17 +195,23 @@ def get_seattle_draft_decisions(
             elif player.forward:
                 seattle_results.forwards.append(player)
 
+        def get_mean_stat(metric, players:List[Player]) -> float:
+            denom = sum((player[metric] != 0) for player in players)
+            if denom == 0:
+                return 0
+            return sum(player[metric] for player in players)/denom
+
         def get_summary(rowname:str, players:List[Player]) -> TeamSummary:
             summary = TeamSummary(rowname,age=0,ps=0,gaps=0,ea_rating=0,cap_hit_20_21=0,cap_hit_21_22=0,cap_hit_avg=0)
-            summary.age             += sum(player.age for player in players) / sum((player.age != 0) for player in players)
+            summary.age             += get_mean_stat("age", players)
             summary.ps              += sum(player.ps for player in players)
             summary.gaps            += sum(player.gaps for player in players)
-            summary.ea_rating       += sum(player.ea_rating for player in players) / sum((player.ea_rating != 0) for player in players)
+            summary.ea_rating       += get_mean_stat("ea_rating",players)
             summary.cap_hit_20_21   += sum(player.cap_hit_20_21 for player in players)
             summary.cap_hit_21_22   += sum(player.cap_hit_21_22 for player in players)
             summary.cap_hit_avg   += sum(player.cap_hit_avg for player in players)
-            return summary       
-
+            return summary
+        
         forwards_summary = get_summary("Forwards",seattle_results.forwards)
         defensemen_summary = get_summary("Defensemen",seattle_results.defensemen)
         goalie_summary = get_summary("Goalies",seattle_results.goalies)
